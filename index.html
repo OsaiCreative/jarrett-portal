@@ -146,6 +146,21 @@ section{padding:52px 0 8px}
 .crow .cd{font-size:13px;color:#48534B;margin-top:3px}
 .crow .cw{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brick);flex:0 0 auto;padding-top:4px}
 
+/* ---------- Command center (interactive tracking) ---------- */
+.track{display:inline-flex;align-items:center;margin-top:10px;cursor:pointer;user-select:none;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px dashed #B9AE93;color:var(--sage);background:transparent}
+.track:hover{border-color:var(--gold)}
+.ehead .track{align-self:center;margin-top:0;margin-left:8px}
+.track[data-s="working"]{border:1px solid #EFE3C2;background:#EFE3C2;color:#7d6320}
+.track[data-s="submitted"]{border:1px solid #DCE5DA;background:#DCE5DA;color:var(--forest)}
+.track[data-s="confirmed"]{border:1px solid var(--forest);background:var(--forest);color:var(--gold-soft)}
+.track[data-s="passed"]{border:1px solid #E4DECE;background:#E4DECE;color:#8a8a80;text-decoration:line-through}
+.card-passed{opacity:.55}
+.crow{cursor:pointer}
+.crow .tick{flex:0 0 20px;width:20px;height:20px;border:2px solid #B9AE93;border-radius:2px;margin-top:3px;text-align:center;line-height:16px;font-size:13px;color:#fff;background:var(--paper)}
+.crow.done .tick{background:var(--forest);border-color:var(--forest)}
+.crow.done .ct,.crow.done .cd,.crow.done .cw{text-decoration:line-through;opacity:.5}
+.cc-hint{font-size:10.5px;color:var(--sage);letter-spacing:.04em;margin-top:6px}
+
 footer{margin-top:56px;background:var(--forest-deep);color:#9FAB9D;padding:26px 0;font-size:12px}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 footer strong{color:var(--gold-soft)}
@@ -582,6 +597,114 @@ footer strong{color:var(--gold-soft)}
   }
   window.addEventListener('scroll', setActive, {passive:true});
   setActive();
+})();
+</script>
+<script>
+(function(){
+  var KEY = 'jarrett-command-center';
+  var store;
+  try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) { store = {}; }
+  store.s = store.s || {};  // opportunity statuses
+  store.t = store.t || {};  // checklist ticks
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} }
+
+  var ORDER = ['todo','working','submitted','confirmed','passed'];
+  var LABELS = {todo:'To do', working:'In progress', submitted:'Submitted', confirmed:'✓ Confirmed', passed:'Passed'};
+
+  // stable id from a card title — same opportunity in two sections shares one status
+  function slug(s){
+    return s.toLowerCase().replace(/[^a-z0-9 ]+/g,'').trim().split(/\s+/).slice(0,3).join('-');
+  }
+
+  function addPill(card, titleSel, host){
+    var t = card.querySelector(titleSel);
+    if(!t) return;
+    var pill = document.createElement('span');
+    pill.className = 'track';
+    pill.setAttribute('data-track', slug(t.textContent));
+    pill.title = 'Click to change status';
+    (host || card).appendChild(pill);
+    pill.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var id = pill.getAttribute('data-track');
+      var cur = store.s[id] || 'todo';
+      store.s[id] = ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length];
+      save(); render();
+    });
+  }
+  document.querySelectorAll('.ucard').forEach(function(c){ addPill(c, 'h3'); });
+  document.querySelectorAll('.ecard').forEach(function(c){ addPill(c, '.etitle', c.querySelector('.ehead')); });
+  document.querySelectorAll('.pcard').forEach(function(c){ addPill(c, '.pname'); });
+
+  document.querySelectorAll('.crow').forEach(function(row){
+    var ct = row.querySelector('.ct');
+    if(!ct) return;
+    row.setAttribute('data-task', slug(ct.textContent));
+    var tick = document.createElement('div');
+    tick.className = 'tick';
+    row.insertBefore(tick, row.firstChild);
+    row.addEventListener('click', function(e){
+      if(e.target.closest('a') || e.target.closest('.track')) return;
+      var id = row.getAttribute('data-task');
+      store.t[id] = !store.t[id];
+      save(); render();
+    });
+  });
+
+  var asof = document.querySelector('.asof');
+  if(asof){
+    var hint = document.createElement('div');
+    hint.className = 'cc-hint';
+    hint.textContent = 'Statuses & check-offs save in this browser';
+    asof.appendChild(hint);
+  }
+  var csub = document.querySelector('#checklist .shead .sub');
+  var prog = document.createElement('strong');
+  if(csub){ csub.appendChild(document.createTextNode(' · ')); csub.appendChild(prog); }
+
+  function render(){
+    document.querySelectorAll('.track[data-track]').forEach(function(el){
+      var s = store.s[el.getAttribute('data-track')] || 'todo';
+      el.setAttribute('data-s', s);
+      el.textContent = LABELS[s];
+      var card = el.closest('.ucard,.ecard,.pcard');
+      if(card) card.classList.toggle('card-passed', s === 'passed');
+    });
+
+    var total = 0, done = 0;
+    document.querySelectorAll('.crow[data-task]').forEach(function(row){
+      total++;
+      var d = !!store.t[row.getAttribute('data-task')];
+      if(d) done++;
+      row.classList.toggle('done', d);
+      var tk = row.querySelector('.tick');
+      if(tk) tk.textContent = d ? '✓' : '';
+    });
+    prog.textContent = done + ' of ' + total + ' done';
+
+    function st(id){ return store.s[id] || 'todo'; }
+    var uOpen = 0;
+    document.querySelectorAll('#urgent .track[data-track]').forEach(function(el){
+      var s = st(el.getAttribute('data-track'));
+      if(s !== 'confirmed' && s !== 'passed') uOpen++;
+    });
+    var seen = {}, eOpen = 0;
+    document.querySelectorAll('#events .track[data-track]').forEach(function(el){
+      var id = el.getAttribute('data-track');
+      if(seen[id]) return;
+      seen[id] = 1;
+      if(st(id) !== 'passed') eOpen++;
+    });
+    var pOpen = 0;
+    document.querySelectorAll('#podcasts .track[data-track]').forEach(function(el){
+      if(st(el.getAttribute('data-track')) !== 'passed') pOpen++;
+    });
+    var nums = document.querySelectorAll('.statrow .stat .n');
+    if(nums[0]) nums[0].textContent = uOpen;
+    if(nums[1]) nums[1].textContent = eOpen;
+    if(nums[2]) nums[2].textContent = pOpen;
+  }
+  render();
 })();
 </script>
 </body>
