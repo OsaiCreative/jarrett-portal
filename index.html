@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Jarrett Adams — Opportunity Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --parchment:#F4EDDE;
+  --paper:#FBF7EE;
+  --ink:#1B241E;
+  --forest:#24402F;
+  --forest-deep:#16281D;
+  --gold:#A98736;
+  --gold-soft:#C9A959;
+  --brick:#A3402A;
+  --sage:#6E7D6C;
+  --line:#D8CDB4;
+  --shadow:0 2px 10px rgba(27,36,30,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Archivo',sans-serif;background:var(--parchment);color:var(--ink);line-height:1.55;font-size:15px}
+a{color:var(--forest)}
+.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+
+/* ---------- Masthead ---------- */
+header{background:var(--forest-deep);color:var(--parchment);padding:44px 0 0;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-soft),var(--gold))}
+.masthead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:30px}
+.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:10px}
+h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(34px,5vw,52px);line-height:1.05;color:#fff}
+h1 em{font-style:italic;color:var(--gold-soft)}
+.asof{text-align:right;font-size:12px;color:#C7CEC5}
+.asof strong{display:block;font-size:15px;color:#fff;font-weight:600}
+.statrow{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap}
+.stat{flex:1;min-width:150px;padding:16px 18px;border-right:1px solid rgba(255,255,255,.14)}
+.stat:last-child{border-right:none}
+.stat .n{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--gold-soft);line-height:1}
+.stat .l{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#B7C0B5;margin-top:4px}
+
+/* ---------- Nav ---------- */
+nav{position:sticky;top:0;z-index:50;background:var(--forest);box-shadow:0 2px 12px rgba(0,0,0,.18)}
+.tabs{display:flex;overflow-x:auto}
+.tabs a{flex:0 0 auto;padding:14px 20px;color:#D9DFD6;text-decoration:none;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs a:hover,.tabs a.active{color:#fff;border-bottom-color:var(--gold-soft)}
+
+/* ---------- Sections ---------- */
+section{padding:52px 0 8px}
+.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+.shead h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--forest-deep)}
+.shead .sub{font-size:12.5px;color:var(--sage);letter-spacing:.04em}
+.rule{height:1px;background:var(--line);margin:14px 0 26px;position:relative}
+.rule::before{content:"";position:absolute;left:0;top:-1px;width:64px;height:3px;background:var(--gold)}
+
+/* ---------- Urgency board ---------- */
+.urgent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:20px}
+.ucard{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--brick);padding:18px 20px;box-shadow:var(--shadow)}
+.ucard.gold{border-left-color:var(--gold)}
+.ucard h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;margin-bottom:4px}
+.ucard h3 a{text-decoration:none;color:var(--forest-deep)}
+.ucard h3 a:hover{color:var(--brick)}
+.ucard .act{font-size:13.5px;margin:8px 0 10px}
+.ucard .who{font-size:12px;color:var(--sage)}
+.badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:2px;margin-bottom:8px}
+.b-red{background:var(--brick);color:#fff}
+.b-gold{background:var(--gold);color:#fff}
+.b-green{background:var(--forest);color:#fff}
+.days{font-size:11px;font-weight:700;color:var(--brick);letter-spacing:.06em}
+.ucard.gold .days{color:var(--gold)}
+
+/* ---------- Event calendar ---------- */
+.mhead{display:flex;justify-content:space-between;align-items:baseline;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--forest)}
+.mhead .mname{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--forest-deep)}
+.mhead .mcount{font-size:11.5px;color:var(--sage);letter-spacing:.08em;text-transform:uppercase}
+.ecard{background:var(--paper);border:1px solid var(--line);margin-bottom:12px;box-shadow:var(--shadow)}
+.ehead{display:flex;gap:16px;padding:16px 18px;align-items:flex-start;flex-wrap:wrap}
+.edate{flex:0 0 74px;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--gold);line-height:1.15;padding-top:2px}
+.emain{flex:1;min-width:220px}
+.etitle{font-size:16.5px;font-weight:600}
+.etitle a{color:var(--forest-deep);text-decoration:none}
+.etitle a:hover{color:var(--brick);text-decoration:underline}
+.emeta{display:flex;gap:10px;align-items:center;margin-top:5px;flex-wrap:wrap}
+.eloc{font-size:12px;color:var(--sage)}
+.tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
+.t-fest{background:#E5DCC3;color:var(--forest)}
+.t-black{background:var(--forest);color:var(--gold-soft)}
+.t-hot{background:var(--gold);color:#fff}
+.t-local{background:#E0D0C6;color:var(--brick)}
+.sbadge{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:2px;align-self:center}
+.s-red{background:#F1DAD2;color:var(--brick)}
+.s-gold{background:#EFE3C2;color:#7d6320}
+.s-green{background:#DCE5DA;color:var(--forest)}
+.ebody{padding:0 18px 16px 108px;font-size:13.5px;color:#3A453D}
+.ebody strong{color:var(--forest-deep)}
+@media(max-width:640px){.ebody{padding-left:18px}}
+
+/* ---------- Podcast tiers ---------- */
+.tier{margin-bottom:28px}
+.tier h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--forest-deep);margin-bottom:4px}
+.tier .tsub{font-size:12.5px;color:var(--sage);margin-bottom:14px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.pcard{background:var(--paper);border:1px solid var(--line);padding:14px 16px;box-shadow:var(--shadow)}
+.pcard .pname{font-weight:700;font-size:14.5px;color:var(--forest-deep)}
+.pcard .pwhy{font-size:12.5px;color:#48534B;margin-top:5px}
+.pcard .phook{font-size:11.5px;color:var(--gold);margin-top:8px;font-weight:600;letter-spacing:.02em}
+
+/* ---------- Speaking ---------- */
+.spk{background:var(--forest-deep);color:var(--parchment);padding:28px;margin-bottom:16px;position:relative}
+.spk::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
+.spk h3{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:8px}
+.spk p{font-size:14px;color:#D5DCD2;max-width:720px}
+.spk .btns{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;padding:9px 16px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:2px}
+.btn-g{background:var(--gold);color:#fff}
+.btn-o{border:1px solid var(--gold-soft);color:var(--gold-soft)}
+.btn-g:hover{background:var(--gold-soft)}
+.spkrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.spkcard{background:var(--paper);border:1px solid var(--line);padding:16px 18px}
+.spkcard .k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);margin-bottom:6px}
+.spkcard .v{font-size:14px;font-weight:600;color:var(--forest-deep)}
+
+/* ---------- Publishing pipeline ---------- */
+.pipe{border-left:2px solid var(--line);margin-left:8px;padding-left:26px}
+.pnode{position:relative;padding-bottom:26px}
+.pnode::before{content:"";position:absolute;left:-33px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:3px solid var(--parchment)}
+.pnode.gate::before{background:var(--brick)}
+.pnode.done::before{background:var(--forest)}
+.pnode h4{font-size:15.5px;font-weight:700;color:var(--forest-deep)}
+.pnode p{font-size:13.5px;color:#3A453D;max-width:680px;margin-top:4px}
+.pnode .st{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-left:8px;padding:2px 7px;border-radius:2px}
+.st-done{background:#DCE5DA;color:var(--forest)}
+.st-gate{background:#F1DAD2;color:var(--brick)}
+.st-open{background:#EFE3C2;color:#7d6320}
+
+/* ---------- Checklist ---------- */
+.check{background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow)}
+.crow{display:flex;gap:14px;padding:15px 18px;border-bottom:1px solid var(--line);align-items:flex-start}
+.crow:last-child{border-bottom:none}
+.crow .num{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold);flex:0 0 30px;line-height:1.1}
+.crow .cbody{flex:1}
+.crow .ct{font-weight:700;font-size:14.5px;color:var(--forest-deep)}
+.crow .cd{font-size:13px;color:#48534B;margin-top:3px}
+.crow .cw{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brick);flex:0 0 auto;padding-top:4px}
+
+footer{margin-top:56px;background:var(--forest-deep);color:#9FAB9D;padding:26px 0;font-size:12px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer strong{color:var(--gold-soft)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="masthead">
+      <div>
+        <div class="eyebrow">Redeeming Justice · Visibility Command Center</div>
+        <h1>Jarrett Adams<br><em>Opportunity Portal</em></h1>
+      </div>
+      <div class="asof">
+        Live as of
+        <strong id="today-label">—</strong>
+        Day counts update automatically
+      </div>
+    </div>
+  </div>
+  <div class="wrap"><div class="statrow">
+    <div class="stat"><div class="n">4</div><div class="l">Urgent actions this week</div></div>
+    <div class="stat"><div class="n">11</div><div class="l">Festivals · Jul–Nov 2026</div></div>
+    <div class="stat"><div class="n">9</div><div class="l">Priority podcasts</div></div>
+    <div class="stat"><div class="n">2</div><div class="l">Speaker bureaus live</div></div>
+  </div></div>
+</header>
+
+<nav><div class="wrap"><div class="tabs">
+  <a href="#urgent" class="active">⚠ Act Now</a>
+  <a href="#events">Events & Festivals</a>
+  <a href="#podcasts">Podcasts & Media</a>
+  <a href="#speaking">Speaking</a>
+  <a href="#publishing">Publishing Pipeline</a>
+  <a href="#checklist">This Week's Checklist</a>
+</div></div></nav>
+
+<!-- ============ URGENT ============ -->
+<section id="urgent"><div class="wrap">
+  <div class="shead"><h2>Act Now</h2><div class="sub">Windows closing in the next 30 days</div></div>
+  <div class="rule"></div>
+  <div class="urgent-grid">
+
+    <div class="ucard">
+      <span class="badge b-red">Apply This Week</span>
+      <h3><a href="https://www.harlembookfair.com/harlem-book-fair" target="_blank" rel="noopener">Harlem Book Fair — HBF2026</a></h3>
+      <div class="days" data-date="2026-08-29">Sat, Aug 29 · </div>
+      <p class="act"><strong>Date change:</strong> HBF moved off its usual July weekend to <strong>August 29</strong> at the Adam Clayton Powell Jr. State Office Building. Author panel/presentation slots are limited and first-come. Send bio, photo, book jacket, title + synopsis, and audience takeaway.</p>
+      <div class="who">→ Reeshemah Brightley · <a href="mailto:hbfauthor@qbr.com">hbfauthor@qbr.com</a> · Exhibitor app also open on site</div>
+    </div>
+
+    <div class="ucard">
+      <span class="badge b-red">Confirm in Days</span>
+      <h3><a href="https://www.blackauthorsfestival.com" target="_blank" rel="noopener">Black Authors Festival @ Sag Harbor</a></h3>
+      <div class="days" data-date="2026-08-01">Sat, Aug 1 · </div>
+      <p class="act">2026 theme <strong>"The Right to Write"</strong> — literally Jarrett's story. Affluent Hamptons audience: publishers, agents, film/TV producers. Less than four weeks out — this is a phone call, not an email.</p>
+      <div class="who">→ Festival organizers via site contact; leverage PRH publicity for intro</div>
+    </div>
+
+    <div class="ucard gold">
+      <span class="badge b-gold">Submit Now — Decision Oct 1</span>
+      <h3><a href="https://www.miamibookfair.com/submission-guidelines-for-author-programs/" target="_blank" rel="noopener">Miami Book Fair — Author Program</a></h3>
+      <div class="days" data-date="2026-11-15">Nov 15–22 · </div>
+      <p class="act">Digital-only submission, titles from 2025–26 eligible; selected authors notified <strong>on or before Oct 1</strong>. 550+ authors, trilingual programming, huge street fair the final weekend. Home-turf event — easy for us to work in person.</p>
+      <div class="who">→ Submit via the official online form; no physical mail accepted</div>
+    </div>
+
+    <div class="ucard gold">
+      <span class="badge b-gold">Long Shot — Worth the Call</span>
+      <h3><a href="https://www.edbookfest.co.uk" target="_blank" rel="noopener">Edinburgh International Book Festival</a></h3>
+      <div class="days" data-date="2026-08-15">Aug 15–30 · </div>
+      <p class="act">Programme is largely locked by July, but cancellation slots open every year. One call to PRH UK publicity asking to be flagged as an available substitute costs nothing and anchors the whole UK trip concept.</p>
+      <div class="who">→ Via Penguin Random House UK publicity desk</div>
+    </div>
+
+  </div>
+</div></section>
+
+<!-- ============ EVENTS ============ -->
+<section id="events"><div class="wrap">
+  <div class="shead"><h2>Events & Festivals</h2><div class="sub">Everything still actionable · July – November 2026</div></div>
+  <div class="rule"></div>
+
+  <div class="mhead"><span class="mname">July 2026</span><span class="mcount">1 optional event</span></div>
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Jul 19</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://detroitbookfest.com" target="_blank" rel="noopener">Detroit Festival of Books</a></div>
+        <div class="emeta"><span class="eloc">Detroit, MI</span><span class="tag t-fest">Regional</span></div>
+      </div>
+      <span class="sbadge s-gold">Optional</span>
+    </div>
+    <div class="ebody">Midwest audience adjacent to Jarrett's Chicago/Wisconsin story. Only pursue if a Midwest swing is already planned — otherwise hold energy for August.</div>
+  </div>
+
+  <div class="mhead"><span class="mname">August 2026</span><span class="mcount">4 events · peak season</span></div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Aug 1</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://www.blackauthorsfestival.com" target="_blank" rel="noopener">Black Authors Festival @ Sag Harbor</a></div>
+        <div class="emeta"><span class="eloc">Sag Harbor, NY</span><span class="tag t-black">Black Lit</span><span class="tag t-hot">★ Must Attend</span></div>
+      </div>
+      <span class="sbadge s-red">⚠ Confirm Now</span>
+    </div>
+    <div class="ebody">Theme: <strong>"The Right to Write."</strong> East Hampton officially declared August "Black Authors Festival Month." The room is publishers, agents, and film/TV producers — the exact audience for the documentary pitch.</div>
+  </div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Aug 22</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://www.loc.gov/events/2026-national-book-festival/" target="_blank" rel="noopener">Library of Congress National Book Festival</a></div>
+        <div class="emeta"><span class="eloc">Walter E. Washington Convention Center, DC</span><span class="tag t-hot">★ National Stage</span></div>
+      </div>
+      <span class="sbadge s-gold">Pitch via PRH</span>
+    </div>
+    <div class="ebody">This year is the <strong>America250</strong> edition — programming leans into rights, founding ideals, and the Constitution. A wrongful-conviction-to-lawyer story is a perfect thematic fit. Author lineups run through publisher relationships: push Convergent/Crown publicity to nominate Jarrett. Free, tens of thousands of attendees, all sessions filmed.</div>
+  </div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Aug 15–30</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://www.edbookfest.co.uk" target="_blank" rel="noopener">Edinburgh International Book Festival</a></div>
+        <div class="emeta"><span class="eloc">Edinburgh, Scotland</span><span class="tag t-fest">International</span></div>
+      </div>
+      <span class="sbadge s-gold">Standby List</span>
+    </div>
+    <div class="ebody">Anchor event for the UK trip concept. Programme locked, but request substitute status via PRH UK and use the trip shell (London bookshops, university law schools, BBC radio) whether or not Edinburgh lands.</div>
+  </div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Aug 29</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://www.harlembookfair.com/harlem-book-fair" target="_blank" rel="noopener">Harlem Book Fair — HBF2026 "#GLOBAL I AM"</a></div>
+        <div class="emeta"><span class="eloc">Adam Clayton Powell Jr. Bldg, Harlem, NY</span><span class="tag t-black">Black Lit</span><span class="tag t-hot">★ Must Attend</span></div>
+      </div>
+      <span class="sbadge s-red">⚠ Apply This Week</span>
+    </div>
+    <div class="ebody">The nation's most recognized African American book festival. Selected presenters get a <strong>free table</strong>; books sold and signed on site. Panel slots are "limited and highly sought" — the application is a simple email package. Same-day NYC media stacking possible (Sway, Breakfast Club are blocks away).</div>
+  </div>
+
+  <div class="mhead"><span class="mname">September 2026</span><span class="mcount">3 events · homecoming month</span></div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Sep 12–13</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://printersrowlitfest.org" target="_blank" rel="noopener">Printers Row Lit Fest</a></div>
+        <div class="emeta"><span class="eloc">Chicago, IL</span><span class="tag t-local">Hometown</span><span class="tag t-hot">★ Must Attend</span></div>
+      </div>
+      <span class="sbadge s-red">Apply July</span>
+    </div>
+    <div class="ebody"><strong>Jarrett's hometown festival.</strong> The Chicago homecoming angle — South Side kid, wrongfully convicted, returns as the lawyer who freed the Waverly Two — writes its own local press cycle (Trib, Sun-Times, WBEZ, Chicago Bar Foundation tie-in). Pursue a featured author slot, not just a table.</div>
+  </div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Sep 20–28</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://brooklynbookfestival.org" target="_blank" rel="noopener">Brooklyn Book Festival</a></div>
+        <div class="emeta"><span class="eloc">Brooklyn, NY</span><span class="tag t-fest">Major Market</span></div>
+      </div>
+      <span class="sbadge s-gold">Pitch via PRH</span>
+    </div>
+    <div class="ebody">NYC's largest free literary event, strong social-justice programming track. Panel placement runs through publisher nomination — bundle with the Harlem application so PRH publicity handles both NYC asks at once.</div>
+  </div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Sep 24–27</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://bookmarksnc.org/festival" target="_blank" rel="noopener">Bookmarks Festival of Books</a></div>
+        <div class="emeta"><span class="eloc">Winston-Salem, NC</span><span class="tag t-fest">Regional</span></div>
+      </div>
+      <span class="sbadge s-gold">Optional</span>
+    </div>
+    <div class="ebody">Largest festival in the Carolinas. Worth adding if a Southeast run develops; otherwise deprioritize in favor of the Chicago and NYC anchors.</div>
+  </div>
+
+  <div class="mhead"><span class="mname">October 2026</span><span class="mcount">2 events · plus Miami decision lands Oct 1</span></div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Oct 24</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://wvbookfestival.org" target="_blank" rel="noopener">West Virginia Book Festival</a></div>
+        <div class="emeta"><span class="eloc">Charleston, WV</span><span class="tag t-fest">Regional</span></div>
+      </div>
+      <span class="sbadge s-gold">Optional</span>
+    </div>
+    <div class="ebody">Library-run, pays honoraria for featured authors. Low effort if the calendar allows.</div>
+  </div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Oct 26</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://louisianabookfestival.org" target="_blank" rel="noopener">Louisiana Book Festival</a></div>
+        <div class="emeta"><span class="eloc">Baton Rouge, LA</span><span class="tag t-fest">Regional</span></div>
+      </div>
+      <span class="sbadge s-gold">Optional</span>
+    </div>
+    <div class="ebody">Southern justice-reform audience; Louisiana's exoneration and parole landscape makes the subject matter land hard here. Pair with local innocence-org partnership if pursued.</div>
+  </div>
+
+  <div class="mhead"><span class="mname">November 2026</span><span class="mcount">2 events · close out the year big</span></div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Nov 14–15</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://texasbookfestival.org" target="_blank" rel="noopener">Texas Book Festival</a></div>
+        <div class="emeta"><span class="eloc">Austin, TX</span><span class="tag t-fest">Major Market</span></div>
+      </div>
+      <span class="sbadge s-gold">Exhibitor Track</span>
+    </div>
+    <div class="ebody">Author submission closed May 1 (missed) — the <strong>exhibitor booth application</strong> is the live route in, and the festival grounds sit next to the Capitol during a justice-reform-heavy news cycle in Texas.</div>
+  </div>
+
+  <div class="ecard">
+    <div class="ehead">
+      <div class="edate">Nov 15–22</div>
+      <div class="emain">
+        <div class="etitle"><a href="https://miamibookfair.com" target="_blank" rel="noopener">Miami Book Fair</a></div>
+        <div class="emeta"><span class="eloc">MDC Wolfson Campus, Downtown Miami</span><span class="tag t-local">Home Turf</span><span class="tag t-hot">★ Must Attend</span></div>
+      </div>
+      <span class="sbadge s-red">Submit Now</span>
+    </div>
+    <div class="ebody">550+ authors over eight days; street fair with 250+ exhibitors the final weekend. Submission is open now with author selections notified by <strong>Oct 1</strong>. Being local, we can support in person — signing table minimum, evening program target.</div>
+  </div>
+
+</div></section>
+
+<!-- ============ PODCASTS ============ -->
+<section id="podcasts"><div class="wrap">
+  <div class="shead"><h2>Podcasts & Media</h2><div class="sub">Evergreen targets — pitch anytime, stack around festival dates</div></div>
+  <div class="rule"></div>
+
+  <div class="tier">
+    <h3>Tier 1 — Massive Reach</h3>
+    <div class="tsub">National audiences in the millions. Route through PRH publicity; personalize each pitch to the show's format.</div>
+    <div class="pgrid">
+      <div class="pcard"><div class="pname">Wrongful Conviction (Jason Flom)</div><div class="pwhy">The definitive show of the genre — Jarrett is a bullseye guest.</div><div class="phook">Hook: exoneree who became the lawyer</div></div>
+      <div class="pcard"><div class="pname">The Breakfast Club</div><div class="pwhy">Culture-defining Black media; drives book sales directly.</div><div class="phook">Hook: pair with Harlem Book Fair week (Aug 29)</div></div>
+      <div class="pcard"><div class="pname">Pod Save the People</div><div class="pwhy">Justice-policy audience primed for systemic-reform framing.</div><div class="phook">Hook: Waverly Two case + LAJ model</div></div>
+      <div class="pcard"><div class="pname">Fresh Air (NPR)</div><div class="pwhy">Long-form literary interview; the prestige booking.</div><div class="phook">Hook: memoir + kids' series announcement</div></div>
+      <div class="pcard"><div class="pname">The Daily (NYT)</div><div class="pwhy">News-peg dependent — hold for a major case win or documentary news.</div><div class="phook">Hook: next LAJ exoneration</div></div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <h3>Tier 2 — High Conversion</h3>
+    <div class="tsub">Smaller but hyper-aligned audiences — highest booking probability, book these ourselves.</div>
+    <div class="pgrid">
+      <div class="pcard"><div class="pname">Earn Your Leisure</div><div class="pwhy">Black wealth/business audience; angle on building a law firm from nothing.</div><div class="phook">Hook: the business of justice</div></div>
+      <div class="pcard"><div class="pname">Black Authors Matter TV</div><div class="pwhy">Direct book-buyer audience; friendly booking.</div><div class="phook">Hook: Redeeming Justice paperback push</div></div>
+      <div class="pcard"><div class="pname">Voir Dire (Harvard Law)</div><div class="pwhy">Legal academy credibility; feeds speaking pipeline at law schools.</div><div class="phook">Hook: from cell block to bar exam</div></div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <h3>Radio & TV</h3>
+    <div class="tsub">Stack same-city bookings with festival travel — every NYC trip should carry two studio stops.</div>
+    <div class="pgrid">
+      <div class="pcard"><div class="pname">Sway in the Morning</div><div class="pwhy">SiriusXM, NYC studio — pair with Harlem or Brooklyn fest travel.</div><div class="phook">Book for Aug 27–28 window</div></div>
+      <div class="pcard"><div class="pname">NPR Weekend Edition</div><div class="pwhy">Remote-friendly; pitch around National Book Festival (Aug 22).</div><div class="phook">America250 rights angle</div></div>
+      <div class="pcard"><div class="pname">PBS NewsHour / The ReidOut</div><div class="pwhy">Policy TV — activate on the next case milestone or documentary news.</div><div class="phook">Hold for news peg</div></div>
+    </div>
+  </div>
+
+</div></section>
+
+<!-- ============ SPEAKING ============ -->
+<section id="speaking"><div class="wrap">
+  <div class="shead"><h2>Speaking</h2><div class="sub">Fall corporate & law-firm season books in July–August</div></div>
+  <div class="rule"></div>
+
+  <div class="spk">
+    <h3>Both bureaus are live — activate them now for Q4 dates</h3>
+    <p>Corporate DEI programs, AmLaw 200 firms, and law schools lock their fall speaker calendars in mid-summer. Every contract should carry a <strong style="color:#fff">minimum 100-copy book purchase clause</strong>. Target rate: $25K–$75K per keynote.</p>
+    <div class="btns">
+      <a class="btn btn-g" href="https://www.prhspeakers.com/speaker/jarrett-adams" target="_blank" rel="noopener">PRH Speakers Bureau →</a>
+      <a class="btn btn-o" href="https://thekeynotecurators.com/speaker/jarrett-adams/" target="_blank" rel="noopener">The Keynote Curators →</a>
+    </div>
+  </div>
+
+  <div class="spkrow">
+    <div class="spkcard"><div class="k">Primary buyers</div><div class="v">AmLaw 200 firms · Fortune 500 DEI · Bar associations · Law schools</div></div>
+    <div class="spkcard"><div class="k">Seasonal windows</div><div class="v">Sept–Nov (fall programs) · Jan–Feb (MLK / Black History Month — books now)</div></div>
+    <div class="spkcard"><div class="k">Contract standard</div><div class="v">100-copy minimum book clause · travel + accommodations · recording rights retained</div></div>
+  </div>
+
+</div></section>
+
+<!-- ============ PUBLISHING ============ -->
+<section id="publishing"><div class="wrap">
+  <div class="shead"><h2>Publishing Pipeline</h2><div class="sub">Book properties & digital presence</div></div>
+  <div class="rule"></div>
+
+  <div class="pipe">
+    <div class="pnode done">
+      <h4>Redeeming Justice — memoir <span class="st st-done">In Market</span></h4>
+      <p>The engine for everything above. Every festival, podcast, and keynote drives back to the Convergent/Crown title.</p>
+    </div>
+    <div class="pnode done">
+      <h4>Kids' series — Book 1 manuscript + Series Bible <span class="st st-done">Complete</span></h4>
+      <p><em>The Boy Who Learned the Law</em> (32-page picture book) and the canonical Series Bible for the six-book <em>Kids' Guide to Rights, Fairness, and the Law</em> collection are done and locked.</p>
+    </div>
+    <div class="pnode gate">
+      <h4>Jarrett's written sign-off — likeness & tone <span class="st st-gate">⚠ Gate</span></h4>
+      <p>Front-end gate before any production spend or publisher outreach on the kids' series. Nothing moves past this node until it's signed. Warmest doors once cleared: Convergent Books/Crown, then Life After Justice as institutional partner.</p>
+    </div>
+    <div class="pnode">
+      <h4>Wikipedia — Draft:Jarrett_M._Adams <span class="st st-open">Awaiting AfC Review</span></h4>
+      <p>Submitted through Articles for Creation. On approval: update the schema sameAs link on jarrettadamslaw.com, then start the <em>Redeeming Justice</em> and Life After Justice articles.</p>
+    </div>
+    <div class="pnode">
+      <h4>BookTok / Bookstagram outreach <span class="st st-open">Active</span></h4>
+      <p>Influencer spreadsheet built — run sends in waves timed to festival appearances (Harlem week, Miami week) so social proof and event coverage compound.</p>
+    </div>
+    <div class="pnode">
+      <h4>Documentary pitch — Netflix / Amazon <span class="st st-open">In Development</span></h4>
+      <p>The Sag Harbor and Miami rooms both contain film/TV buyers. Keep the one-pager in the bag at every event.</p>
+    </div>
+  </div>
+
+</div></section>
+
+<!-- ============ CHECKLIST ============ -->
+<section id="checklist"><div class="wrap">
+  <div class="shead"><h2>This Week's Checklist</h2><div class="sub">Ordered by deadline pressure — week of July 6</div></div>
+  <div class="rule"></div>
+
+  <div class="check">
+    <div class="crow">
+      <div class="num">1</div>
+      <div class="cbody">
+        <div class="ct">Email the Harlem Book Fair author package</div>
+        <div class="cd">Bio, headshot, book jacket, title + synopsis, audience takeaway → <a href="mailto:hbfauthor@qbr.com">hbfauthor@qbr.com</a> (Reeshemah Brightley). Slots are first-come.</div>
+      </div>
+      <div class="cw">Today</div>
+    </div>
+    <div class="crow">
+      <div class="num">2</div>
+      <div class="cbody">
+        <div class="ct">Call Black Authors Festival @ Sag Harbor</div>
+        <div class="cd">Aug 1 is under four weeks out. Phone, not email — pitch the "Right to Write" theme match directly.</div>
+      </div>
+      <div class="cw">This Week</div>
+    </div>
+    <div class="crow">
+      <div class="num">3</div>
+      <div class="cbody">
+        <div class="ct">Submit the Miami Book Fair author form</div>
+        <div class="cd">Online-only submission; selections notified by Oct 1. Include both the memoir and a note on the forthcoming kids' series.</div>
+      </div>
+      <div class="cw">This Week</div>
+    </div>
+    <div class="crow">
+      <div class="num">4</div>
+      <div class="cbody">
+        <div class="ct">One email to PRH publicity covering three asks</div>
+        <div class="cd">National Book Festival nomination (America250 angle) + Brooklyn Book Festival panel + Edinburgh substitute-list request. Bundle them.</div>
+      </div>
+      <div class="cw">This Week</div>
+    </div>
+    <div class="crow">
+      <div class="num">5</div>
+      <div class="cbody">
+        <div class="ct">Apply to Printers Row Lit Fest (Chicago)</div>
+        <div class="cd">Hometown homecoming story — request featured-author consideration and simultaneously tee up Chicago local press.</div>
+      </div>
+      <div class="cw">By Jul 17</div>
+    </div>
+    <div class="crow">
+      <div class="num">6</div>
+      <div class="cbody">
+        <div class="ct">Activate both speaker bureaus for Q4</div>
+        <div class="cd">Fall corporate/law-firm calendars lock mid-summer. Confirm availability windows and the 100-copy clause with both bureaus.</div>
+      </div>
+      <div class="cw">By Jul 17</div>
+    </div>
+    <div class="crow">
+      <div class="num">7</div>
+      <div class="cbody">
+        <div class="ct">Get Jarrett's kids'-series sign-off scheduled</div>
+        <div class="cd">The likeness/tone approval is the gate on the entire six-book track. Put a 30-minute review on his calendar.</div>
+      </div>
+      <div class="cw">By Jul 31</div>
+    </div>
+  </div>
+
+</div></section>
+
+<footer><div class="wrap">
+  <div><strong>Jarrett Adams — Opportunity Portal</strong> · rebuilt July 6, 2026 · all dates verified against official festival sources</div>
+  <div>Prior cycle (May–June events) archived · next refresh recommended: early September</div>
+</div></footer>
+
+<script>
+(function(){
+  var now = new Date();
+  var opts = {weekday:'long', month:'long', day:'numeric', year:'numeric'};
+  document.getElementById('today-label').textContent = now.toLocaleDateString('en-US', opts);
+
+  // live day counters
+  document.querySelectorAll('.days[data-date]').forEach(function(el){
+    var target = new Date(el.getAttribute('data-date') + 'T00:00:00');
+    var diff = Math.ceil((target - now) / 86400000);
+    var label = el.textContent;
+    if(diff > 1){ el.textContent = label + diff + ' days out'; }
+    else if(diff === 1){ el.textContent = label + 'tomorrow'; }
+    else if(diff === 0){ el.textContent = label + 'today'; }
+    else { el.textContent = label + 'window passed'; el.style.color = '#8a8a80'; }
+  });
+
+  // nav active state on scroll
+  var links = document.querySelectorAll('.tabs a');
+  var sections = Array.prototype.map.call(links, function(a){
+    return document.querySelector(a.getAttribute('href'));
+  });
+  function setActive(){
+    var y = window.scrollY + 120;
+    var idx = 0;
+    sections.forEach(function(s,i){ if(s && s.offsetTop <= y) idx = i; });
+    links.forEach(function(a,i){ a.classList.toggle('active', i===idx); });
+  }
+  window.addEventListener('scroll', setActive, {passive:true});
+  setActive();
+})();
+</script>
+</body>
+</html>
