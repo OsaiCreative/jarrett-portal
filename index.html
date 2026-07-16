@@ -195,6 +195,40 @@ nav .wrap.has-overflow::after{content:"";position:absolute;right:0;top:0;bottom:
   .stat .n{font-size:22px}
   section{padding:36px 0 8px}
 }
+/* today digest */
+#today{padding:28px 0 0}
+.today-box{background:var(--forest-deep);border:1px solid var(--forest);box-shadow:var(--shadow);padding:18px 22px;position:relative}
+.today-box::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
+.today-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px}
+.today-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff}
+.today-sub{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#9FAB9D}
+.titem{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer}
+.titem:last-child{border-bottom:none}
+.titem .tk{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);border:1px solid rgba(201,169,89,.45);padding:2px 8px;border-radius:999px;flex:0 0 auto}
+.titem .tt{color:#E9E4D5;font-size:13.5px;font-weight:600;flex:1}
+.titem:hover .tt,.titem:focus-visible .tt{color:var(--gold-soft)}
+.titem:focus-visible{outline:none}
+.titem .td{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9FAB9D;flex:0 0 auto}
+.titem .td.due-soon{color:#E8A87C}
+.titem .td.due-over{color:#F09595}
+@keyframes ccflash{0%{box-shadow:0 0 0 3px var(--gold)}100%{box-shadow:0 0 0 3px rgba(169,135,54,0)}}
+.flash{animation:ccflash 1.6s ease-out}
+/* event countdowns & overdue tasks */
+.ecount{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sage)}
+.ecount.ec-soon{color:var(--brick)}
+.ecount.ec-now{color:var(--forest)}
+.ecount.ec-past{color:#8a8a80}
+.event-past{opacity:.55}
+.crow.late .cw{background:var(--brick);color:#fff;padding:3px 8px;border-radius:2px}
+/* status popover */
+.status-pop{position:absolute;z-index:80;display:none;background:var(--paper);border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 26px rgba(27,36,30,.22);padding:6px;min-width:160px}
+.status-pop button{display:flex;align-items:center;width:100%;gap:8px;text-align:left;padding:8px 10px;border:0;background:none;cursor:pointer;font-family:'Archivo',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);border-radius:6px}
+.status-pop button:hover{background:#F0E9D8}
+.status-pop button.cur{background:var(--forest);color:#fff}
+/* backup / restore */
+.cc-tools{display:flex;gap:10px;align-items:center}
+.cc-btn{cursor:pointer;background:none;border:1px solid #3C5244;color:#9FAB9D;font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+.cc-btn:hover{color:#fff;border-color:var(--gold-soft)}
 
 footer{margin-top:56px;background:var(--forest-deep);color:#9FAB9D;padding:26px 0;font-size:12px}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
@@ -234,6 +268,14 @@ footer strong{color:var(--gold-soft)}
   <a href="#publishing">Publishing Pipeline</a>
   <a href="#checklist">This Week's Checklist</a>
 </div></div></nav>
+
+<!-- ============ TODAY DIGEST ============ -->
+<section id="today"><div class="wrap">
+  <div class="today-box">
+    <div class="today-head"><span class="today-title">Today's Focus</span><span class="today-sub" id="today-sub"></span></div>
+    <div id="today-list"></div>
+  </div>
+</div></section>
 
 <!-- ============ URGENT ============ -->
 <section id="urgent"><div class="wrap">
@@ -285,7 +327,7 @@ footer strong{color:var(--gold-soft)}
   <div class="mhead"><span class="mname">July 2026</span><span class="mcount">1 optional event</span></div>
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Jul 19</div>
+      <div class="edate" data-date="2026-07-19">Jul 19</div>
       <div class="emain">
         <div class="etitle"><a href="https://detroitbookfest.com" target="_blank" rel="noopener">Detroit Festival of Books</a></div>
         <div class="emeta"><span class="eloc">Detroit, MI</span><span class="tag t-fest">Regional</span></div>
@@ -299,7 +341,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Aug 1</div>
+      <div class="edate" data-date="2026-08-01">Aug 1</div>
       <div class="emain">
         <div class="etitle"><a href="https://www.blackauthorsfestival.com" target="_blank" rel="noopener">Black Authors Festival @ Sag Harbor</a></div>
         <div class="emeta"><span class="eloc">Sag Harbor, NY</span><span class="tag t-black">Black Lit</span><span class="tag t-hot">★ Must Attend</span></div>
@@ -311,7 +353,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Aug 22</div>
+      <div class="edate" data-date="2026-08-22">Aug 22</div>
       <div class="emain">
         <div class="etitle"><a href="https://www.loc.gov/events/2026-national-book-festival/" target="_blank" rel="noopener">Library of Congress National Book Festival</a></div>
         <div class="emeta"><span class="eloc">Walter E. Washington Convention Center, DC</span><span class="tag t-hot">★ National Stage</span></div>
@@ -323,7 +365,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Aug 15–30</div>
+      <div class="edate" data-date="2026-08-15" data-end="2026-08-30">Aug 15–30</div>
       <div class="emain">
         <div class="etitle"><a href="https://www.edbookfest.co.uk" target="_blank" rel="noopener">Edinburgh International Book Festival</a></div>
         <div class="emeta"><span class="eloc">Edinburgh, Scotland</span><span class="tag t-fest">International</span></div>
@@ -335,7 +377,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Aug 29</div>
+      <div class="edate" data-date="2026-08-29">Aug 29</div>
       <div class="emain">
         <div class="etitle"><a href="https://www.harlembookfair.com/harlem-book-fair" target="_blank" rel="noopener">Harlem Book Fair — HBF2026 "#GLOBAL I AM"</a></div>
         <div class="emeta"><span class="eloc">Adam Clayton Powell Jr. Bldg, Harlem, NY</span><span class="tag t-black">Black Lit</span><span class="tag t-hot">★ Must Attend</span></div>
@@ -349,7 +391,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Sep 12–13</div>
+      <div class="edate" data-date="2026-09-12" data-end="2026-09-13">Sep 12–13</div>
       <div class="emain">
         <div class="etitle"><a href="https://printersrowlitfest.org" target="_blank" rel="noopener">Printers Row Lit Fest</a></div>
         <div class="emeta"><span class="eloc">Chicago, IL</span><span class="tag t-local">Hometown</span><span class="tag t-hot">★ Must Attend</span></div>
@@ -361,7 +403,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Sep 20–28</div>
+      <div class="edate" data-date="2026-09-20" data-end="2026-09-28">Sep 20–28</div>
       <div class="emain">
         <div class="etitle"><a href="https://brooklynbookfestival.org" target="_blank" rel="noopener">Brooklyn Book Festival</a></div>
         <div class="emeta"><span class="eloc">Brooklyn, NY</span><span class="tag t-fest">Major Market</span></div>
@@ -373,7 +415,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Sep 24–27</div>
+      <div class="edate" data-date="2026-09-24" data-end="2026-09-27">Sep 24–27</div>
       <div class="emain">
         <div class="etitle"><a href="https://bookmarksnc.org/festival" target="_blank" rel="noopener">Bookmarks Festival of Books</a></div>
         <div class="emeta"><span class="eloc">Winston-Salem, NC</span><span class="tag t-fest">Regional</span></div>
@@ -387,7 +429,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Oct 24</div>
+      <div class="edate" data-date="2026-10-24">Oct 24</div>
       <div class="emain">
         <div class="etitle"><a href="https://wvbookfestival.org" target="_blank" rel="noopener">West Virginia Book Festival</a></div>
         <div class="emeta"><span class="eloc">Charleston, WV</span><span class="tag t-fest">Regional</span></div>
@@ -399,7 +441,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Oct 26</div>
+      <div class="edate" data-date="2026-10-26">Oct 26</div>
       <div class="emain">
         <div class="etitle"><a href="https://louisianabookfestival.org" target="_blank" rel="noopener">Louisiana Book Festival</a></div>
         <div class="emeta"><span class="eloc">Baton Rouge, LA</span><span class="tag t-fest">Regional</span></div>
@@ -413,7 +455,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Nov 14–15</div>
+      <div class="edate" data-date="2026-11-14" data-end="2026-11-15">Nov 14–15</div>
       <div class="emain">
         <div class="etitle"><a href="https://texasbookfestival.org" target="_blank" rel="noopener">Texas Book Festival</a></div>
         <div class="emeta"><span class="eloc">Austin, TX</span><span class="tag t-fest">Major Market</span></div>
@@ -425,7 +467,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="ecard">
     <div class="ehead">
-      <div class="edate">Nov 15–22</div>
+      <div class="edate" data-date="2026-11-15" data-end="2026-11-22">Nov 15–22</div>
       <div class="emain">
         <div class="etitle"><a href="https://miamibookfair.com" target="_blank" rel="noopener">Miami Book Fair</a></div>
         <div class="emeta"><span class="eloc">MDC Wolfson Campus, Downtown Miami</span><span class="tag t-local">Home Turf</span><span class="tag t-hot">★ Must Attend</span></div>
@@ -538,45 +580,45 @@ footer strong{color:var(--gold-soft)}
   <div class="rule"></div>
 
   <div class="check">
-    <div class="crow">
+    <div class="crow" data-links="harlem-book-fair:submitted">
       <div class="num">1</div>
       <div class="cbody">
         <div class="ct">Email the Harlem Book Fair author package</div>
         <div class="cd">Bio, headshot, book jacket, title + synopsis, audience takeaway → <a href="mailto:hbfauthor@qbr.com">hbfauthor@qbr.com</a> (Reeshemah Brightley). Slots are first-come.</div>
       </div>
-      <div class="cw">Today</div>
+      <div class="cw" data-date="2026-07-06">Today</div>
     </div>
-    <div class="crow">
+    <div class="crow" data-links="black-authors-festival:submitted">
       <div class="num">2</div>
       <div class="cbody">
         <div class="ct">Call Black Authors Festival @ Sag Harbor</div>
         <div class="cd">Aug 1 is under four weeks out. Phone, not email — pitch the "Right to Write" theme match directly.</div>
       </div>
-      <div class="cw">This Week</div>
+      <div class="cw" data-date="2026-07-10">This Week</div>
     </div>
-    <div class="crow">
+    <div class="crow" data-links="miami-book-fair:submitted">
       <div class="num">3</div>
       <div class="cbody">
         <div class="ct">Submit the Miami Book Fair author form</div>
         <div class="cd">Online-only submission; selections notified by Oct 1. Include both the memoir and a note on the forthcoming kids' series.</div>
       </div>
-      <div class="cw">This Week</div>
+      <div class="cw" data-date="2026-07-10">This Week</div>
     </div>
-    <div class="crow">
+    <div class="crow" data-links="library-of-congress:submitted,brooklyn-book-festival:submitted,edinburgh-international-book:submitted">
       <div class="num">4</div>
       <div class="cbody">
         <div class="ct">One email to PRH publicity covering three asks</div>
         <div class="cd">National Book Festival nomination (America250 angle) + Brooklyn Book Festival panel + Edinburgh substitute-list request. Bundle them.</div>
       </div>
-      <div class="cw">This Week</div>
+      <div class="cw" data-date="2026-07-10">This Week</div>
     </div>
-    <div class="crow">
+    <div class="crow" data-links="printers-row-lit:submitted">
       <div class="num">5</div>
       <div class="cbody">
         <div class="ct">Apply to Printers Row Lit Fest (Chicago)</div>
         <div class="cd">Hometown homecoming story — request featured-author consideration and simultaneously tee up Chicago local press.</div>
       </div>
-      <div class="cw">By Jul 17</div>
+      <div class="cw" data-date="2026-07-17">By Jul 17</div>
     </div>
     <div class="crow">
       <div class="num">6</div>
@@ -584,7 +626,7 @@ footer strong{color:var(--gold-soft)}
         <div class="ct">Activate both speaker bureaus for Q4</div>
         <div class="cd">Fall corporate/law-firm calendars lock mid-summer. Confirm availability windows and the 100-copy clause with both bureaus.</div>
       </div>
-      <div class="cw">By Jul 17</div>
+      <div class="cw" data-date="2026-07-17">By Jul 17</div>
     </div>
     <div class="crow">
       <div class="num">7</div>
@@ -592,7 +634,7 @@ footer strong{color:var(--gold-soft)}
         <div class="ct">Get Jarrett's kids'-series sign-off scheduled</div>
         <div class="cd">The likeness/tone approval is the gate on the entire six-book track. Put a 30-minute review on his calendar.</div>
       </div>
-      <div class="cw">By Jul 31</div>
+      <div class="cw" data-date="2026-07-31">By Jul 31</div>
     </div>
   </div>
 
@@ -621,6 +663,35 @@ footer strong{color:var(--gold-soft)}
     else if(diff === 0){ el.textContent = label + 'today'; }
     else if(end && now <= end){ el.textContent = label + 'happening now'; el.style.color = '#24402F'; }
     else { el.textContent = label + 'window passed'; el.style.color = '#8a8a80'; }
+  });
+
+  // event-card countdowns
+  document.querySelectorAll('.edate[data-date]').forEach(function(el){
+    var start = new Date(el.getAttribute('data-date') + 'T00:00:00');
+    var end = new Date((el.getAttribute('data-end') || el.getAttribute('data-date')) + 'T23:59:59');
+    var diff = Math.ceil((start - now) / 86400000);
+    var meta = el.parentElement.querySelector('.emeta');
+    if(!meta) return;
+    var chip = document.createElement('span');
+    chip.className = 'ecount';
+    if(now > end){
+      chip.textContent = 'passed';
+      chip.classList.add('ec-past');
+      var card = el.closest('.ecard');
+      if(card) card.classList.add('event-past');
+    }
+    else if(diff <= 0){ chip.textContent = 'happening now'; chip.classList.add('ec-now'); }
+    else if(diff === 1){ chip.textContent = 'tomorrow'; chip.classList.add('ec-soon'); }
+    else { chip.textContent = diff + ' days'; if(diff <= 14) chip.classList.add('ec-soon'); }
+    meta.appendChild(chip);
+  });
+
+  // checklist overdue flags
+  document.querySelectorAll('.crow .cw[data-date]').forEach(function(el){
+    if(new Date(el.getAttribute('data-date') + 'T23:59:59') < now){
+      el.textContent = 'Overdue';
+      el.closest('.crow').classList.add('late');
+    }
   });
 
   // nav active state on scroll
@@ -677,6 +748,41 @@ footer strong{color:var(--gold-soft)}
     save(); render();
   }
 
+  // status popover — tap a pill, choose a state directly
+  var pop = document.createElement('div');
+  pop.className = 'status-pop';
+  pop.setAttribute('role', 'menu');
+  document.body.appendChild(pop);
+  var popFor = null;
+  function closePop(){ pop.style.display = 'none'; popFor = null; }
+  function openPop(pill){
+    popFor = pill.getAttribute('data-track');
+    pop.innerHTML = '';
+    ORDER.forEach(function(sname){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = LABELS[sname];
+      if(st(popFor) === sname) b.className = 'cur';
+      b.addEventListener('click', function(e){
+        e.stopPropagation();
+        store.s[popFor] = sname;
+        save(); render(); closePop();
+      });
+      pop.appendChild(b);
+    });
+    pop.style.display = 'block';
+    var r = pill.getBoundingClientRect();
+    var left = r.left + window.scrollX;
+    var maxLeft = window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 10;
+    pop.style.left = Math.min(left, maxLeft) + 'px';
+    pop.style.top = (r.bottom + window.scrollY + 6) + 'px';
+  }
+  document.addEventListener('click', function(e){
+    if(pop.style.display === 'block' && !pop.contains(e.target)) closePop();
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePop(); });
+  window.addEventListener('scroll', function(){ if(pop.style.display === 'block') closePop(); }, {passive:true});
+
   function addPill(card, titleSel, host){
     var t = card.querySelector(titleSel);
     if(!t) return;
@@ -685,11 +791,13 @@ footer strong{color:var(--gold-soft)}
     pill.setAttribute('data-track', slug(t.textContent));
     pill.setAttribute('role', 'button');
     pill.tabIndex = 0;
-    pill.title = 'Click to change status · shift-click to step back';
+    pill.title = 'Click to choose status · shift-click steps back';
     (host || card).appendChild(pill);
     function act(e){
       e.preventDefault(); e.stopPropagation();
-      step(pill.getAttribute('data-track'), e.shiftKey ? -1 : 1);
+      if(e.shiftKey){ step(pill.getAttribute('data-track'), -1); return; }
+      if(popFor === pill.getAttribute('data-track') && pop.style.display === 'block'){ closePop(); return; }
+      openPop(pill);
     }
     pill.addEventListener('click', act);
     pill.addEventListener('keydown', function(e){
@@ -712,6 +820,18 @@ footer strong{color:var(--gold-soft)}
     function toggleRow(){
       var id = row.getAttribute('data-task');
       store.t[id] = !store.t[id];
+      if(store.t[id]){
+        // ticking a task advances its linked opportunities (never backwards)
+        var links = row.getAttribute('data-links');
+        if(links){
+          links.split(',').forEach(function(pair){
+            var p = pair.trim().split(':');
+            if(p.length === 2 && ORDER.indexOf(p[1]) > ORDER.indexOf(st(p[0]))){
+              store.s[p[0]] = p[1];
+            }
+          });
+        }
+      }
       save(); render();
     }
     row.addEventListener('click', function(e){
@@ -760,6 +880,94 @@ footer strong{color:var(--gold-soft)}
       fchips[sname] = { chip: chip, cnt: cnt };
       filterBar.appendChild(chip);
     });
+  }
+
+  // backup / restore controls in the footer
+  var foot = document.querySelector('footer .wrap');
+  if(foot){
+    var tools = document.createElement('div');
+    tools.className = 'cc-tools';
+    var bBtn = document.createElement('button');
+    bBtn.type = 'button'; bBtn.className = 'cc-btn'; bBtn.textContent = 'Backup progress';
+    var rBtn = document.createElement('button');
+    rBtn.type = 'button'; rBtn.className = 'cc-btn'; rBtn.textContent = 'Restore';
+    bBtn.addEventListener('click', function(){
+      var json = JSON.stringify(store);
+      function okFlash(){ bBtn.textContent = 'Copied ✓'; setTimeout(function(){ bBtn.textContent = 'Backup progress'; }, 2000); }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(json).then(okFlash, function(){ window.prompt('Copy this backup text:', json); });
+      } else { window.prompt('Copy this backup text:', json); }
+    });
+    rBtn.addEventListener('click', function(){
+      var txt = window.prompt('Paste a backup to restore:');
+      if(!txt) return;
+      try {
+        var obj = JSON.parse(txt);
+        if(!obj || typeof obj !== 'object') throw new Error('bad');
+        store.s = obj.s || {}; store.t = obj.t || {}; store.f = obj.f || {};
+        save(); render();
+        rBtn.textContent = 'Restored ✓';
+        setTimeout(function(){ rBtn.textContent = 'Restore'; }, 2000);
+      } catch(err){ alert('That did not look like a valid backup.'); }
+    });
+    tools.appendChild(bBtn); tools.appendChild(rBtn);
+    foot.appendChild(tools);
+  }
+
+  // today digest — open tasks + open urgent windows, soonest first
+  function buildToday(){
+    var list = document.getElementById('today-list');
+    var sub = document.getElementById('today-sub');
+    if(!list) return;
+    var items = [];
+    document.querySelectorAll('.crow[data-task]').forEach(function(row){
+      if(store.t[row.getAttribute('data-task')]) return;
+      var cw = row.querySelector('.cw');
+      items.push({ kind: 'Task', title: row.querySelector('.ct').textContent, date: cw ? cw.getAttribute('data-date') : null, el: row });
+    });
+    document.querySelectorAll('#urgent .ucard').forEach(function(card){
+      var pill = card.querySelector('.track');
+      var s = pill ? st(pill.getAttribute('data-track')) : 'todo';
+      if(s === 'submitted' || s === 'confirmed' || s === 'passed') return;
+      var days = card.querySelector('.days');
+      items.push({ kind: 'Apply', title: card.querySelector('h3').textContent, date: days ? days.getAttribute('data-date') : null, el: card });
+    });
+    items.sort(function(a, b){ return (a.date || '9999').localeCompare(b.date || '9999'); });
+    var top = items.slice(0, 5);
+    var nowD = new Date();
+    list.innerHTML = '';
+    top.forEach(function(it){
+      var div = document.createElement('div');
+      div.className = 'titem';
+      div.setAttribute('role', 'link');
+      div.tabIndex = 0;
+      var kindEl = document.createElement('span'); kindEl.className = 'tk'; kindEl.textContent = it.kind;
+      var tEl = document.createElement('span'); tEl.className = 'tt'; tEl.textContent = it.title.trim();
+      var dEl = document.createElement('span'); dEl.className = 'td';
+      if(it.date){
+        var due = new Date(it.date + 'T23:59:59');
+        var dd = Math.ceil((new Date(it.date + 'T00:00:00') - nowD) / 86400000);
+        if(nowD > due){ dEl.textContent = 'overdue'; dEl.classList.add('due-over'); }
+        else if(dd <= 0){ dEl.textContent = 'today'; dEl.classList.add('due-soon'); }
+        else if(dd === 1){ dEl.textContent = 'tomorrow'; dEl.classList.add('due-soon'); }
+        else { dEl.textContent = dd + ' days'; if(dd <= 7) dEl.classList.add('due-soon'); }
+      }
+      div.appendChild(kindEl); div.appendChild(tEl); div.appendChild(dEl);
+      function go(){
+        it.el.scrollIntoView({behavior: 'smooth', block: 'center'});
+        it.el.classList.add('flash');
+        setTimeout(function(){ it.el.classList.remove('flash'); }, 1700);
+      }
+      div.addEventListener('click', go);
+      div.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ go(); } });
+      list.appendChild(div);
+    });
+    if(!items.length){
+      list.innerHTML = '<div class="titem" style="cursor:default"><span class="tt">All clear — nothing urgent on the board.</span></div>';
+      sub.textContent = '';
+    } else {
+      sub.textContent = items.length + ' open · showing ' + top.length;
+    }
   }
 
   function render(){
@@ -832,6 +1040,8 @@ footer strong{color:var(--gold-soft)}
     if(nums[0]) nums[0].textContent = uOpen;
     if(nums[1]) nums[1].textContent = eOpen;
     if(nums[2]) nums[2].textContent = pOpen;
+
+    buildToday();
   }
   render();
 })();
