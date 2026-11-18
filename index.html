@@ -267,6 +267,15 @@ nav .wrap.has-overflow::after{content:"";position:absolute;right:0;top:0;bottom:
 details.archive summary{cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--forest);padding:12px 0;list-style-position:inside}
 details.archive summary:hover{color:var(--brick)}
 details.archive .archive-list{margin-top:10px}
+.archive-list .ucard{margin-bottom:12px;opacity:.6}
+.xlist{background:var(--paper);border:1px solid var(--line);margin-top:10px}
+.xrow{display:flex;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);font-size:13px;color:#48534B}
+.xrow:last-child{border-bottom:none}
+.xrow .xt{flex:1;font-weight:600;color:var(--forest-deep)}
+.xrow .xs{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;align-self:center}
+.xrow .xs.done{background:#DCE5DA;color:var(--forest)}
+.xrow .xs.missed{background:#F1DAD2;color:var(--brick)}
+.empty-note{background:var(--paper);border:1px dashed var(--line);padding:16px 18px;font-size:13.5px;color:var(--sage)}
 footer{margin-top:56px;background:var(--forest-deep);color:#9FAB9D;padding:26px 0;font-size:12px}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 footer strong{color:var(--gold-soft)}
@@ -291,7 +300,7 @@ footer strong{color:var(--gold-soft)}
   </div>
   <div class="wrap"><div class="statrow">
     <div class="stat"><div class="n">4</div><div class="l">Urgent actions this week</div></div>
-    <div class="stat"><div class="n">7</div><div class="l">Events · Nov 2026 – Apr 2027</div></div>
+    <div class="stat"><div class="n">7</div><div class="l">Upcoming events</div></div>
     <div class="stat"><div class="n">12</div><div class="l">Priority podcasts</div></div>
     <div class="stat"><div class="n">2</div><div class="l">Speaker bureaus live</div></div>
     <div class="stat"><div class="n">12</div><div class="l">Book influencers to reach</div></div>
@@ -307,7 +316,7 @@ footer strong{color:var(--gold-soft)}
   <a href="#speaking">Speaking</a>
   <a href="#publishing">Publishing Pipeline</a>
   <a href="#checklist">This Week's Checklist</a>
-  <a href="#archive">2026 Archive</a>
+  <a href="#archive">Archive</a>
 </div></div></nav>
 
 <!-- ============ TODAY DIGEST ============ -->
@@ -362,7 +371,7 @@ footer strong{color:var(--gold-soft)}
 
 <!-- ============ EVENTS ============ -->
 <section id="events"><div class="wrap">
-  <div class="shead"><h2>Events & Festivals</h2><div class="sub">Live and upcoming · November 2026 – April 2027</div></div>
+  <div class="shead"><h2>Events & Festivals</h2><div class="sub">Live and upcoming · past dates move to the Archive automatically</div></div>
   <div class="rule"></div>
 
   <div class="mhead"><span class="mname">November 2026</span><span class="mcount">1 event · happening now</span></div>
@@ -404,7 +413,7 @@ footer strong{color:var(--gold-soft)}
     <div class="ebody">Presenting-author nominations for this cycle have closed (last cycle they ran May 15–Sep 1), and exhibitor booths opened Sept 8 and usually fill by mid-November. Only worth it if PRH already has a slot. Put the <strong>2028 nomination window</strong> on the calendar instead.</div>
   </div>
 
-  <div class="ecard">
+  <div class="ecard" data-expire="2027-03-31">
     <div class="ehead">
       <div class="edate">Mar · TBA</div>
       <div class="emain">
@@ -444,7 +453,7 @@ footer strong{color:var(--gold-soft)}
 
   <div class="mhead"><span class="mname">Spring 2027</span><span class="mcount">dates TBA</span></div>
 
-  <div class="ecard">
+  <div class="ecard" data-expire="2027-06-30">
     <div class="ehead">
       <div class="edate">Spring · TBA</div>
       <div class="emain">
@@ -738,7 +747,7 @@ footer strong{color:var(--gold-soft)}
 
 <!-- ============ CHECKLIST ============ -->
 <section id="checklist"><div class="wrap">
-  <div class="shead"><h2>This Week's Checklist</h2><div class="sub">Ordered by deadline pressure — week of November 16</div></div>
+  <div class="shead"><h2>This Week's Checklist</h2><div class="sub">Ordered by deadline pressure — <span id="week-label">week of November 16</span></div></div>
   <div class="rule"></div>
 
   <div class="check">
@@ -804,7 +813,7 @@ footer strong{color:var(--gold-soft)}
 
 <!-- ============ 2026 ARCHIVE ============ -->
 <section id="archive"><div class="wrap">
-  <div class="shead"><h2>2026 Archive</h2><div class="sub">The July–November season · record how each one went</div></div>
+  <div class="shead"><h2>Archive</h2><div class="sub">Everything whose date has passed · record how each one went</div></div>
   <div class="rule"></div>
 
   <div class="mnote"><b>Next cycle — windows to calendar now.</b> Based on the 2026 cycle; confirm each one in spring.</div>
@@ -816,7 +825,7 @@ footer strong{color:var(--gold-soft)}
   </div>
 
   <details class="archive">
-    <summary>Show the 11 archived 2026 events</summary>
+    <summary id="archive-summary">Show the 11 archived items</summary>
     <div class="archive-list">
   <div class="ecard">
     <div class="ehead">
@@ -946,9 +955,120 @@ footer strong{color:var(--gold-soft)}
 
 <footer><div class="wrap">
   <div><strong>Jarrett Adams — Opportunity Portal</strong> · refreshed November 17, 2026 · dates checked against festival sites; anything marked TBA or "confirm" still needs checking</div>
-  <div>2026 season archived · next refresh: early January</div>
+  <div>Past dates move to the Archive automatically each day · next content refresh: early January</div>
 </div></footer>
 
+<script>
+/* Auto-expiry: runs on every page load (and again after midnight if the tab
+   stays open). Anything whose date has fully passed leaves the live sections
+   and moves into the collapsed Archive, so the front of the portal only ever
+   shows what is still actionable. Nothing is deleted. */
+(function(){
+  var now = new Date();
+  function endOfDay(iso){ return new Date(iso + 'T23:59:59'); }
+  function slug(s){ return s.toLowerCase().replace(/[^a-z0-9 ]+/g,'').trim().split(/\s+/).slice(0,3).join('-'); }
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem('jarrett-command-center') || '{}'); } catch(e) {}
+  var ticks = store.t || {};
+
+  var list = document.querySelector('#archive .archive-list');
+  function cardDate(el){
+    var d = el.querySelector('[data-date]');
+    return d ? d.getAttribute('data-date') : '9999-12-31';
+  }
+  function cardEnd(el){
+    if(el.getAttribute('data-expire')) return el.getAttribute('data-expire');
+    var d = el.querySelector('[data-date]');
+    if(!d) return null;
+    return d.getAttribute('data-end') || d.getAttribute('data-date');
+  }
+
+  // 1. Events: move finished ones to the archive
+  var eventSlugs = {};
+  document.querySelectorAll('.ecard .etitle').forEach(function(t){ eventSlugs[slug(t.textContent)] = 1; });
+  document.querySelectorAll('#events .ecard').forEach(function(card){
+    var end = cardEnd(card);
+    if(end && endOfDay(end) < now && list) list.appendChild(card);
+  });
+
+  // 2. Act Now: finished windows leave; archive only if no matching event card
+  document.querySelectorAll('#urgent .ucard').forEach(function(card){
+    var end = cardEnd(card);
+    if(!end || endOfDay(end) >= now) return;
+    var h = card.querySelector('h3');
+    if(h && eventSlugs[slug(h.textContent)]) { card.parentNode.removeChild(card); }
+    else if(list) { list.appendChild(card); }
+  });
+
+  // 3. Checklist: past-due rows leave the list and are recorded as done or missed
+  var past = [];
+  document.querySelectorAll('#checklist .crow').forEach(function(row){
+    var cw = row.querySelector('.cw[data-date]');
+    if(!cw || endOfDay(cw.getAttribute('data-date')) >= now) return;
+    var title = row.querySelector('.ct').textContent;
+    past.push({ title: title, date: cw.getAttribute('data-date'), done: !!ticks[slug(title)] });
+    row.parentNode.removeChild(row);
+  });
+  document.querySelectorAll('#checklist .crow .num').forEach(function(n, i){ n.textContent = i + 1; });
+
+  // empty states
+  var ugrid = document.querySelector('#urgent .urgent-grid');
+  if(ugrid && !ugrid.querySelector('.ucard')){
+    ugrid.outerHTML = '<div class="empty-note">Nothing with a closing window right now. Check Events &amp; Festivals for what\'s next.</div>';
+  }
+  var check = document.querySelector('#checklist .check');
+  if(check && !check.querySelector('.crow')){
+    check.outerHTML = '<div class="empty-note">This week\'s list is clear. Time to plan the next batch of tasks.</div>';
+  }
+  document.querySelectorAll('#events .mhead').forEach(function(mh){
+    var sib = mh.nextElementSibling, any = false;
+    while(sib && !sib.classList.contains('mhead')){ if(sib.classList.contains('ecard')){ any = true; break; } sib = sib.nextElementSibling; }
+    if(!any) mh.parentNode.removeChild(mh);
+  });
+  document.querySelectorAll('#events .mhead').forEach(function(mh){
+    var n = 0, sib = mh.nextElementSibling;
+    while(sib && !sib.classList.contains('mhead')){ if(sib.classList.contains('ecard')) n++; sib = sib.nextElementSibling; }
+    var c = mh.querySelector('.mcount');
+    var m = c && c.textContent.match(/^(\d+) event/);
+    if(m && +m[1] !== n) c.textContent = n + (n === 1 ? ' event' : ' events');
+  });
+
+  // 4. Keep the archive in date order (newest first) and its label current
+  if(list){
+    var items = Array.prototype.slice.call(list.children);
+    items.sort(function(a, b){ return cardDate(b).localeCompare(cardDate(a)); });
+    items.forEach(function(el){ list.appendChild(el); });
+    if(past.length){
+      past.sort(function(a, b){ return b.date.localeCompare(a.date); });
+      var wrap = document.createElement('div');
+      wrap.innerHTML = '<div class="mnote"><b>Past checklist items.</b> Removed from the weekly list once their date passed.</div>';
+      var xl = document.createElement('div'); xl.className = 'xlist';
+      past.forEach(function(p){
+        var r = document.createElement('div'); r.className = 'xrow';
+        var t = document.createElement('span'); t.className = 'xt'; t.textContent = p.title;
+        var d = document.createElement('span'); d.textContent = new Date(p.date + 'T12:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric'});
+        var s = document.createElement('span'); s.className = 'xs ' + (p.done ? 'done' : 'missed'); s.textContent = p.done ? 'Done' : 'Not ticked';
+        r.appendChild(t); r.appendChild(d); r.appendChild(s); xl.appendChild(r);
+      });
+      wrap.appendChild(xl);
+      list.parentNode.appendChild(wrap);
+    }
+    var sum = document.getElementById('archive-summary');
+    if(sum) sum.textContent = 'Show the ' + list.children.length + ' archived items';
+  }
+
+  // 5. "Week of" label for the checklist
+  var wl = document.getElementById('week-label');
+  if(wl){
+    var mon = new Date(now); mon.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+    wl.textContent = 'week of ' + mon.toLocaleDateString('en-US', {month:'long', day:'numeric'});
+  }
+
+  // 6. If the page is left open overnight, reload just after midnight
+  var next = new Date(now); next.setHours(24, 1, 0, 0);
+  setTimeout(function(){ location.reload(); }, next - now);
+})();
+</script>
 <script>
 (function(){
   var now = new Date();
