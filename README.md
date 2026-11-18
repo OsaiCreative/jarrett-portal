@@ -38,5 +38,5 @@ passwords from one network, sign-in pauses for 15 minutes.
 ## Daily auto-expiry
 
 Every time the page opens (and just after midnight if left open), anything
-whose date has passed leaves the live sections and moves into the Archive.
-Nothing is deleted.
+whose date has passed — events, Act Now cards, checklist tasks — is removed
+from the page. To bring something back, give it a new date in index.html.
