@@ -276,6 +276,15 @@ details.archive .archive-list{margin-top:10px}
 .xrow .xs.done{background:#DCE5DA;color:var(--forest)}
 .xrow .xs.missed{background:#F1DAD2;color:var(--brick)}
 .empty-note{background:var(--paper);border:1px dashed var(--line);padding:16px 18px;font-size:13.5px;color:var(--sage)}
+.cc-hint a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid rgba(201,169,89,.4)}
+.cc-hint a:hover{color:#fff}
+.cc-hint .sync-bad{color:#F09595}
+.today-activity{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.14)}
+.today-activity .ta-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9FAB9D;margin-bottom:6px}
+.today-activity .ta-item{font-size:12.5px;color:#B7C0B5;padding:3px 0;line-height:1.45}
+.today-activity .ta-item b{color:#E9E4D5;font-weight:600}
+.today-activity .ta-item .ta-when{color:#7F8C7F;margin-left:6px;font-size:11px}
+a.cc-btn{text-decoration:none;display:inline-block}
 footer{margin-top:56px;background:var(--forest-deep);color:#9FAB9D;padding:26px 0;font-size:12px}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 footer strong{color:var(--gold-soft)}
@@ -1044,7 +1053,7 @@ footer strong{color:var(--gold-soft)}
       wrap.innerHTML = '<div class="mnote"><b>Past checklist items.</b> Removed from the weekly list once their date passed.</div>';
       var xl = document.createElement('div'); xl.className = 'xlist';
       past.forEach(function(p){
-        var r = document.createElement('div'); r.className = 'xrow';
+        var r = document.createElement('div'); r.className = 'xrow'; r.setAttribute('data-tid', slug(p.title));
         var t = document.createElement('span'); t.className = 'xt'; t.textContent = p.title;
         var d = document.createElement('span'); d.textContent = new Date(p.date + 'T12:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric'});
         var s = document.createElement('span'); s.className = 'xs ' + (p.done ? 'done' : 'missed'); s.textContent = p.done ? 'Done' : 'Not ticked';
@@ -1158,6 +1167,60 @@ footer strong{color:var(--gold-soft)}
   store.f = store.f || {};  // status filter visibility (false = hidden)
   function save(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} }
 
+  // ---- shared progress: statuses + ticks live on the server so the whole team
+  // sees the same board. Filters stay personal (this browser only).
+  var localBefore = { s: JSON.parse(JSON.stringify(store.s)), t: JSON.parse(JSON.stringify(store.t)) };
+  var shared = { on: false, me: null, meta: {}, log: [], error: false };
+  var labelOf = {};
+  function adopt(d){
+    store.s = d.s || {}; store.t = d.t || {};
+    shared.meta = d.meta || {}; shared.log = d.log || []; shared.me = d.me || null;
+    shared.on = true; shared.error = false;
+    save();
+  }
+  function api(method, url, body){
+    var opts = { method: method, credentials: 'same-origin', cache: 'no-store', headers: {} };
+    if(body){ opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+    return fetch(url, opts).then(function(r){
+      if(r.status === 401){ location.href = '/login'; throw new Error('signed out'); }
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    });
+  }
+  function pull(){
+    if(location.protocol === 'file:') return Promise.reject(new Error('offline file'));
+    return api('GET', '/api/state').then(function(d){ adopt(d); render(); updateHint(); return d; });
+  }
+  function commit(kind, id, value){
+    if(kind === 't' && !value) delete store.t[id]; else store[kind][id] = value;
+    save(); render();
+    if(!shared.on) return;
+    api('POST', '/api/update', { kind: kind, id: id, value: value, label: labelOf[id] || id })
+      .then(function(d){ adopt(d); render(); updateHint(); })
+      .catch(function(err){ if(String(err.message) !== 'signed out'){ shared.error = true; updateHint(); } });
+  }
+  function migrate(){
+    // one-time: upload progress this browser saved before the portal went shared
+    var FLAG = 'jarrett-command-center-migrated';
+    try { if(localStorage.getItem(FLAG)) return; } catch(e) { return; }
+    var s = {}, t = {}, labels = {}, any = false;
+    Object.keys(localBefore.s).forEach(function(id){ if(localBefore.s[id] && localBefore.s[id] !== 'todo'){ s[id] = localBefore.s[id]; labels[id] = labelOf[id] || id; any = true; } });
+    Object.keys(localBefore.t).forEach(function(id){ if(localBefore.t[id]){ t[id] = true; labels[id] = labelOf[id] || id; any = true; } });
+    var done = function(){ try { localStorage.setItem(FLAG, '1'); } catch(e) {} };
+    if(!any){ done(); return; }
+    api('POST', '/api/merge', { s: s, t: t, labels: labels }).then(function(d){ done(); adopt(d); render(); updateHint(); }).catch(function(){});
+  }
+  function ago(iso){
+    var m = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+    if(m < 1) return 'just now';
+    if(m < 60) return m + 'm ago';
+    var h = Math.round(m / 60);
+    if(h < 24) return h + 'h ago';
+    var d = Math.round(h / 24);
+    if(d < 7) return d + 'd ago';
+    return new Date(iso).toLocaleDateString('en-US', {month:'short', day:'numeric'});
+  }
+
   var ORDER = ['todo','working','submitted','confirmed','passed'];
   var LABELS = {todo:'○ To do', working:'◐ In progress', submitted:'↗ Submitted', confirmed:'✓ Confirmed', passed:'— Passed'};
 
@@ -1168,8 +1231,7 @@ footer strong{color:var(--gold-soft)}
   function st(id){ return store.s[id] || 'todo'; }
   function step(id, dir){
     var i = (ORDER.indexOf(st(id)) + dir + ORDER.length) % ORDER.length;
-    store.s[id] = ORDER[i];
-    save(); render();
+    commit('s', id, ORDER[i]);
   }
 
   // status popover — tap a pill, choose a state directly
@@ -1189,8 +1251,9 @@ footer strong{color:var(--gold-soft)}
       if(st(popFor) === sname) b.className = 'cur';
       b.addEventListener('click', function(e){
         e.stopPropagation();
-        store.s[popFor] = sname;
-        save(); render(); closePop();
+        var target = popFor;
+        closePop();
+        commit('s', target, sname);
       });
       pop.appendChild(b);
     });
@@ -1213,6 +1276,7 @@ footer strong{color:var(--gold-soft)}
     var pill = document.createElement('span');
     pill.className = 'track';
     pill.setAttribute('data-track', slug(t.textContent));
+    labelOf[slug(t.textContent)] = t.textContent.replace(/\s+/g, ' ').trim();
     pill.setAttribute('role', 'button');
     pill.tabIndex = 0;
     pill.title = 'Click to choose status · shift-click steps back';
@@ -1236,6 +1300,7 @@ footer strong{color:var(--gold-soft)}
     var ct = row.querySelector('.ct');
     if(!ct) return;
     row.setAttribute('data-task', slug(ct.textContent));
+    labelOf[slug(ct.textContent)] = ct.textContent.replace(/\s+/g, ' ').trim();
     row.setAttribute('role', 'checkbox');
     row.tabIndex = 0;
     var tick = document.createElement('div');
@@ -1243,20 +1308,20 @@ footer strong{color:var(--gold-soft)}
     row.insertBefore(tick, row.firstChild);
     function toggleRow(){
       var id = row.getAttribute('data-task');
-      store.t[id] = !store.t[id];
-      if(store.t[id]){
+      var nv = !store.t[id];
+      commit('t', id, nv);
+      if(nv){
         // ticking a task advances its linked opportunities (never backwards)
         var links = row.getAttribute('data-links');
         if(links){
           links.split(',').forEach(function(pair){
             var p = pair.trim().split(':');
             if(p.length === 2 && ORDER.indexOf(p[1]) > ORDER.indexOf(st(p[0]))){
-              store.s[p[0]] = p[1];
+              commit('s', p[0], p[1]);
             }
           });
         }
       }
-      save(); render();
     }
     row.addEventListener('click', function(e){
       if(e.target.closest('a') || e.target.closest('.track')) return;
@@ -1274,6 +1339,19 @@ footer strong{color:var(--gold-soft)}
     hint.className = 'cc-hint';
     hint.textContent = 'Tap any status pill to update it · progress saves in this browser only';
     asof.appendChild(hint);
+  }
+  function updateHint(){
+    if(!hint) return;
+    if(!shared.on){ hint.textContent = 'Tap any status pill to update it · progress saves in this browser only'; return; }
+    hint.innerHTML = '';
+    hint.appendChild(document.createTextNode('Signed in as ' + (shared.me ? shared.me.name : '') + ' · progress is shared with the team · '));
+    var out = document.createElement('a'); out.href = '/logout'; out.textContent = 'Sign out';
+    hint.appendChild(out);
+    if(shared.error){
+      var bad = document.createElement('div'); bad.className = 'sync-bad';
+      bad.textContent = 'Last change didn\'t save — check your connection and try again.';
+      hint.appendChild(bad);
+    }
   }
   var csub = document.querySelector('#checklist .shead .sub');
   var prog = document.createElement('strong');
@@ -1336,6 +1414,12 @@ footer strong{color:var(--gold-soft)}
     });
     tools.appendChild(bBtn); tools.appendChild(rBtn);
     foot.appendChild(tools);
+  }
+  function updateTools(){
+    if(!foot || !shared.on || foot.querySelector('a.cc-btn')) return;
+    var dl = document.createElement('a');
+    dl.className = 'cc-btn'; dl.href = '/api/export'; dl.textContent = 'Download progress';
+    tools.innerHTML = ''; tools.appendChild(dl);
   }
 
   // today digest — open tasks + open urgent windows, soonest first
@@ -1405,6 +1489,8 @@ footer strong{color:var(--gold-soft)}
       uniq[id] = s;
       el.setAttribute('data-s', s);
       el.textContent = LABELS[s];
+      var mt = shared.meta['s:' + id];
+      el.title = mt ? (LABELS[s].replace(/^[^a-zA-Z]+/, '') + ' · set by ' + mt.by + ' ' + ago(mt.at)) : 'Click to choose status · shift-click steps back';
       el.setAttribute('aria-label', 'Status: ' + LABELS[s].replace(/^[^a-zA-Z]+/, '') + '. Activate to change.');
       var card = el.closest('.ucard,.ecard,.pcard');
       if(card){
@@ -1474,9 +1560,39 @@ footer strong{color:var(--gold-soft)}
     if(nums[2]) nums[2].textContent = pOpen;
     if(nums[4]) nums[4].textContent = iOpen;
 
+    document.querySelectorAll('.xrow[data-tid]').forEach(function(r){
+      var x = r.querySelector('.xs'); var d = !!store.t[r.getAttribute('data-tid')];
+      if(x){ x.className = 'xs ' + (d ? 'done' : 'missed'); x.textContent = d ? 'Done' : 'Not ticked'; }
+    });
     buildToday();
+    buildActivity();
+    updateTools();
   }
+
+  function buildActivity(){
+    var box = document.querySelector('.today-box');
+    if(!box) return;
+    var act = box.querySelector('.today-activity');
+    if(!shared.on || !shared.log.length){ if(act) act.remove(); return; }
+    if(!act){ act = document.createElement('div'); act.className = 'today-activity'; box.appendChild(act); }
+    act.innerHTML = '<div class="ta-head">Latest updates</div>';
+    shared.log.slice(0, 4).forEach(function(e){
+      var line = document.createElement('div'); line.className = 'ta-item';
+      var who = document.createElement('b'); who.textContent = e.by;
+      var what;
+      if(e.kind === 't') what = (e.value ? ' ticked ' : ' unticked ') + '“' + e.label + '”';
+      else what = ' set “' + e.label + '” to ' + (LABELS[e.value] || e.value).replace(/^[^a-zA-Z]+/, '');
+      if(e.imported) what += ' (carried over from their browser)';
+      var when = document.createElement('span'); when.className = 'ta-when'; when.textContent = ago(e.at);
+      line.appendChild(who); line.appendChild(document.createTextNode(what)); line.appendChild(when);
+      act.appendChild(line);
+    });
+  }
+
   render();
+  pull().then(migrate).catch(function(){ /* opened as a local file: stays in browser-only mode */ });
+  setInterval(function(){ if(document.visibilityState === 'visible' && shared.on) pull().catch(function(){}); }, 60000);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'visible' && shared.on) pull().catch(function(){}); });
 })();
 </script>
 </body>

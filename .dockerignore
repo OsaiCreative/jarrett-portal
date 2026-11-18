@@ -1,3 +1,7 @@
 .git
 Dockerfile
 .dockerignore
+.DS_Store
+node_modules
+data
+*.md
