@@ -4,1381 +4,1430 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Jarrett Adams — Opportunity Portal</title>
+<title>Jarrett Adams | Opportunity portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --parchment:#F4EDDE;
-  --paper:#FBF7EE;
+  --parchment:#F4EDDE;  /* page */
+  --paper:#FCF9F2;      /* lists and panels */
   --ink:#1B241E;
   --forest:#24402F;
-  --forest-deep:#16281D;
+  --forest-deep:#18291F;
   --gold:#A98736;
-  --gold-soft:#C9A959;
+  --gold-soft:#D3B66C;
+  --gold-ink:#7E6420;
   --brick:#A3402A;
   --sage:#5E6E5B;
-  --gold-ink:#8A6D24;
-  --line:#D8CDB4;
-  --shadow:0 2px 10px rgba(27,36,30,.08);
+  --divider:#EEE5D2;
+  --hover:#F7F1E4;
+  --lift:0 1px 2px rgba(70,55,20,.05), 0 10px 28px rgba(70,55,20,.07);
+  --serif:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans:'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Archivo',sans-serif;background:var(--parchment);color:var(--ink);line-height:1.55;font-size:15px}
-a{color:var(--forest)}
-.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:130px}
+body{margin:0;background:var(--parchment);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+a{color:var(--forest);text-decoration-thickness:1px;text-underline-offset:3px}
+p{margin:0}
+:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 26px}
 
-/* ---------- Masthead ---------- */
-header{background:var(--forest-deep);color:var(--parchment);padding:44px 0 0;position:relative;overflow:hidden}
-header::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-soft),var(--gold))}
-.masthead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:30px}
-.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:10px}
-h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(34px,5vw,52px);line-height:1.05;color:#fff}
-h1 em{font-style:italic;color:var(--gold-soft)}
-.asof{text-align:right;font-size:12px;color:#C7CEC5}
-.asof strong{display:block;font-size:15px;color:#fff;font-weight:600}
-.statrow{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap}
-.stat{flex:1;min-width:150px;padding:16px 18px;border-right:1px solid rgba(255,255,255,.14)}
-.stat:last-child{border-right:none}
-.stat .n{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--gold-soft);line-height:1}
-.stat .l{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#B7C0B5;margin-top:4px}
+/* ---------- header ---------- */
+.top{position:sticky;top:0;z-index:30;background:var(--forest-deep);box-shadow:0 6px 24px rgba(24,41,31,.18)}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:18px}
+.brand{margin:0;white-space:nowrap;font-family:var(--serif);font-weight:600;font-size:28px;line-height:1.1;color:#fff}
+.brand span{font-family:var(--sans);font-weight:500;font-size:13.5px;color:var(--gold-soft);margin-left:12px}
+.account{display:flex;gap:14px;align-items:center;font-size:13.5px;color:#C2CBC0;text-align:right}
+.account a{color:#C2CBC0}
+.account a:hover{color:#fff}
+.account .bad{color:#F0A08C}
+.tabs{display:flex;gap:4px;margin:12px 0 0 -12px;padding-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{appearance:none;background:none;border:0;border-radius:999px;padding:8px 14px;font:600 14.5px var(--sans);color:#C2CBC0;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
+.tab:hover{color:#fff;background:rgba(255,255,255,.06)}
+.tab[aria-selected="true"]{color:var(--forest-deep);background:var(--gold-soft)}
+.tab .n{margin-left:6px;font-weight:500;opacity:.7}
 
-/* ---------- Nav ---------- */
-nav{position:sticky;top:0;z-index:50;background:var(--forest);box-shadow:0 2px 12px rgba(0,0,0,.18)}
-.tabs{display:flex;overflow-x:auto}
-.tabs a{flex:0 0 auto;padding:14px 20px;color:#D9DFD6;text-decoration:none;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap}
-.tabs a:hover,.tabs a.active{color:#fff;border-bottom-color:var(--gold-soft)}
+/* ---------- layout ---------- */
+main.wrap{padding-top:30px;padding-bottom:30px}
+.view[hidden]{display:none}
+.block{margin-bottom:44px}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 0 14px}
+.sh h2{margin:0;font-family:var(--serif);font-weight:600;font-size:31px;line-height:1.15;color:var(--forest-deep)}
+.sh h3{margin:0;font-family:var(--serif);font-weight:600;font-size:22px;line-height:1.2;color:var(--forest-deep)}
+.sh .aside{font-size:13px;color:var(--sage);white-space:nowrap}
+.lede{color:var(--sage);font-size:14.5px;margin:-6px 0 18px;max-width:68ch}
+.lede em,.more em{font-style:italic}
 
-/* ---------- Sections ---------- */
-section{padding:52px 0 8px}
-.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
-.shead h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--forest-deep)}
-.shead .sub{font-size:12.5px;color:var(--sage);letter-spacing:.04em}
-.rule{height:1px;background:var(--line);margin:14px 0 26px;position:relative}
-.rule::before{content:"";position:absolute;left:0;top:-1px;width:64px;height:3px;background:var(--gold)}
+/* today */
+.hello{display:flex;justify-content:space-between;align-items:center;gap:28px;background:var(--forest-deep);color:#fff;border-radius:22px;padding:30px 30px 30px 36px;margin:0 0 40px;box-shadow:var(--lift)}
+.hello .date{color:var(--gold-soft);font-size:14px;font-weight:600;margin-bottom:10px}
+.hello h1{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.2vw,44px);line-height:1.1;color:#fff;max-width:26ch;text-wrap:balance}
+.nextup{flex:0 0 270px;background:rgba(255,255,255,.07);border-radius:16px;padding:16px 18px}
+.nextup[hidden]{display:none}
+.nextup .lbl{font-size:13px;font-weight:600;color:var(--gold-soft)}
+.nextup .nd{font-family:var(--serif);font-weight:700;font-size:24px;line-height:1.15;color:#fff;margin-top:4px;font-variant-numeric:lining-nums}
+.nextup .nt{font-size:14px;color:#D7DED4;margin-top:4px;line-height:1.4}
+.nextup .nr{font-size:13px;font-weight:600;color:#F0B48E;margin-top:6px}
 
-/* ---------- Urgency board ---------- */
-.urgent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:20px}
-.ucard{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--brick);padding:18px 20px;box-shadow:var(--shadow)}
-.ucard.gold{border-left-color:var(--gold)}
-.ucard h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;margin-bottom:4px}
-.ucard h3 a{text-decoration:none;color:var(--forest-deep)}
-.ucard h3 a:hover{color:var(--brick)}
-.ucard .act{font-size:13.5px;margin:8px 0 10px}
-.ucard .who{font-size:12px;color:var(--sage)}
-.badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:2px;margin-bottom:8px}
-.b-red{background:var(--brick);color:#fff}
-.b-gold{background:var(--gold);color:#fff}
-.b-green{background:var(--forest);color:#fff}
-.days{font-size:11px;font-weight:700;color:var(--brick);letter-spacing:.06em}
-.ucard.gold .days{color:var(--gold)}
+.home{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:36px;align-items:start}
 
-/* ---------- Event calendar ---------- */
-.mhead{display:flex;justify-content:space-between;align-items:baseline;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--forest)}
-.mhead .mname{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--forest-deep)}
-.mhead .mcount{font-size:11.5px;color:var(--sage);letter-spacing:.08em;text-transform:uppercase}
-.ecard{background:var(--paper);border:1px solid var(--line);margin-bottom:12px;box-shadow:var(--shadow)}
-.ehead{display:flex;gap:16px;padding:16px 18px;align-items:flex-start;flex-wrap:wrap}
-.edate{flex:0 0 74px;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--gold);line-height:1.15;padding-top:2px}
-.emain{flex:1;min-width:220px}
-.etitle{font-size:16.5px;font-weight:600}
-.etitle a{color:var(--forest-deep);text-decoration:none}
-.etitle a:hover{color:var(--brick);text-decoration:underline}
-.emeta{display:flex;gap:10px;align-items:center;margin-top:5px;flex-wrap:wrap}
-.eloc{font-size:12px;color:var(--sage)}
-.tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
-.t-fest{background:#E5DCC3;color:var(--forest)}
-.t-black{background:var(--forest);color:var(--gold-soft)}
-.t-hot{background:var(--gold);color:#fff}
-.t-local{background:#E0D0C6;color:var(--brick)}
-.sbadge{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:2px;align-self:center}
-.s-red{background:#F1DAD2;color:var(--brick)}
-.s-gold{background:#EFE3C2;color:#7d6320}
-.s-green{background:#DCE5DA;color:var(--forest)}
-.ebody{padding:0 18px 16px 108px;font-size:13.5px;color:#3A453D}
-.ebody strong{color:var(--forest-deep)}
-@media(max-width:640px){.ebody{padding-left:18px}}
+/* ---------- lists ---------- */
+.sheet{background:var(--paper);border-radius:18px;box-shadow:var(--lift);overflow:hidden}
+.row{border-top:1px solid var(--divider)}
+.row:first-child{border-top:0}
+.row[hidden]{display:none}
 
-/* ---------- Podcast tiers ---------- */
-.tier{margin-bottom:28px}
-.tier h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--forest-deep);margin-bottom:4px}
-.tier .tsub{font-size:12.5px;color:var(--sage);margin-bottom:14px}
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
-.pcard{background:var(--paper);border:1px solid var(--line);padding:14px 16px;box-shadow:var(--shadow)}
-.pcard .pname{font-weight:700;font-size:14.5px;color:var(--forest-deep)}
-.pcard .pwhy{font-size:12.5px;color:#48534B;margin-top:5px}
-.pcard .phook{font-size:11.5px;color:var(--gold-ink);margin-top:8px;font-weight:600;letter-spacing:.02em}
+.item{display:grid;grid-template-columns:104px minmax(0,1fr) auto;gap:4px 20px;align-items:start;padding:17px 20px}
+.item.nodate{grid-template-columns:minmax(0,1fr) auto}
+.when{font-family:var(--serif);font-weight:700;font-size:20px;line-height:1.15;color:var(--gold);font-variant-numeric:lining-nums tabular-nums}
+.when small{display:block;font-family:var(--sans);font-size:12.5px;font-weight:600;line-height:1.3;color:var(--sage);margin-top:5px}
+.when small.soon{color:var(--brick)}
+.when small.now{color:var(--forest)}
+.title{font-weight:600;font-size:15.5px;line-height:1.35;color:var(--forest-deep)}
+.title a{color:inherit;text-decoration:none}
+.title a:hover{text-decoration:underline}
+.meta{font-size:13.5px;color:var(--sage);margin-top:3px}
+.next{font-size:14.5px;color:#3A453D;margin-top:4px;max-width:60ch}
+.hook{font-size:13.5px;color:var(--gold-ink);font-weight:600;margin-top:3px}
+.verdict{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}
+.tag{display:inline-block;font-size:12px;font-weight:600;line-height:1.3;padding:4px 10px;border-radius:999px}
+.t-act{background:#F5DED5;color:#8E3622}
+.t-quiet{background:#ECE5D5;color:var(--sage)}
+.t-fest{background:#EFE6CF;color:#5D5233}
+.t-black{background:#DCE6DC;color:var(--forest)}
+.t-hot{background:#F2E4BF;color:var(--gold-ink)}
+.t-local{background:#F3E1DA;color:#8E3622}
+.ctl{justify-self:end}
 
-/* ---------- Do-not-pitch warning bar ---------- */
-.warnbar{display:flex;gap:11px;align-items:flex-start;background:#F7E9E4;border:1px solid #E0BFB4;border-left:4px solid var(--brick);padding:13px 16px;margin-bottom:22px;font-size:13px;line-height:1.5}
-.warnbar .wi{font-size:15px;line-height:1.3}
-.warnbar a{color:var(--brick);font-weight:700}
-.pcard.burned{background:#EFE8D8;opacity:.72}
-.pcard.burned .pname{color:#7C6F62;text-decoration:line-through;text-decoration-color:var(--brick);text-decoration-thickness:1.5px}
-.pcard.burned .pwhy{color:#6E7A72}
-.burntag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;border-radius:2px;margin-top:8px;background:var(--brick);color:#fff}
+details.row > summary{list-style:none;cursor:pointer;transition:background .15s}
+details.row > summary::-webkit-details-marker{display:none}
+details.row > summary:hover,details.row[open]{background:var(--hover)}
+details.row > summary .title::after{content:"";display:inline-block;width:6px;height:6px;margin:0 0 3px 10px;border-right:1.5px solid #BBA672;border-bottom:1.5px solid #BBA672;border-radius:1px;transform:rotate(45deg);transition:transform .15s}
+details.row[open] > summary .title::after{transform:rotate(225deg);margin-bottom:0}
+.more{padding:4px 20px 20px calc(20px + 104px + 20px);font-size:14.5px;color:#3A453D}
+.more > *{max-width:68ch}
+.more.nodate{padding-left:20px}
+.more p + p{margin-top:8px}
+.more strong{color:var(--forest-deep)}
+.more .k{font-weight:700;color:var(--gold-ink)}
+.note{font-size:13.5px;color:var(--sage);margin-top:6px;max-width:68ch}
+.is-passed .title,.is-passed .when{color:#A09B8C}
 
-/* ---------- Media history ledger ---------- */
-.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:10px}
-.mcard{background:#EFE8D8;border:1px solid var(--line);border-left:3px solid var(--sage);padding:12px 14px}
-.mcard.excl{border-left-color:var(--brick)}
-.mcard.rep{border-left-color:var(--gold)}
-.mcard .mname{font-weight:700;font-size:14px;color:#3E4B43;line-height:1.3}
-.mcard .mname a{color:#3E4B43;text-decoration:none;border-bottom:1px solid var(--line)}
-.mcard .mname a:hover{color:var(--brick)}
-.mcard .mmeta{font-size:11.5px;color:var(--sage);margin-top:5px}
-.mtag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;border-radius:2px;margin-top:8px}
-.t-excl{background:var(--brick);color:#fff}
-.t-rep{background:var(--gold);color:#fff}
-.t-out{background:var(--sage);color:#fff}
-.mnote{font-size:13px;color:#48534B;margin:26px 0 10px;padding-left:11px;border-left:2px solid var(--gold)}
-.mnote b{color:var(--forest-deep)}
-.mline{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
-.chip{background:#EFE8D8;border:1px solid var(--line);padding:5px 10px;font-size:12px;color:#4A5850}
+/* tasks */
+.task{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:2px 16px;align-items:start;padding:17px 20px;cursor:pointer;transition:background .15s}
+.task:hover{background:var(--hover)}
+.box{width:21px;height:21px;border:1.5px solid #CBBE9E;border-radius:7px;margin-top:1px;display:grid;place-items:center;background:#fff;transition:background .15s,border-color .15s}
+.box svg{width:11px;height:11px;opacity:0}
+.task.done .box{background:var(--forest);border-color:var(--forest)}
+.task.done .box svg{opacity:1}
+.task .t{font-weight:600;font-size:15px;color:var(--forest-deep);line-height:1.4}
+.task .d{font-size:14px;color:#525D55;margin-top:3px;max-width:62ch}
+.task.done .t{color:#A09B8C;text-decoration:line-through;text-decoration-thickness:1px}
+.task.done .d{display:none}
+.due{text-align:right;font-size:13px;color:var(--sage);white-space:nowrap;line-height:1.35}
+.due b{display:block;font-family:var(--serif);font-size:17px;font-weight:700;color:var(--gold);font-variant-numeric:lining-nums}
+.due .soon,.due .late{color:var(--brick);font-weight:600}
+.task.done .due{opacity:.5}
 
-/* ---------- Influencers ---------- */
-.icard .ihandle{font-size:11.5px;color:var(--gold-ink);font-weight:600;margin-top:4px;word-break:break-word}
-.icard .ireach{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-top:6px}
-.icard .iask{font-size:11.5px;color:var(--forest);margin-top:9px;padding-top:8px;border-top:1px dashed var(--line);line-height:1.45}
-.icard .iask b{color:var(--gold-ink);letter-spacing:.04em;text-transform:uppercase;font-size:10px}
+/* status pill */
+.status{appearance:none;display:inline-flex;align-items:center;gap:7px;border:0;background:#ECE5D5;border-radius:999px;padding:6px 13px 6px 11px;font:600 12.5px var(--sans);color:var(--forest);cursor:pointer;white-space:nowrap;transition:filter .15s}
+.status:hover{filter:brightness(.97)}
+.status i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.5;flex:none}
+.status[data-s="working"]{background:#F2E4BF;color:#6B5416}
+.status[data-s="submitted"]{background:#E0E8EE;color:#3F5B72}
+.status[data-s="confirmed"]{background:var(--forest);color:#fff}
+.status[data-s="confirmed"] i{opacity:1;background:var(--gold-soft)}
+.status[data-s="passed"]{background:#EEEAE0;color:#9A968A}
+.menu{position:absolute;z-index:60;min-width:200px;background:var(--paper);border-radius:16px;box-shadow:0 2px 6px rgba(70,55,20,.08), 0 18px 40px rgba(70,55,20,.16);padding:8px}
+.menu[hidden]{display:none}
+.menu button{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:9px 12px;border-radius:10px;font:500 14px var(--sans);color:var(--ink);text-align:left;cursor:pointer}
+.menu button:hover,.menu button:focus-visible{background:#F1E8D6;outline:none}
+.menu button[aria-checked="true"]{color:var(--forest-deep);font-weight:700}
+.menu button[aria-checked="true"]::after{content:"✓";margin-left:auto;color:var(--gold)}
+.menu button i{width:9px;height:9px;border-radius:50%;flex:none}
+.menu .by{font-size:12px;color:var(--sage);padding:8px 12px 4px}
 
-/* ---------- Speaking ---------- */
-.spk{background:var(--forest-deep);color:var(--parchment);padding:28px;margin-bottom:16px;position:relative}
-.spk::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
-.spk h3{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:8px}
-.spk p{font-size:14px;color:#D5DCD2;max-width:720px}
-.spk .btns{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
-.btn{display:inline-block;padding:9px 16px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:2px}
-.btn-g{background:var(--gold);color:#fff}
-.btn-o{border:1px solid var(--gold-soft);color:var(--gold-soft)}
-.btn-g:hover{background:var(--gold-soft)}
-.spkrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.spkcard{background:var(--paper);border:1px solid var(--line);padding:16px 18px}
-.spkcard .k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);margin-bottom:6px}
-.spkcard .v{font-size:14px;font-weight:600;color:var(--forest-deep)}
+/* side panels */
+.panel{background:var(--paper);border-radius:18px;box-shadow:var(--lift);padding:18px 20px;margin-bottom:18px}
+.panel h3{margin:0 0 8px;font-family:var(--serif);font-size:21px;font-weight:600;color:var(--forest-deep)}
+.feed .ev{font-size:13.5px;line-height:1.45;padding:9px 0;border-top:1px solid var(--divider);color:#3A453D}
+.feed .ev:first-child{border-top:0;padding-top:2px}
+.feed .ev b{font-weight:700;color:var(--forest-deep)}
+.feed time{display:block;font-size:12px;color:var(--gold-ink);margin-top:2px}
+.feed .empty{font-size:13.5px;color:var(--sage)}
+.links a{display:block;padding:5px 0;font-size:14px;font-weight:600}
 
-/* ---------- Publishing pipeline ---------- */
-.pipe{border-left:2px solid var(--line);margin-left:8px;padding-left:26px}
-.pnode{position:relative;padding-bottom:26px}
-.pnode::before{content:"";position:absolute;left:-33px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:3px solid var(--parchment)}
-.pnode.gate::before{background:var(--brick)}
-.pnode.done::before{background:var(--forest)}
-.pnode h4{font-size:15.5px;font-weight:700;color:var(--forest-deep)}
-.pnode p{font-size:13.5px;color:#3A453D;max-width:680px;margin-top:4px}
-.pnode .st{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-left:8px;padding:2px 7px;border-radius:2px}
-.st-done{background:#DCE5DA;color:var(--forest)}
-.st-gate{background:#F1DAD2;color:var(--brick)}
-.st-open{background:#EFE3C2;color:#7d6320}
+/* toolbar */
+.toolbar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
+.search{position:relative;flex:1;min-width:240px;max-width:460px}
+.search svg{position:absolute;left:15px;top:50%;width:16px;height:16px;transform:translateY(-50%);color:var(--gold)}
+.search input{width:100%;padding:12px 16px 12px 42px;border:0;border-radius:999px;background:var(--paper);box-shadow:var(--lift);font:15px var(--sans);color:var(--ink)}
+.search input:focus{outline:2px solid var(--gold-soft);outline-offset:0}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;width:11px;height:11px;cursor:pointer;background:linear-gradient(45deg,transparent 44%,var(--gold) 44%,var(--gold) 56%,transparent 56%),linear-gradient(-45deg,transparent 44%,var(--gold) 44%,var(--gold) 56%,transparent 56%)}
+.switch{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--sage);cursor:pointer;user-select:none}
+.switch input{width:16px;height:16px;accent-color:var(--forest);margin:0}
+.jump{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 32px}
+.jump a{font-size:13.5px;font-weight:600;text-decoration:none;padding:7px 15px;border-radius:999px;background:#EAE0C8;color:var(--forest);transition:background .15s}
+.jump a:hover{background:#E1D4B6}
+.tier{margin-bottom:30px}
+.tier .sh{margin-bottom:4px}
+.tier .lede{margin:0 0 12px}
+.nomatch{padding:20px;color:var(--sage);font-size:14.5px}
+.callout{background:#F6E5DE;border-radius:16px;padding:14px 18px;font-size:14px;color:#5A3B30;margin:0 0 20px;max-width:80ch}
+.callout b{color:#8E3622}
+details.fold{background:var(--paper);border-radius:18px;box-shadow:var(--lift);padding:0 20px;margin-bottom:14px}
+details.fold > summary{list-style:none;cursor:pointer;padding:16px 0}
+details.fold > summary::-webkit-details-marker{display:none}
+details.fold > summary .sh{margin:0}
+details.fold > summary h3::after{content:"";display:inline-block;width:7px;height:7px;margin:0 0 5px 12px;border-right:1.5px solid #BBA672;border-bottom:1.5px solid #BBA672;border-radius:1px;transform:rotate(45deg);transition:transform .15s}
+details.fold[open] > summary h3::after{transform:rotate(225deg);margin-bottom:0}
+details.fold .sheet{box-shadow:none;border-radius:0;border-top:1px solid var(--divider);margin:0 -20px}
+details.fold .lede{margin:0 0 14px}
 
-/* ---------- Checklist ---------- */
-.check{background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow)}
-.crow{display:flex;gap:14px;padding:15px 18px;border-bottom:1px solid var(--line);align-items:flex-start}
-.crow:last-child{border-bottom:none}
-.crow .num{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold);flex:0 0 30px;line-height:1.1}
-.crow .cbody{flex:1}
-.crow .ct{font-weight:700;font-size:14.5px;color:var(--forest-deep)}
-.crow .cd{font-size:13px;color:#48534B;margin-top:3px}
-.crow .cw{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brick);flex:0 0 auto;padding-top:4px}
+/* ledger */
+.ledger{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 20px;align-items:start;padding:14px 20px}
+.ledger .title{font-size:15px}
+.rule{display:inline-block;font-size:12px;font-weight:600;white-space:nowrap;padding:4px 11px;border-radius:999px;margin-top:1px}
+.rule.no{background:#F5DED5;color:#8E3622}
+.rule.angle{background:#F2E4BF;color:var(--gold-ink)}
+.plain{font-size:14.5px;max-width:72ch;color:#3A453D}
 
-/* ---------- Command center (interactive tracking) ---------- */
-section{scroll-margin-top:64px}
-.track{display:inline-flex;align-items:center;gap:5px;margin-top:10px;cursor:pointer;user-select:none;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px;border:1.5px solid var(--forest);color:var(--forest);background:var(--paper)}
-.track::after{content:"▸";opacity:.5;font-size:11px}
-.track:hover,.track:focus-visible{border-color:var(--gold);background:#F7F1E2;outline:none}
-.ehead .track{align-self:center;margin-top:0;margin-left:8px}
-.track[data-s="working"]{border-color:#D9C57E;background:#EFE3C2;color:#6B5416}
-.track[data-s="submitted"]{border-color:#AEB9AC;background:#E3E7E1;color:#4E5D4C}
-.track[data-s="confirmed"]{border-color:var(--forest);background:var(--forest);color:#fff}
-.track[data-s="passed"]{border-color:#E4DECE;background:#E4DECE;color:#8a8a80;text-decoration:line-through}
-.card-passed{opacity:.55}
-.superseded{opacity:.35}
-.crow{cursor:pointer}
-.crow:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
-.crow .tick{flex:0 0 20px;width:20px;height:20px;border:2px solid #B9AE93;border-radius:2px;margin-top:3px;text-align:center;line-height:16px;font-size:13px;color:#fff;background:var(--paper)}
-.crow.done .tick{background:var(--forest);border-color:var(--forest)}
-.crow.done .ct,.crow.done .cd,.crow.done .cw{text-decoration:line-through;opacity:.5}
-.cc-hint{font-size:10.5px;color:#9FAB9D;letter-spacing:.04em;margin-top:6px}
-/* status filter strip */
-.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 22px}
-.filters .flabel{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);margin-right:4px}
-.fchip{display:inline-flex;align-items:center;gap:6px;cursor:pointer;user-select:none;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink)}
-.fchip .fc{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--gold-ink)}
-.fchip.off{opacity:.4;text-decoration:line-through}
-.fchip:hover,.fchip:focus-visible{border-color:var(--gold);outline:none}
-.hidden-by-filter{display:none !important}
-/* nav overflow affordance */
-nav .wrap{position:relative}
-nav .wrap.has-overflow::after{content:"";position:absolute;right:0;top:0;bottom:0;width:42px;background:linear-gradient(90deg,rgba(36,64,47,0),var(--forest));pointer-events:none}
-.tabs{scrollbar-width:thin;scrollbar-color:var(--gold-soft) transparent}
-.tabs::-webkit-scrollbar{height:4px}
-.tabs::-webkit-scrollbar-thumb{background:var(--gold-soft)}
-/* touch ergonomics */
-@media(pointer:coarse){
-  .track{position:relative;font-size:11px;padding:8px 14px}
-  .track::before{content:"";position:absolute;inset:-8px;border-radius:999px}
+/* speaking & pipeline */
+.speak{background:var(--forest-deep);color:#D7DED4;border-radius:22px;padding:28px 30px 26px}
+.speak h3{margin:0 0 8px;font-family:var(--serif);font-weight:600;font-size:27px;color:#fff}
+.speak p{max-width:66ch}
+.speak strong{color:#fff}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{display:inline-flex;align-items:center;padding:10px 18px;border-radius:999px;font:600 14px var(--sans);text-decoration:none;transition:background .15s,color .15s}
+.btn.primary{background:var(--gold-soft);color:var(--forest-deep)}
+.btn.primary:hover{background:#E2C987}
+.btn.secondary{background:rgba(255,255,255,.08);color:#fff}
+.btn.secondary:hover{background:rgba(255,255,255,.14)}
+dl.facts{display:grid;grid-template-columns:180px minmax(0,1fr);gap:12px 24px;margin:24px 0 0;padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.06);font-size:14.5px}
+dl.facts dt{font-weight:600;color:var(--gold-soft)}
+dl.facts dd{margin:0;color:#E9E4D5}
+.plan{padding:20px 22px}
+.plan dl.facts{margin:0;padding:0;background:none;border-radius:0}
+.plan dl.facts dt{color:var(--forest-deep)}
+.plan dl.facts dd{color:#3A453D}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;align-items:start;padding:17px 20px}
+.stage.gate{background:#FBEFE9}
+.stage .dot{display:none}
+.stage .title a{text-decoration:underline;text-decoration-color:#CBBE9E}
+.stage .st{font-size:12px;font-weight:600;white-space:nowrap;padding:4px 11px;border-radius:999px;background:#F2E4BF;color:var(--gold-ink)}
+.stage.done .st{background:#DCE6DC;color:var(--forest)}
+.stage.gate .st{background:#F5DED5;color:#8E3622}
+
+.empty-row{padding:20px;color:var(--sage);font-size:14.5px}
+
+footer{margin-top:10px}
+.wrap.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:20px;padding-bottom:48px;font-size:13px;color:var(--sage)}
+.foot a{color:var(--forest)}
+
+@media (max-width:920px){
+  .home{grid-template-columns:1fr;gap:8px}
 }
-/* compact mobile masthead */
-@media(max-width:640px){
-  header{padding-top:24px}
-  h1{font-size:30px}
-  .masthead{padding-bottom:16px}
-  .asof{font-size:11px}
-  .statrow{display:grid;grid-template-columns:1fr 1fr}
-  .stat{min-width:0;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.14)}
-  .statrow .stat:last-child{grid-column:1/-1}
-  .stat .n{font-size:22px}
-  section{padding:36px 0 8px}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .brand span{display:none}
+  .account{font-size:12.5px;gap:10px}
+  .account .local{display:none}
+  .tabs{margin-left:-8px}
+  main.wrap{padding-top:20px}
+  .hello{flex-direction:column;align-items:stretch;gap:18px;border-radius:20px;padding:22px 20px}
+  .nextup{flex:none}
+  .sheet,.panel,details.fold{border-radius:16px}
+  .item{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:16px}
+  .item .when{grid-column:1 / -1;display:flex;align-items:baseline;gap:10px;font-size:18px}
+  .item .when small{margin-top:0}
+  .more{padding-left:16px;padding-right:16px}
+  .task{grid-template-columns:22px minmax(0,1fr);padding:16px}
+  .task .due{grid-column:2;text-align:left;margin-top:6px}
+  .task .due b{display:inline;margin-right:8px}
+  dl.facts{grid-template-columns:1fr;gap:2px}
+  dl.facts dd{margin-bottom:10px}
+  .speak{padding:22px 20px;border-radius:20px}
 }
-/* today digest */
-#today{padding:28px 0 0}
-.today-box{background:var(--forest-deep);border:1px solid var(--forest);box-shadow:var(--shadow);padding:18px 22px;position:relative}
-.today-box::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
-.today-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px}
-.today-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff}
-.today-sub{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#9FAB9D}
-.titem{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer}
-.titem:last-child{border-bottom:none}
-.titem .tk{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);border:1px solid rgba(201,169,89,.45);padding:2px 8px;border-radius:999px;flex:0 0 auto}
-.titem .tt{color:#E9E4D5;font-size:13.5px;font-weight:600;flex:1}
-.titem:hover .tt,.titem:focus-visible .tt{color:var(--gold-soft)}
-.titem:focus-visible{outline:none}
-.titem .td{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9FAB9D;flex:0 0 auto}
-.titem .td.due-soon{color:#E8A87C}
-.titem .td.due-over{color:#F09595}
-@keyframes ccflash{0%{box-shadow:0 0 0 3px var(--gold)}100%{box-shadow:0 0 0 3px rgba(169,135,54,0)}}
-.flash{animation:ccflash 1.6s ease-out}
-/* event countdowns & overdue tasks */
-.ecount{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sage)}
-.ecount.ec-soon{color:var(--brick)}
-.ecount.ec-now{color:var(--forest)}
-.ecount.ec-past{color:#8a8a80}
-.event-past{opacity:.55}
-.crow.late .cw{background:var(--brick);color:#fff;padding:3px 8px;border-radius:2px}
-/* status popover */
-.status-pop{position:absolute;z-index:80;display:none;background:var(--paper);border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 26px rgba(27,36,30,.22);padding:6px;min-width:160px}
-.status-pop button{display:flex;align-items:center;width:100%;gap:8px;text-align:left;padding:8px 10px;border:0;background:none;cursor:pointer;font-family:'Archivo',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);border-radius:6px}
-.status-pop button:hover{background:#F0E9D8}
-.status-pop button.cur{background:var(--forest);color:#fff}
-/* backup / restore */
-.cc-tools{display:flex;gap:10px;align-items:center}
-.cc-btn{cursor:pointer;background:none;border:1px solid #3C5244;color:#9FAB9D;font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
-.cc-btn:hover{color:#fff;border-color:var(--gold-soft)}
-
-.empty-note{background:var(--paper);border:1px dashed var(--line);padding:16px 18px;font-size:13.5px;color:var(--sage)}
-.cc-hint a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid rgba(201,169,89,.4)}
-.cc-hint a:hover{color:#fff}
-.cc-hint .sync-bad{color:#F09595}
-.today-activity{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.14)}
-.today-activity .ta-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9FAB9D;margin-bottom:6px}
-.today-activity .ta-item{font-size:12.5px;color:#B7C0B5;padding:3px 0;line-height:1.45}
-.today-activity .ta-item b{color:#E9E4D5;font-weight:600}
-.today-activity .ta-item .ta-when{color:#7F8C7F;margin-left:6px;font-size:11px}
-a.cc-btn{text-decoration:none;display:inline-block}
-footer{margin-top:56px;background:var(--forest-deep);color:#9FAB9D;padding:26px 0;font-size:12px}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-footer strong{color:var(--gold-soft)}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 
-<header>
+<header class="top">
   <div class="wrap">
-    <div class="masthead">
-      <div>
-        <div class="eyebrow">Redeeming Justice · Visibility Command Center</div>
-        <h1>Jarrett Adams<br><em>Opportunity Portal</em></h1>
-      </div>
-      <div class="asof">
-        Live as of
-        <strong id="today-label">—</strong>
-        Day counts update automatically
-      </div>
+    <div class="top-row">
+      <p class="brand">Jarrett Adams<span>Opportunity portal</span></p>
+      <div class="account" id="account"><span class="local">Progress saves in this browser</span></div>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Portal sections">
+      <button class="tab" role="tab" id="tab-week" aria-controls="view-week" data-view="week">This week<span class="n" data-count="week"></span></button>
+      <button class="tab" role="tab" id="tab-events" aria-controls="view-events" data-view="events">Events<span class="n" data-count="events"></span></button>
+      <button class="tab" role="tab" id="tab-outreach" aria-controls="view-outreach" data-view="outreach">Outreach<span class="n" data-count="outreach"></span></button>
+      <button class="tab" role="tab" id="tab-speaking" aria-controls="view-speaking" data-view="speaking">Speaking &amp; books</button>
     </div>
   </div>
-  <div class="wrap"><div class="statrow">
-    <div class="stat"><div class="n">4</div><div class="l">Urgent actions this week</div></div>
-    <div class="stat"><div class="n">7</div><div class="l">Upcoming events</div></div>
-    <div class="stat"><div class="n">12</div><div class="l">Priority podcasts</div></div>
-    <div class="stat"><div class="n">2</div><div class="l">Speaker bureaus live</div></div>
-    <div class="stat"><div class="n">12</div><div class="l">Book influencers to reach</div></div>
-  </div></div>
 </header>
 
-<nav><div class="wrap"><div class="tabs">
-  <a href="#urgent" class="active">⚠ Act Now</a>
-  <a href="#events">Events & Festivals</a>
-  <a href="#podcasts">Podcasts & Media</a>
-  <a href="#covered">Already Covered</a>
-  <a href="#influencers">Book Influencers</a>
-  <a href="#speaking">Speaking</a>
-  <a href="#publishing">Publishing Pipeline</a>
-  <a href="#checklist">This Week's Checklist</a>
-</div></div></nav>
+<main class="wrap">
+  <section class="view" id="view-week" role="tabpanel" aria-labelledby="tab-week"></section>
+  <section class="view" id="view-events" role="tabpanel" aria-labelledby="tab-events" hidden></section>
+  <section class="view" id="view-outreach" role="tabpanel" aria-labelledby="tab-outreach" hidden></section>
+  <section class="view" id="view-speaking" role="tabpanel" aria-labelledby="tab-speaking" hidden></section>
+</main>
 
-<!-- ============ TODAY DIGEST ============ -->
-<section id="today"><div class="wrap">
-  <div class="today-box">
-    <div class="today-head"><span class="today-title">Today's Focus</span><span class="today-sub" id="today-sub"></span></div>
-    <div id="today-list"></div>
-  </div>
-</div></section>
-
-<!-- ============ URGENT ============ -->
-<section id="urgent"><div class="wrap">
-  <div class="shead"><h2>Act Now</h2><div class="sub">Moves to make before the holidays</div></div>
-  <div class="rule"></div>
-  <div class="filters" id="status-filters"><span class="flabel">Show</span></div>
-  <div class="urgent-grid">
-
-    <div class="ucard">
-      <span class="badge b-red">Happening Now</span>
-      <h3><a href="https://miamibookfair.com" target="_blank" rel="noopener">Miami Book Fair — Street Fair Weekend</a></h3>
-      <div class="days" data-date="2026-11-15" data-end="2026-11-22">Nov 15–22 · </div>
-      <p class="act">The fair runs through Sunday, and the <strong>Street Fair is Fri–Sun, Nov 20–22</strong>. If the author-program submission landed, work the signing. If it didn't, walk the Street Fair with copies and the documentary one-pager. Either way, set this card's status.</p>
-      <div class="who">→ MDC Wolfson Campus, Downtown Miami · check the fair's events calendar for session times</div>
-    </div>
-
-    <div class="ucard">
-      <span class="badge b-red">Book Now</span>
-      <h3><a href="https://www.prhspeakers.com/speaker/jarrett-adams" target="_blank" rel="noopener">Black History Month Keynotes</a></h3>
-      <div class="days" data-date="2027-02-01" data-end="2027-02-28">Feb 1–28 · </div>
-      <p class="act">February is the biggest month of the year for corporate, law-firm and law-school keynotes, and buyers lock dates in <strong>December and January</strong>. Ask both bureaus which February dates are already held, offer MLK week (Mon, Jan 18) too, and hold the 100-copy book clause.</p>
-      <div class="who">→ PRH Speakers Bureau + The Keynote Curators · links in Speaking</div>
-    </div>
-
-    <div class="ucard gold">
-      <span class="badge b-gold">Pitch a Session</span>
-      <h3><a href="https://innocencenetwork.org/" target="_blank" rel="noopener">Innocence Network Conference 2027</a></h3>
-      <div class="days" data-date="2027-04-09" data-end="2027-04-10">Apr 9–10 · </div>
-      <p class="act"><strong>Anaheim, CA.</strong> The annual gathering of exonerees, freed people and innocence advocates — Jarrett's own community, and he is a former Innocence Project staff attorney. Ask now about a plenary or breakout slot for Jarrett and Life After Justice. The conference bans financial solicitation, so this is relationships and LAJ visibility, not book sales.</p>
-      <div class="who">→ Innocence Network Support Unit · pairs with the LA Times Festival of Books a week later</div>
-    </div>
-
-    <div class="ucard gold">
-      <span class="badge b-gold">Pitch via PRH</span>
-      <h3><a href="https://www.latimes.com/festivalofbooks" target="_blank" rel="noopener">LA Times Festival of Books</a></h3>
-      <div class="days" data-date="2027-04-17" data-end="2027-04-18">Apr 17–18 · </div>
-      <p class="act">The country's largest literary festival, at USC, one week after Innocence Network and an hour up the road. Lineups get built over the winter, so have PRH publicity put Jarrett forward now and file the festival's own author form as a backup. <strong>2027 dates come from event listings — confirm on the festival site.</strong></p>
-      <div class="who">→ Convergent/Crown publicity first · festival author form second</div>
-    </div>
-
-  </div>
-</div></section>
-
-<!-- ============ EVENTS ============ -->
-<section id="events"><div class="wrap">
-  <div class="shead"><h2>Events & Festivals</h2><div class="sub">Live and upcoming · anything past its date drops off automatically</div></div>
-  <div class="rule"></div>
-
-  <div class="mhead"><span class="mname">November 2026</span><span class="mcount">1 event · happening now</span></div>
-  <div class="ecard">
-    <div class="ehead">
-      <div class="edate" data-date="2026-11-15" data-end="2026-11-22">Nov 15–22</div>
-      <div class="emain">
-        <div class="etitle"><a href="https://miamibookfair.com" target="_blank" rel="noopener">Miami Book Fair</a></div>
-        <div class="emeta"><span class="eloc">MDC Wolfson Campus, Downtown Miami</span><span class="tag t-local">Home Turf</span><span class="tag t-hot">★ Must Attend</span></div>
-      </div>
-      <span class="sbadge s-red">This Weekend</span>
-    </div>
-    <div class="ebody">Nearly 500 authors this year, with the <strong>Street Fair Nov 20–22</strong>. Work it in person: signing table if the author program came through, the floor and the documentary one-pager if it didn't.</div>
-  </div>
-
-  <div class="mhead"><span class="mname">March 2027</span><span class="mcount">3 events · Leimert Park and Tucson share Mar 13</span></div>
-
-  <div class="ecard">
-    <div class="ehead">
-      <div class="edate" data-date="2027-03-13">Mar 13</div>
-      <div class="emain">
-        <div class="etitle"><a href="https://form.jotform.com/262367892563066" target="_blank" rel="noopener">Leimert Park Village Book Fair</a></div>
-        <div class="emeta"><span class="eloc">Exposition Park, Los Angeles</span><span class="tag t-black">Black Lit</span></div>
-      </div>
-      <span class="sbadge s-red">Apply by Feb 12</span>
-    </div>
-    <div class="ebody">Los Angeles's Black book fair, outdoors on the Exposition Park South Lawn. A straightforward author application with a <strong>Feb 12, 2027</strong> deadline. Same day as Tucson — this is the better fit, and it warms up the April Los Angeles run.</div>
-  </div>
-
-  <div class="ecard">
-    <div class="ehead">
-      <div class="edate" data-date="2027-03-13" data-end="2027-03-14">Mar 13–14</div>
-      <div class="emain">
-        <div class="etitle"><a href="https://tucsonfestivalofbooks.org" target="_blank" rel="noopener">Tucson Festival of Books</a></div>
-        <div class="emeta"><span class="eloc">University of Arizona, Tucson</span><span class="tag t-fest">Major Market</span></div>
-      </div>
-      <span class="sbadge s-gold">Attend Only</span>
-    </div>
-    <div class="ebody">Presenting-author nominations for this cycle have closed (last cycle they ran May 15–Sep 1), and exhibitor booths opened Sept 8 and usually fill by mid-November. Only worth it if PRH already has a slot. Put the <strong>2028 nomination window</strong> on the calendar instead.</div>
-  </div>
-
-  <div class="ecard" data-expire="2027-03-31">
-    <div class="ehead">
-      <div class="edate">Mar · TBA</div>
-      <div class="emain">
-        <div class="etitle"><a href="https://www.vabook.org" target="_blank" rel="noopener">Virginia Festival of the Book</a></div>
-        <div class="emeta"><span class="eloc">Charlottesville, VA</span><span class="tag t-fest">Regional</span></div>
-      </div>
-      <span class="sbadge s-gold">Likely Closed</span>
-    </div>
-    <div class="ebody">2027 dates aren't posted yet (2026 ran Mar 20–22). Submissions have historically closed Oct 1 and favor recent books, so the 2021 memoir is a long shot. One PRH ask at most; otherwise target 2028 with the kids' series.</div>
-  </div>
-
-  <div class="mhead"><span class="mname">April 2027</span><span class="mcount">2 events · Southern California run + Second Chance Month</span></div>
-
-  <div class="ecard">
-    <div class="ehead">
-      <div class="edate" data-date="2027-04-09" data-end="2027-04-10">Apr 9–10</div>
-      <div class="emain">
-        <div class="etitle"><a href="https://innocencenetwork.org/" target="_blank" rel="noopener">Innocence Network Conference</a></div>
-        <div class="emeta"><span class="eloc">Anaheim, CA</span><span class="tag t-black">Innocence Movement</span><span class="tag t-hot">★ Must Attend</span></div>
-      </div>
-      <span class="sbadge s-red">Pitch a Session</span>
-    </div>
-    <div class="ebody">The room is exonerees, their families, innocence lawyers and funders — the core audience for Life After Justice. Pitch a session for Jarrett and LAJ, and register the team early. No selling in conference spaces; bring the story, not the merch table.</div>
-  </div>
-
-  <div class="ecard">
-    <div class="ehead">
-      <div class="edate" data-date="2027-04-17" data-end="2027-04-18">Apr 17–18</div>
-      <div class="emain">
-        <div class="etitle"><a href="https://www.latimes.com/festivalofbooks" target="_blank" rel="noopener">LA Times Festival of Books</a></div>
-        <div class="emeta"><span class="eloc">USC, Los Angeles</span><span class="tag t-hot">★ National Stage</span></div>
-      </div>
-      <span class="sbadge s-gold">Pitch via PRH</span>
-    </div>
-    <div class="ebody">Largest literary festival in the country, 150,000+ attendees. Panel slots run mostly through publishers, so this is a PRH ask with the festival author form as backup. Stack it with Innocence Network the week before and Los Angeles media in between. <strong>Dates from listings — confirm.</strong></div>
-  </div>
-
-  <div class="mhead"><span class="mname">Spring 2027</span><span class="mcount">dates TBA</span></div>
-
-  <div class="ecard" data-expire="2027-06-30">
-    <div class="ehead">
-      <div class="edate">Spring · TBA</div>
-      <div class="emain">
-        <div class="etitle"><a href="https://www.chicagohumanities.org" target="_blank" rel="noopener">Chicago Humanities Spring Festival</a></div>
-        <div class="emeta"><span class="eloc">Chicago, IL</span><span class="tag t-local">Hometown</span></div>
-      </div>
-      <span class="sbadge s-gold">Pitch via PRH</span>
-    </div>
-    <div class="ebody">Hometown stage with a real racial-justice track — 2026's Bridgeport Day was built around it. The 2026 spring season ran March–June and was announced in mid-March, so a pitch needs to land this winter. Bundle it into the same PRH email as LA Times.</div>
-  </div>
-
-  <div class="mnote" style="margin-top:34px"><b>Plan ahead — next cycle's application windows.</b> Based on the 2026 cycle; confirm each one in spring.</div>
-  <div class="spkrow">
-    <div class="spkcard"><div class="k">Tucson Festival of Books</div><div class="v">Presenting-author nominations May 15 – Sep 1</div></div>
-    <div class="spkcard"><div class="k">Virginia Festival of the Book</div><div class="v">Submissions historically due Oct 1</div></div>
-    <div class="spkcard"><div class="k">Printers Row · Harlem · Miami</div><div class="v">Author applications due by July (2026 pattern)</div></div>
-    <div class="spkcard"><div class="k">Ruled out for 2027</div><div class="v">Savannah Book Festival — only takes books published after Feb 9, 2026</div></div>
-  </div>
-
-</div></section>
-
-<!-- ============ PODCASTS ============ -->
-<section id="podcasts"><div class="wrap">
-  <div class="shead"><h2>Podcasts & Media</h2><div class="sub">Evergreen targets — pitch anytime, stack around festival dates</div></div>
-  <div class="rule"></div>
-
-  <div class="warnbar">
-    <span class="wi">⛔</span>
-    <span><strong>Check the ledger before every pitch.</strong> Jarrett has already done a lot of this circuit — including <em>The Breakfast Club</em> and <em>Wrongful Conviction with Jason Flom</em>. Re-pitching a show he has already sat for reads as sloppy repping and burns the relationship. Struck-through cards below are closed. → <a href="#covered">See everything he's already been on</a></span>
-  </div>
-
-  <div class="tier">
-    <h3>Tier 1 — Massive Reach</h3>
-    <div class="tsub">National audiences in the millions. Route through PRH publicity; personalize each pitch to the show's format.</div>
-    <div class="pgrid">
-      <div class="pcard burned"><div class="pname">Wrongful Conviction (Jason Flom)</div><div class="pwhy">Already done — twice. Ep #222 with Dmitri Henley (2021) and the Christmas-behind-bars special with Amanda Knox (#010).</div><div class="burntag">Closed — do not re-pitch</div></div>
-      <div class="pcard burned"><div class="pname">The Breakfast Club</div><div class="pwhy">Already done — full <em>Redeeming Justice</em> interview on wrongful conviction and prison reform.</div><div class="burntag">Closed — do not re-pitch</div></div>
-      <div class="pcard"><div class="pname">Club Shay Shay</div><div class="pwhy">Fills the role The Breakfast Club used to — long-form, Black cultural reach, drives sales. Shannon Sharpe goes deep on redemption arcs.</div><div class="phook">Hook: 17, innocent, 28 years — and I came back as the lawyer</div></div>
-      <div class="pcard"><div class="pname">Criminal (Phoebe Judge)</div><div class="pwhy">Genre-defining true-crime narrative show that Jarrett has <em>not</em> done — the clean replacement for the Flom slot.</div><div class="phook">Hook: the Waverly Two case, told as narrative</div></div>
-      <div class="pcard"><div class="pname">Ear Hustle (PRX)</div><div class="pwhy">Peabody-nominated, made inside San Quentin. Most credible prison-life audience in podcasting; not yet done.</div><div class="phook">Hook: what reentry actually costs — LAJ model</div></div>
-      <div class="pcard"><div class="pname">Way Up With Angela Yee</div><div class="pwhy">Yee's own iHeart show — same audience as the Breakfast Club booking without repeating it.</div><div class="phook">Hook: Second Chance Month (April) or the next NYC trip</div></div>
-      <div class="pcard"><div class="pname">Pod Save the People</div><div class="pwhy">Justice-policy audience primed for systemic-reform framing.</div><div class="phook">Hook: Waverly Two case + LAJ model</div></div>
-      <div class="pcard"><div class="pname">Fresh Air (NPR)</div><div class="pwhy">Long-form literary interview; the prestige booking.</div><div class="phook">Hook: memoir + kids' series announcement</div></div>
-      <div class="pcard"><div class="pname">The Daily (NYT)</div><div class="pwhy">News-peg dependent — hold for a major case win or documentary news.</div><div class="phook">Hook: next LAJ exoneration</div></div>
-    </div>
-  </div>
-
-  <div class="tier">
-    <h3>Tier 2 — High Conversion</h3>
-    <div class="tsub">Smaller but hyper-aligned audiences — highest booking probability, book these ourselves.</div>
-    <div class="pgrid">
-      <div class="pcard"><div class="pname">Earn Your Leisure</div><div class="pwhy">Black wealth/business audience; angle on building a law firm from nothing.</div><div class="phook">Hook: the business of justice</div></div>
-      <div class="pcard"><div class="pname">Black Authors Matter TV</div><div class="pwhy">Direct book-buyer audience; friendly booking.</div><div class="phook">Hook: Redeeming Justice paperback push</div></div>
-      <div class="pcard"><div class="pname">Voir Dire (Harvard Law)</div><div class="pwhy">Legal academy credibility; feeds speaking pipeline at law schools.</div><div class="phook">Hook: from cell block to bar exam</div></div>
-    </div>
-  </div>
-
-  <div class="tier">
-    <h3>Radio & TV</h3>
-    <div class="tsub">Stack same-city bookings with festival travel — every NYC trip should carry two studio stops.</div>
-    <div class="pgrid">
-      <div class="pcard"><div class="pname">Sway in the Morning</div><div class="pwhy">SiriusXM, NYC studio — pair with any New York travel.</div><div class="phook">Book around the next NYC trip</div></div>
-      <div class="pcard"><div class="pname">NPR Weekend Edition</div><div class="pwhy">Remote-friendly; pitch around the Innocence Network conference (Apr 9–10).</div><div class="phook">Second Chance Month peg</div></div>
-      <div class="pcard"><div class="pname">PBS NewsHour / The ReidOut</div><div class="pwhy">Policy TV — activate on the next case milestone or documentary news.</div><div class="phook">Hold for news peg</div></div>
-    </div>
-  </div>
-
-</div></section>
-
-<!-- ============ ALREADY COVERED ============ -->
-<section id="covered"><div class="wrap">
-  <div class="shead"><h2>Already Covered</h2><div class="sub">The exclusion ledger — verified appearances, do not re-pitch</div></div>
-  <div class="rule"></div>
-
-  <div class="warnbar">
-    <span class="wi">📕</span>
-    <span><strong>This is a screening list, not a brag list.</strong> Before any outreach goes out, search this section for the outlet name. Red = closed, gold = re-openable but only on a genuine new hook (new book, new case win, new documentary news).</span>
-  </div>
-
-  <div class="mnote"><b>Closed — podcasts &amp; shows he has already sat for.</b> A second ask with no new news peg is the fastest way to lose a booker.</div>
-  <div class="mgrid">
-    <div class="mcard excl"><div class="mname"><a href="https://1031thebeat.iheart.com/featured/breakfast-club/content/2025-12-18-51-the-breakfast-club-interview-jarrett-adams-on-being-wrongfully-convicted/" target="_blank" rel="noopener">The Breakfast Club</a></div><div class="mmeta">iHeart · full <em>Redeeming Justice</em> interview — wrongful conviction, mental well-being, prison reform</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname"><a href="https://www.iheart.com/podcast/267-Wrongful-Conviction-27797564/episode/86925487/" target="_blank" rel="noopener">Wrongful Conviction — Jason Flom</a></div><div class="mmeta">Ep #222 with Dmitri Henley (Sept 2021) · plus special #010 with Amanda Knox &amp; Jeffrey Deskovic</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname"><a href="https://www.theringer.com/podcasts/the-bakari-sellers-podcast/2024/07/15/redeeming-justice-with-jarrett-adams" target="_blank" rel="noopener">The Bakari Sellers Podcast</a></div><div class="mmeta">The Ringer · July 2024 · "Redeeming Justice with Jarrett Adams"</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname"><a href="https://rickeysmileymorningshow.com/3921481/jarrett-adams-turns-prison-experience-into-fight-for-justice/" target="_blank" rel="noopener">The Rickey Smiley Morning Show</a></div><div class="mmeta">March 2026 · syndicated radio — most recent major Black-radio hit</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname">Impact Theory — Tom Bilyeu</div><div class="mmeta">"Reinventing From Within" · mindset/business audience</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname"><a href="https://slate.com/podcasts/a-word/2024/04/righting-a-wrongful-conviction" target="_blank" rel="noopener">A Word — Jason Johnson (Slate)</a></div><div class="mmeta">April 2024 · punishment after the conviction is overturned</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname"><a href="https://www.youtube.com/watch?v=siKjsoEmOYc" target="_blank" rel="noopener">Locked In with Ian Bick</a></div><div class="mmeta">May 2026 · long-form YouTube — the false-accusation origin story</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname"><a href="https://www.podchaser.com/podcasts/dreadfully-yours-6478039/episodes/chapter-ten-jarrett-adams-rede-295386171" target="_blank" rel="noopener">Dreadfully Yours — Raven Rollins</a></div><div class="mmeta">May 2026 · Ch. 10 — memoir + audiobook narration angle</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname"><a href="https://www.acslaw.org/podcast/episode-18-black-innocent-and-convicted/" target="_blank" rel="noopener">ACS Podcast — "Black, Innocent, and Convicted"</a></div><div class="mmeta">Ep 18 · American Constitution Society · legal-academy audience</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname"><a href="https://www.davisvanguard.org/2022/07/everyday-injustice-podcast-episode-148-jarrett-adams-from-wrongful-conviction-to-attorney-2/" target="_blank" rel="noopener">Everyday Injustice — Davis Vanguard</a></div><div class="mmeta">Ep 148 · July 2022</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname"><a href="https://podcasts.apple.com/us/podcast/jarrett-adams-my-journey-from-being-wrongfully-convicted/id1518037932?i=1000547782073" target="_blank" rel="noopener">The Successful Business &amp; Practice of Law</a></div><div class="mmeta">LAWCLERK · Jan 2022 · legal-professional audience</div><div class="mtag t-excl">Do not pitch</div></div>
-    <div class="mcard excl"><div class="mname">Politics &amp; Prose Live</div><div class="mmeta">Redeeming Justice launch event, in conversation with Shaka Senghor</div><div class="mtag t-excl">Do not pitch</div></div>
-  </div>
-
-  <div class="mnote"><b>Broadcast &amp; TV already secured.</b> These are outlets rather than single shows — a different program at the same network is fair game, but lead the pitch by acknowledging the prior hit.</div>
-  <div class="mgrid">
-    <div class="mcard rep"><div class="mname"><a href="https://www.nbcnews.com/nightly-news/video/after-exoneration-jarrett-adams-is-helping-others-wrongfully-convicted-1015854659784" target="_blank" rel="noopener">NBC Nightly News — Lester Holt</a></div><div class="mmeta">Feature on helping the wrongfully convicted after exoneration</div><div class="mtag t-rep">New hook only</div></div>
-    <div class="mcard rep"><div class="mname">MSNBC — Ari Melber</div><div class="mmeta">Two segments: clerking at the court that freed him · becoming a civil rights lawyer</div><div class="mtag t-rep">New hook only</div></div>
-    <div class="mcard rep"><div class="mname"><a href="https://www.cnn.com/2020/09/13/us/jarrett-adams-great-big-story-trnd" target="_blank" rel="noopener">CNN / Great Big Story</a></div><div class="mmeta">Sept 2020 · wrongfully imprisoned to defense lawyer</div><div class="mtag t-rep">New hook only</div></div>
-    <div class="mcard rep"><div class="mname"><a href="https://www.france24.com/en/tv-shows/perspective/20210907-us-exoneree-and-attorney-jarrett-adams-on-helping-other-wrongfully-convicted-prisoners" target="_blank" rel="noopener">France 24 — Perspective</a></div><div class="mmeta">Sept 2021 · international broadcast</div><div class="mtag t-rep">New hook only</div></div>
-    <div class="mcard rep"><div class="mname"><a href="https://www.scrippsnews.com/us-news/race-in-america/exoneree-jarrett-adams-fights-wrongful-convictions" target="_blank" rel="noopener">Scripps News — Race in America</a></div><div class="mmeta">Exoneree fights wrongful convictions</div><div class="mtag t-rep">New hook only</div></div>
-    <div class="mcard rep"><div class="mname">PBS — Lidia Celebrates America</div><div class="mmeta">Segment appearance · softer lifestyle placement</div><div class="mtag t-rep">New hook only</div></div>
-    <div class="mcard rep"><div class="mname"><a href="https://www.wbez.org/shows/wbez-news/exoneree-diaries-the-jarrett-adams-interview/da2f629b-5aa1-4305-9c8a-5668583ea8f7" target="_blank" rel="noopener">WBEZ Chicago — Exoneree Diaries</a></div><div class="mmeta">Public radio, Chicago home market</div><div class="mtag t-rep">New hook only</div></div>
-    <div class="mcard rep"><div class="mname"><a href="https://www.wpr.org/person/jarrett-adams" target="_blank" rel="noopener">Wisconsin Public Radio</a></div><div class="mmeta">Repeat contributor — Wisconsin is the conviction/exoneration state</div><div class="mtag t-rep">New hook only</div></div>
-    <div class="mcard rep"><div class="mname"><a href="https://innocenceproject.org/news/chat-exoneree-attorney-jarrett-adams-facebook-live/" target="_blank" rel="noopener">Innocence Project — Live</a></div><div class="mmeta">Former first exoneree staff attorney; warm institutional channel</div><div class="mtag t-rep">New hook only</div></div>
-  </div>
-
-  <div class="mnote"><b>Print &amp; feature credits</b> claimed by the Penguin Random House bureau. Treat these as brand proof for pitching, not as closed doors — the specific desk or show is unconfirmed, so <em>NPR</em> and <em>Today</em> targets in the Podcasts section stay live.</div>
-  <div class="mline">
-    <span class="chip">The New York Times</span>
-    <span class="chip">The Washington Post</span>
-    <span class="chip">The Atlantic</span>
-    <span class="chip">People</span>
-    <span class="chip">USA Today</span>
-    <span class="chip">Black Enterprise</span>
-    <span class="chip">Newsday</span>
-    <span class="chip">Today Show</span>
-    <span class="chip">NPR</span>
-    <span class="chip">CNN</span>
-    <span class="chip">PBS</span>
-    <span class="chip">Chicago Defender</span>
-    <span class="chip">Chicago Bar Foundation</span>
-  </div>
-
-  <div class="mnote" style="border-left-color:var(--brick)"><b>Coverage caveat.</b> Compiled Aug 2026 from his own site, the PRH bureau page, and open search — it will not catch every regional radio hit or unindexed episode. Before a Tier 1 send, still run a quick <em>"Jarrett Adams" + show name</em> search, and add anything new here.</div>
-
-</div></section>
-
-<!-- ============ BOOK INFLUENCERS ============ -->
-<section id="influencers"><div class="wrap">
-  <div class="shead"><h2>Book Influencers</h2><div class="sub">Reviewers, book clubs &amp; bookstagram — send in waves around February and April</div></div>
-  <div class="rule"></div>
-
-  <div class="tier">
-    <h3>Tier A — Nonfiction &amp; justice lane</h3>
-    <div class="tsub">These aren't romance BookTok. Every one of them reviews memoir, nonfiction, or abolition writing — which is where <em>Redeeming Justice</em> actually lives. Highest conversion, start here.</div>
-    <div class="pgrid">
-      <div class="pcard icard">
-        <div class="pname">The Stacks — Traci Thomas</div>
-        <div class="ihandle">@thestackspod · thestackspodcast.com · Substack</div>
-        <div class="ireach">3M+ downloads</div>
-        <div class="pwhy">The single best fit on this page. Nonfiction-forward, uses books to talk race, politics and culture, and runs a monthly deep-dive Book Club on the last Wednesday.</div>
-        <div class="iask"><b>Ask</b> · Book Club selection for <em>Redeeming Justice</em>, with Jarrett as the in-episode guest.</div>
-      </div>
-      <div class="pcard icard">
-        <div class="pname">Noname Book Club</div>
-        <div class="ihandle">nonamebooks.com · @nonamereads (IG) · @NonameBooks (X)</div>
-        <div class="ireach">Abolition · prison program</div>
-        <div class="pwhy">Monthly picks on mass incarceration and abolition, and a Prison Program that mails the selections to incarcerated readers. Thematically the tightest match Jarrett has anywhere.</div>
-        <div class="iask"><b>Ask</b> · Monthly pick + a Life After Justice book-donation partnership, not just a review.</div>
-      </div>
-      <div class="pcard icard">
-        <div class="pname">Well-Read Black Girl — Glory Edim</div>
-        <div class="ihandle">@wellreadblackgirl · wellreadblackgirl.substack.com</div>
-        <div class="ireach">500K+ community</div>
-        <div class="pwhy">Book club, festival, podcast and newsletter in one. The WRBG Festival is a live-appearance door as well as a review channel.</div>
-        <div class="iask"><b>Ask</b> · Newsletter feature now, festival panel for the next cycle.</div>
-      </div>
-      <div class="pcard icard">
-        <div class="pname">Literaryswag — Yahdon Israel</div>
-        <div class="ihandle">literaryswagbookclub.com · bookshop.org/shop/literaryswag</div>
-        <div class="ireach">NYC · publishing insider</div>
-        <div class="pwhy">Senior editor at Simon &amp; Schuster who runs NYC's best-dressed book club out of the Brooklyn Circus. Doubles as a publishing relationship for the kids' series.</div>
-        <div class="iask"><b>Ask</b> · Book club night tied to the next NYC trip.</div>
-      </div>
-      <div class="pcard icard">
-        <div class="pname">MahoganyBooks</div>
-        <div class="ihandle">@mahoganybooks · YouTube @MahoganyBooksTV</div>
-        <div class="ireach">DC · #BlackBooksMatter</div>
-        <div class="pwhy">Black-owned DC bookstore with a real media arm — author interviews on YouTube plus a podcast channel. Review and event in one booking.</div>
-        <div class="iask"><b>Ask</b> · In-store event + recorded author interview; stack with any DC/Baltimore travel.</div>
-      </div>
-      <div class="pcard icard">
-        <div class="pname">The Free Black Women's Library</div>
-        <div class="ihandle">Ola Ronke Akinmowo · Brooklyn</div>
-        <div class="ireach">Mobile library · NYC</div>
-        <div class="pwhy">Brooklyn-based mobile library and cultural institution with deep local press. Community credibility that national bookers notice.</div>
-        <div class="iask"><b>Ask</b> · Pop-up appearance tied to a NYC festival date.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="tier">
-    <h3>Tier B — Broad book reach</h3>
-    <div class="tsub">Bigger, more general audiences. Lower topical fit, much higher raw volume — best used to convert festival coverage into sales.</div>
-    <div class="pgrid">
-      <div class="pcard icard">
-        <div class="pname">Mychal Threets</div>
-        <div class="ihandle">"Mychal the Librarian" · IG / TikTok</div>
-        <div class="ireach">~920K followers</div>
-        <div class="pwhy">Librarian with enormous crossover reach and a literacy + mental-health message. Warm, non-transactional, and reaches the kids'-book audience too.</div>
-        <div class="iask"><b>Ask</b> · Library-joy angle — the prison law library is where Jarrett taught himself the law.</div>
-      </div>
-      <div class="pcard icard">
-        <div class="pname">Amerie's Book Club</div>
-        <div class="ihandle">@amerie · IG + YouTube</div>
-        <div class="ireach">Music + book crossover</div>
-        <div class="pwhy">Transparent reviews plus author interviews to an audience that doesn't otherwise buy justice nonfiction.</div>
-        <div class="iask"><b>Ask</b> · Author interview on the YouTube channel.</div>
-      </div>
-      <div class="pcard icard">
-        <div class="pname">Roxane Gay — The Audacity</div>
-        <div class="ihandle">Substack · Audacious Book Club</div>
-        <div class="ireach">Literary heavyweight</div>
-        <div class="pwhy">A pick here confers literary legitimacy that festival programmers and documentary buyers both read.</div>
-        <div class="iask"><b>Ask</b> · Book club consideration; send a physical galley, not a PDF.</div>
-      </div>
-      <div class="pcard icard">
-        <div class="pname">Black Girls Read / #BlackBookTok</div>
-        <div class="ihandle">Hashtag campaign, not one account</div>
-        <div class="ireach">250K+ posts</div>
-        <div class="pwhy">Run this as a seeded wave rather than a single ask — ship 15–20 copies to mid-size creators in one send so the reviews land the same week.</div>
-        <div class="iask"><b>Ask</b> · Mailer wave timed to Black History Month (Feb) and Second Chance Month (April).</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="tier">
-    <h3>Tier C — Kids' series runway</h3>
-    <div class="tsub">Hold these until Jarrett's likeness &amp; tone sign-off clears in the Publishing Pipeline — but line them up now so the list is warm on day one.</div>
-    <div class="pgrid">
-      <div class="pcard icard">
-        <div class="pname">Marley Dias — #1000BlackGirlBooks</div>
-        <div class="ihandle">marleydias.com · @iammarleydias</div>
-        <div class="ireach">13,000+ books collected</div>
-        <div class="pwhy">The definitive voice on representation in children's literature. A natural first champion for <em>The Boy Who Learned the Law</em>.</div>
-        <div class="iask"><b>Ask</b> · Hold until sign-off · then advance-reader outreach.</div>
-      </div>
-      <div class="pcard icard">
-        <div class="pname">GrassROOTS Community Foundation</div>
-        <div class="ihandle">1000 Black Girl Books resource guide</div>
-        <div class="ireach">School &amp; library distribution</div>
-        <div class="pwhy">The institutional channel behind the campaign — gets titles onto classroom and library lists, not just feeds.</div>
-        <div class="iask"><b>Ask</b> · Hold until sign-off · then resource-guide inclusion.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="mnote"><b>Outreach rule.</b> Every send goes out with a physical copy, a one-paragraph personal note naming a specific book they've covered, and no attachment. Log each one with the status pill on its card so nobody double-sends.</div>
-
-</div></section>
-
-<!-- ============ SPEAKING ============ -->
-<section id="speaking"><div class="wrap">
-  <div class="shead"><h2>Speaking</h2><div class="sub">Black History Month books now · April is Second Chance Month</div></div>
-  <div class="rule"></div>
-
-  <div class="spk">
-    <h3>Both bureaus are live — lock February and April dates now</h3>
-    <p>Corporate DEI programs, AmLaw 200 firms, and law schools book Black History Month speakers in December and January, and April's Second Chance Month is a natural peg for reentry and fair-chance-hiring programs. Every contract should carry a <strong style="color:#fff">minimum 100-copy book purchase clause</strong>. Target rate: $25K–$75K per keynote.</p>
-    <div class="btns">
-      <a class="btn btn-g" href="https://www.prhspeakers.com/speaker/jarrett-adams" target="_blank" rel="noopener">PRH Speakers Bureau →</a>
-      <a class="btn btn-o" href="https://thekeynotecurators.com/speaker/jarrett-adams/" target="_blank" rel="noopener">The Keynote Curators →</a>
-    </div>
-  </div>
-
-  <div class="spkrow">
-    <div class="spkcard"><div class="k">Primary buyers</div><div class="v">AmLaw 200 firms · Fortune 500 DEI · Bar associations · Law schools</div></div>
-    <div class="spkcard"><div class="k">Seasonal windows</div><div class="v">Jan–Feb (MLK / Black History Month — booking now) · April (Second Chance Month) · Sept–Nov (fall — book by July)</div></div>
-    <div class="spkcard"><div class="k">Contract standard</div><div class="v">100-copy minimum book clause · travel + accommodations · recording rights retained</div></div>
-  </div>
-
-</div></section>
-
-<!-- ============ PUBLISHING ============ -->
-<section id="publishing"><div class="wrap">
-  <div class="shead"><h2>Publishing Pipeline</h2><div class="sub">Book properties & digital presence</div></div>
-  <div class="rule"></div>
-
-  <div class="pipe">
-    <div class="pnode done">
-      <h4>Redeeming Justice — memoir <span class="st st-done">In Market</span></h4>
-      <p>The engine for everything above. Every festival, podcast, and keynote drives back to the Convergent/Crown title.</p>
-    </div>
-    <div class="pnode done">
-      <h4>Kids' series — Book 1 manuscript + Series Bible <span class="st st-done">Complete</span></h4>
-      <p><em>The Boy Who Learned the Law</em> (32-page picture book) and the canonical Series Bible for the six-book <em>Kids' Guide to Rights, Fairness, and the Law</em> collection are done and locked.</p>
-    </div>
-    <div class="pnode gate">
-      <h4>Jarrett's written sign-off — likeness & tone <span class="st st-gate">⚠ Gate</span></h4>
-      <p>Front-end gate before any production spend or publisher outreach on the kids' series. Nothing moves past this node until it's signed. Warmest doors once cleared: Convergent Books/Crown, then Life After Justice as institutional partner.</p>
-    </div>
-    <div class="pnode done">
-      <h4><a href="https://en.wikipedia.org/wiki/Jarrett_M._Adams" target="_blank" rel="noopener">Wikipedia — Jarrett M. Adams</a> <span class="st st-done">Live</span></h4>
-      <p>Out of Articles for Creation and live in mainspace (checked Nov 17). Next: point the schema sameAs link on jarrettadamslaw.com at it, source the three "citation needed" tags, then start the <em>Redeeming Justice</em> and Life After Justice articles.</p>
-    </div>
-    <div class="pnode">
-      <h4>BookTok / Bookstagram outreach <span class="st st-open">Active</span></h4>
-      <p>Influencer spreadsheet built — run the next sends in waves timed to Black History Month and April (Second Chance Month, Innocence Network, LA Times) so social proof and event coverage compound.</p>
-    </div>
-    <div class="pnode">
-      <h4>Documentary pitch — Netflix / Amazon <span class="st st-open">In Development</span></h4>
-      <p>Keep the one-pager in the bag at every event — next up: the Miami Street Fair weekend, then the April Los Angeles run, where the film/TV business is local.</p>
-    </div>
-  </div>
-
-</div></section>
-
-<!-- ============ CHECKLIST ============ -->
-<section id="checklist"><div class="wrap">
-  <div class="shead"><h2>This Week's Checklist</h2><div class="sub">Ordered by deadline pressure — <span id="week-label">week of November 16</span></div></div>
-  <div class="rule"></div>
-
-  <div class="check">
-    <div class="crow">
-      <div class="num">1</div>
-      <div class="cbody">
-        <div class="ct">Work the Miami Book Fair Street Fair weekend</div>
-        <div class="cd">Fri–Sun, Nov 20–22. Copies, the documentary one-pager, and a note of every contact made. Then set the Miami card's status.</div>
-      </div>
-      <div class="cw" data-date="2026-11-22">By Nov 22</div>
-    </div>
-    <div class="crow">
-      <div class="num">2</div>
-      <div class="cbody">
-        <div class="ct">Email both speaker bureaus for February and April</div>
-        <div class="cd">Which Black History Month dates are held, MLK week availability, Second Chance Month buyers, and the 100-copy clause on every contract.</div>
-      </div>
-      <div class="cw" data-date="2026-11-25">By Nov 25</div>
-    </div>
-    <div class="crow">
-      <div class="num">3</div>
-      <div class="cbody">
-        <div class="ct">Pitch a Jarrett + LAJ session to Innocence Network</div>
-        <div class="cd">Ask the Network Support Unit when session proposals open for Anaheim (Apr 9–10) and register the team.</div>
-      </div>
-      <div class="cw" data-date="2026-12-04">By Dec 4</div>
-    </div>
-    <div class="crow">
-      <div class="num">4</div>
-      <div class="cbody">
-        <div class="ct">One email to PRH publicity covering two spring asks</div>
-        <div class="cd">LA Times Festival of Books panel (Apr 17–18) + Chicago Humanities Spring Festival. Same bundling as the summer asks.</div>
-      </div>
-      <div class="cw" data-date="2026-12-11">By Dec 11</div>
-    </div>
-    <div class="crow">
-      <div class="num">5</div>
-      <div class="cbody">
-        <div class="ct">Get Jarrett's kids'-series sign-off on the calendar</div>
-        <div class="cd">Carried over from July. The likeness/tone approval still gates the whole six-book track — tick this if it has already happened.</div>
-      </div>
-      <div class="cw" data-date="2026-12-18">By Dec 18</div>
-    </div>
-    <div class="crow">
-      <div class="num">6</div>
-      <div class="cbody">
-        <div class="ct">Apply to the Leimert Park Village Book Fair</div>
-        <div class="cd">Author application for Mar 13 at Exposition Park. Deadline Feb 12 — aim to file well before.</div>
-      </div>
-      <div class="cw" data-date="2027-01-15">By Jan 15</div>
-    </div>
-  </div>
-
-</div></section>
-
-
-<footer><div class="wrap">
-  <div><strong>Jarrett Adams — Opportunity Portal</strong> · refreshed November 17, 2026 · dates checked against festival sites; anything marked TBA or "confirm" still needs checking</div>
-  <div>Anything past its date drops off automatically each day · next content refresh: early January</div>
+<footer><div class="wrap foot">
+  <span id="foot-note"></span>
+  <span id="foot-tools"></span>
 </div></footer>
 
+<div class="menu" id="status-menu" role="menu" hidden></div>
+
 <script>
-/* Auto-expiry: runs on every page load (and again just after midnight if the
-   tab stays open). Anything whose date has fully passed is removed, so the
-   portal only ever shows what is still actionable. */
-(function(){
-  var now = new Date();
-  function endOfDay(iso){ return new Date(iso + 'T23:59:59'); }
-  function cardEnd(el){
-    if(el.getAttribute('data-expire')) return el.getAttribute('data-expire');
-    var d = el.querySelector('[data-date]');
-    if(!d) return null;
-    return d.getAttribute('data-end') || d.getAttribute('data-date');
+/* ============================================================
+   CONTENT — edit here. Dates are YYYY-MM-DD. Anything whose last
+   date has passed disappears from the page automatically.
+   `id` keeps each item's saved status; don't change it once set.
+   ============================================================ */
+window.PORTAL = {
+ "actNow": [
+  {
+   "id": "miami-book-fair",
+   "title": "Miami Book Fair Street Fair",
+   "url": "https://miamibookfair.com",
+   "start": "2026-11-15",
+   "end": "2026-11-22",
+   "when": "Nov 15–22",
+   "label": "Happening now",
+   "body": "The fair runs through Sunday, and the <strong>Street Fair is Fri–Sun, Nov 20–22<\/strong>. If the author-program submission landed, work the signing. If it didn't, walk the Street Fair with copies and the documentary one-pager. Either way, set the status here.",
+   "note": "MDC Wolfson Campus, Downtown Miami. Session times are on the fair's events calendar.",
+   "next": "Work the Street Fair this weekend, Friday to Sunday."
+  },
+  {
+   "id": "black-history-month",
+   "title": "Black History Month Keynotes",
+   "url": "https://www.prhspeakers.com/speaker/jarrett-adams",
+   "start": "2027-02-01",
+   "end": "2027-02-28",
+   "when": "Feb 1–28",
+   "label": "Book now",
+   "body": "February is the biggest month of the year for corporate, law-firm and law-school keynotes, and buyers lock dates in <strong>December and January<\/strong>. Ask both bureaus which February dates are already held, offer MLK week (Mon, Jan 18) too, and hold the 100-copy book clause.",
+   "note": "PRH Speakers Bureau and The Keynote Curators. Links are under Speaking.",
+   "next": "Ask both bureaus which February dates are already held."
+  },
+  {
+   "id": "innocence-network-conference",
+   "title": "Innocence Network Conference 2027",
+   "url": "https://innocencenetwork.org/",
+   "start": "2027-04-09",
+   "end": "2027-04-10",
+   "when": "Apr 9–10",
+   "label": "Pitch a session",
+   "body": "<strong>Anaheim, CA.<\/strong> The annual gathering of exonerees, freed people and innocence advocates. It's Jarrett's own community, and he is a former Innocence Project staff attorney. Ask now about a plenary or breakout slot for Jarrett and Life After Justice. The conference bans financial solicitation, so this is relationships and LAJ visibility, not book sales.",
+   "note": "Ask the Innocence Network Support Unit. Pairs with the LA Times Festival of Books a week later.",
+   "next": "Ask for a plenary or breakout slot for Jarrett and LAJ."
+  },
+  {
+   "id": "la-times-festival",
+   "title": "LA Times Festival of Books",
+   "url": "https://www.latimes.com/festivalofbooks",
+   "start": "2027-04-17",
+   "end": "2027-04-18",
+   "when": "Apr 17–18",
+   "label": "Pitch via PRH",
+   "body": "The country's largest literary festival, at USC, one week after Innocence Network and an hour up the road. Lineups get built over the winter, so have PRH publicity put Jarrett forward now and file the festival's own author form as a backup. <strong>The 2027 dates come from event listings, so confirm them on the festival site.<\/strong>",
+   "note": "Convergent/Crown publicity first, the festival's author form second.",
+   "next": "Have PRH publicity put Jarrett forward for a panel."
   }
-  function gone(el){ if(el && el.parentNode) el.parentNode.removeChild(el); }
-  function past(el){ var e = cardEnd(el); return !!e && endOfDay(e) < now; }
-
-  document.querySelectorAll('#events .ecard, #urgent .ucard').forEach(function(card){ if(past(card)) gone(card); });
-  document.querySelectorAll('#checklist .crow').forEach(function(row){
-    var cw = row.querySelector('.cw[data-date]');
-    if(cw && endOfDay(cw.getAttribute('data-date')) < now) gone(row);
-  });
-  document.querySelectorAll('#checklist .crow .num').forEach(function(n, i){ n.textContent = i + 1; });
-
-  // empty states
-  var ugrid = document.querySelector('#urgent .urgent-grid');
-  if(ugrid && !ugrid.querySelector('.ucard')){
-    ugrid.outerHTML = '<div class="empty-note">Nothing with a closing window right now. Check Events &amp; Festivals for what\'s next.</div>';
+ ],
+ "events": [
+  {
+   "id": "miami-book-fair",
+   "title": "Miami Book Fair",
+   "url": "https://miamibookfair.com",
+   "start": "2026-11-15",
+   "end": "2026-11-22",
+   "when": "Nov 15–22",
+   "expire": null,
+   "place": "MDC Wolfson Campus, Downtown Miami",
+   "tags": [
+    "Home turf",
+    "Must attend"
+   ],
+   "label": "This weekend",
+   "body": "Nearly 500 authors this year, with the <strong>Street Fair Nov 20–22<\/strong>. Work it in person: signing table if the author program came through, the floor and the documentary one-pager if it didn't."
+  },
+  {
+   "id": "leimert-park-village",
+   "title": "Leimert Park Village Book Fair",
+   "url": "https://form.jotform.com/262367892563066",
+   "start": "2027-03-13",
+   "end": null,
+   "when": "Mar 13",
+   "expire": null,
+   "place": "Exposition Park, Los Angeles",
+   "tags": [
+    "Black Lit"
+   ],
+   "label": "Apply by Feb 12",
+   "body": "Los Angeles's Black book fair, outdoors on the Exposition Park South Lawn. A straightforward author application with a <strong>Feb 12, 2027<\/strong> deadline. It falls on the same day as Tucson, but this is the better fit, and it warms up the April Los Angeles run."
+  },
+  {
+   "id": "tucson-festival-of",
+   "title": "Tucson Festival of Books",
+   "url": "https://tucsonfestivalofbooks.org",
+   "start": "2027-03-13",
+   "end": "2027-03-14",
+   "when": "Mar 13–14",
+   "expire": null,
+   "place": "University of Arizona, Tucson",
+   "tags": [
+    "Major market"
+   ],
+   "label": "Attend only",
+   "body": "Presenting-author nominations for this cycle have closed (last cycle they ran May 15–Sep 1), and exhibitor booths opened Sept 8 and usually fill by mid-November. Only worth it if PRH already has a slot. Put the <strong>2028 nomination window<\/strong> on the calendar instead."
+  },
+  {
+   "id": "virginia-festival-of",
+   "title": "Virginia Festival of the Book",
+   "url": "https://www.vabook.org",
+   "start": null,
+   "end": null,
+   "when": "March, TBA",
+   "expire": "2027-03-31",
+   "place": "Charlottesville, VA",
+   "tags": [
+    "Regional"
+   ],
+   "label": "Likely closed",
+   "body": "2027 dates aren't posted yet (2026 ran Mar 20–22). Submissions have historically closed Oct 1 and favor recent books, so the 2021 memoir is a long shot. One PRH ask at most; otherwise target 2028 with the kids' series.",
+   "group": "March 2027"
+  },
+  {
+   "id": "innocence-network-conference",
+   "title": "Innocence Network Conference",
+   "url": "https://innocencenetwork.org/",
+   "start": "2027-04-09",
+   "end": "2027-04-10",
+   "when": "Apr 9–10",
+   "expire": null,
+   "place": "Anaheim, CA",
+   "tags": [
+    "Innocence movement",
+    "Must attend"
+   ],
+   "label": "Pitch a session",
+   "body": "The room is exonerees, their families, innocence lawyers and funders: the core audience for Life After Justice. Pitch a session for Jarrett and LAJ, and register the team early. No selling in conference spaces; bring the story, not the merch table."
+  },
+  {
+   "id": "la-times-festival",
+   "title": "LA Times Festival of Books",
+   "url": "https://www.latimes.com/festivalofbooks",
+   "start": "2027-04-17",
+   "end": "2027-04-18",
+   "when": "Apr 17–18",
+   "expire": null,
+   "place": "USC, Los Angeles",
+   "tags": [
+    "National stage"
+   ],
+   "label": "Pitch via PRH",
+   "body": "Largest literary festival in the country, 150,000+ attendees. Panel slots run mostly through publishers, so this is a PRH ask with the festival author form as backup. Stack it with Innocence Network the week before and Los Angeles media in between. <strong>Dates are from listings, so confirm them.<\/strong>"
+  },
+  {
+   "id": "chicago-humanities-spring",
+   "title": "Chicago Humanities Spring Festival",
+   "url": "https://www.chicagohumanities.org",
+   "start": null,
+   "end": null,
+   "when": "Spring, TBA",
+   "expire": "2027-06-30",
+   "place": "Chicago, IL",
+   "tags": [
+    "Hometown"
+   ],
+   "label": "Pitch via PRH",
+   "body": "Hometown stage with a real racial-justice track; 2026's Bridgeport Day was built around it. The 2026 spring season ran March–June and was announced in mid-March, so a pitch needs to land this winter. Bundle it into the same PRH email as LA Times.",
+   "group": "Spring 2027"
   }
-  var check = document.querySelector('#checklist .check');
-  if(check && !check.querySelector('.crow')){
-    check.outerHTML = '<div class="empty-note">This week\'s list is clear. Time to plan the next batch of tasks.</div>';
+ ],
+ "planAhead": [
+  {
+   "k": "Tucson Festival of Books",
+   "v": "Presenting-author nominations May 15 to Sep 1"
+  },
+  {
+   "k": "Virginia Festival of the Book",
+   "v": "Submissions historically due Oct 1"
+  },
+  {
+   "k": "Printers Row, Harlem, Miami",
+   "v": "Author applications due by July (2026 pattern)"
+  },
+  {
+   "k": "Ruled out for 2027",
+   "v": "Savannah Book Festival. It only takes books published after Feb 9, 2026"
   }
-  // month headings: drop empty ones, keep counts honest
-  document.querySelectorAll('#events .mhead').forEach(function(mh){
-    var n = 0, sib = mh.nextElementSibling;
-    while(sib && !sib.classList.contains('mhead') && !sib.classList.contains('mnote')){ if(sib.classList.contains('ecard')) n++; sib = sib.nextElementSibling; }
-    if(!n){ gone(mh); return; }
-    var c = mh.querySelector('.mcount');
-    var m = c && c.textContent.match(/^(\d+) event/);
-    if(m && +m[1] !== n) c.textContent = n + (n === 1 ? ' event' : ' events');
-  });
-
-  // "week of" label for the checklist
-  var wl = document.getElementById('week-label');
-  if(wl){
-    var mon = new Date(now); mon.setDate(now.getDate() - ((now.getDay() + 6) % 7));
-    wl.textContent = 'week of ' + mon.toLocaleDateString('en-US', {month:'long', day:'numeric'});
+ ],
+ "podcasts": [
+  {
+   "name": "Massive reach",
+   "sub": "National audiences in the millions. Route through PRH publicity; personalize each pitch to the show's format.",
+   "items": [
+    {
+     "id": "club-shay-shay",
+     "title": "Club Shay Shay",
+     "body": "Fills the role The Breakfast Club used to: long-form, Black cultural reach, drives sales. Shannon Sharpe goes deep on redemption arcs.",
+     "hook": "17, innocent, 28 years, and I came back as the lawyer"
+    },
+    {
+     "id": "criminal-phoebe-judge",
+     "title": "Criminal (Phoebe Judge)",
+     "body": "Genre-defining true-crime narrative show that Jarrett has <em>not<\/em> done, and the clean replacement for the Flom slot.",
+     "hook": "The Waverly Two case, told as narrative"
+    },
+    {
+     "id": "ear-hustle-prx",
+     "title": "Ear Hustle (PRX)",
+     "body": "Peabody-nominated, made inside San Quentin. Most credible prison-life audience in podcasting; not yet done.",
+     "hook": "What reentry actually costs, and the LAJ model"
+    },
+    {
+     "id": "way-up-with",
+     "title": "Way Up With Angela Yee",
+     "body": "Yee's own iHeart show. Same audience as the Breakfast Club booking without repeating it.",
+     "hook": "Second Chance Month (April) or the next NYC trip"
+    },
+    {
+     "id": "pod-save-the",
+     "title": "Pod Save the People",
+     "body": "Justice-policy audience primed for systemic-reform framing.",
+     "hook": "Waverly Two case + LAJ model"
+    },
+    {
+     "id": "fresh-air-npr",
+     "title": "Fresh Air (NPR)",
+     "body": "Long-form literary interview; the prestige booking.",
+     "hook": "Memoir + kids' series announcement"
+    },
+    {
+     "id": "the-daily-nyt",
+     "title": "The Daily (NYT)",
+     "body": "Needs a news peg. Hold it for a major case win or documentary news.",
+     "hook": "Next LAJ exoneration"
+    }
+   ]
+  },
+  {
+   "name": "High conversion",
+   "sub": "Smaller audiences that fit him closely. The best odds of a booking, so we book these ourselves.",
+   "items": [
+    {
+     "id": "earn-your-leisure",
+     "title": "Earn Your Leisure",
+     "body": "Black wealth/business audience; angle on building a law firm from nothing.",
+     "hook": "The business of justice"
+    },
+    {
+     "id": "black-authors-matter",
+     "title": "Black Authors Matter TV",
+     "body": "Direct book-buyer audience; friendly booking.",
+     "hook": "Redeeming Justice paperback push"
+    },
+    {
+     "id": "voir-dire-harvard",
+     "title": "Voir Dire (Harvard Law)",
+     "body": "Legal academy credibility; feeds speaking pipeline at law schools.",
+     "hook": "From cell block to bar exam"
+    }
+   ]
+  },
+  {
+   "name": "Radio and TV",
+   "sub": "Stack same-city bookings with travel. Every NYC trip should carry two studio stops.",
+   "items": [
+    {
+     "id": "sway-in-the",
+     "title": "Sway in the Morning",
+     "body": "SiriusXM, recorded in the NYC studio. Pair it with any New York trip.",
+     "hook": "Book around the next NYC trip"
+    },
+    {
+     "id": "npr-weekend-edition",
+     "title": "NPR Weekend Edition",
+     "body": "Remote-friendly; pitch around the Innocence Network conference (Apr 9–10).",
+     "hook": "Second Chance Month peg"
+    },
+    {
+     "id": "pbs-newshour-the",
+     "title": "PBS NewsHour / The ReidOut",
+     "body": "Policy TV. Save it for the next case milestone or documentary news.",
+     "hook": "Hold for news peg"
+    }
+   ]
   }
-
-  // if the page is left open overnight, reload just after midnight
-  var next = new Date(now); next.setHours(24, 1, 0, 0);
-  setTimeout(function(){ location.reload(); }, next - now);
-})();
+ ],
+ "covered": {
+  "groups": [
+   {
+    "items": [
+     {
+      "title": "The Breakfast Club",
+      "url": "https://1031thebeat.iheart.com/featured/breakfast-club/content/2025-12-18-51-the-breakfast-club-interview-jarrett-adams-on-being-wrongfully-convicted/",
+      "note": "iHeart, full <em>Redeeming Justice<\/em> interview on wrongful conviction, mental well-being and prison reform",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "Wrongful Conviction with Jason Flom",
+      "url": "https://www.iheart.com/podcast/267-Wrongful-Conviction-27797564/episode/86925487/",
+      "note": "Ep #222 with Dmitri Henley (Sept 2021), plus special #010 with Amanda Knox & Jeffrey Deskovic",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "The Bakari Sellers Podcast",
+      "url": "https://www.theringer.com/podcasts/the-bakari-sellers-podcast/2024/07/15/redeeming-justice-with-jarrett-adams",
+      "note": "The Ringer, July 2024, \"Redeeming Justice with Jarrett Adams\"",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "The Rickey Smiley Morning Show",
+      "url": "https://rickeysmileymorningshow.com/3921481/jarrett-adams-turns-prison-experience-into-fight-for-justice/",
+      "note": "March 2026, syndicated radio, his most recent major Black-radio hit",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "Impact Theory with Tom Bilyeu",
+      "url": null,
+      "note": "\"Reinventing From Within\", mindset/business audience",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "A Word with Jason Johnson (Slate)",
+      "url": "https://slate.com/podcasts/a-word/2024/04/righting-a-wrongful-conviction",
+      "note": "April 2024, punishment after the conviction is overturned",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "Locked In with Ian Bick",
+      "url": "https://www.youtube.com/watch?v=siKjsoEmOYc",
+      "note": "May 2026, long-form YouTube on the false-accusation origin story",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "Dreadfully Yours with Raven Rollins",
+      "url": "https://www.podchaser.com/podcasts/dreadfully-yours-6478039/episodes/chapter-ten-jarrett-adams-rede-295386171",
+      "note": "May 2026, Ch. 10, on the memoir and the audiobook narration",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "ACS Podcast: “Black, Innocent, and Convicted”",
+      "url": "https://www.acslaw.org/podcast/episode-18-black-innocent-and-convicted/",
+      "note": "Ep 18, American Constitution Society, legal-academy audience",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "Everyday Injustice (Davis Vanguard)",
+      "url": "https://www.davisvanguard.org/2022/07/everyday-injustice-podcast-episode-148-jarrett-adams-from-wrongful-conviction-to-attorney-2/",
+      "note": "Ep 148, July 2022",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "The Successful Business & Practice of Law",
+      "url": "https://podcasts.apple.com/us/podcast/jarrett-adams-my-journey-from-being-wrongfully-convicted/id1518037932?i=1000547782073",
+      "note": "LAWCLERK, Jan 2022, legal-professional audience",
+      "rule": "Don't pitch"
+     },
+     {
+      "title": "Politics & Prose Live",
+      "url": null,
+      "note": "Redeeming Justice launch event, in conversation with Shaka Senghor",
+      "rule": "Don't pitch"
+     }
+    ],
+    "title": "Podcasts and shows he's done",
+    "note": "A second ask with no new news peg is the fastest way to lose a booker."
+   },
+   {
+    "items": [
+     {
+      "title": "NBC Nightly News with Lester Holt",
+      "url": "https://www.nbcnews.com/nightly-news/video/after-exoneration-jarrett-adams-is-helping-others-wrongfully-convicted-1015854659784",
+      "note": "Feature on helping the wrongfully convicted after exoneration",
+      "rule": "New angle only"
+     },
+     {
+      "title": "MSNBC with Ari Melber",
+      "url": null,
+      "note": "Two segments: clerking at the court that freed him, becoming a civil rights lawyer",
+      "rule": "New angle only"
+     },
+     {
+      "title": "CNN / Great Big Story",
+      "url": "https://www.cnn.com/2020/09/13/us/jarrett-adams-great-big-story-trnd",
+      "note": "Sept 2020, wrongfully imprisoned to defense lawyer",
+      "rule": "New angle only"
+     },
+     {
+      "title": "France 24, Perspective",
+      "url": "https://www.france24.com/en/tv-shows/perspective/20210907-us-exoneree-and-attorney-jarrett-adams-on-helping-other-wrongfully-convicted-prisoners",
+      "note": "Sept 2021, international broadcast",
+      "rule": "New angle only"
+     },
+     {
+      "title": "Scripps News, Race in America",
+      "url": "https://www.scrippsnews.com/us-news/race-in-america/exoneree-jarrett-adams-fights-wrongful-convictions",
+      "note": "Exoneree fights wrongful convictions",
+      "rule": "New angle only"
+     },
+     {
+      "title": "PBS, Lidia Celebrates America",
+      "url": null,
+      "note": "Segment appearance, softer lifestyle placement",
+      "rule": "New angle only"
+     },
+     {
+      "title": "WBEZ Chicago, Exoneree Diaries",
+      "url": "https://www.wbez.org/shows/wbez-news/exoneree-diaries-the-jarrett-adams-interview/da2f629b-5aa1-4305-9c8a-5668583ea8f7",
+      "note": "Public radio, Chicago home market",
+      "rule": "New angle only"
+     },
+     {
+      "title": "Wisconsin Public Radio",
+      "url": "https://www.wpr.org/person/jarrett-adams",
+      "note": "Repeat contributor. Wisconsin is the conviction/exoneration state",
+      "rule": "New angle only"
+     },
+     {
+      "title": "Innocence Project Live",
+      "url": "https://innocenceproject.org/news/chat-exoneree-attorney-jarrett-adams-facebook-live/",
+      "note": "Former first exoneree staff attorney; warm institutional channel",
+      "rule": "New angle only"
+     }
+    ],
+    "title": "Broadcast and TV",
+    "note": "These are outlets, not single shows. A different program at the same network is fair game; acknowledge the earlier hit in the pitch."
+   }
+  ],
+  "print": [
+   "The New York Times",
+   "The Washington Post",
+   "The Atlantic",
+   "People",
+   "USA Today",
+   "Black Enterprise",
+   "Newsday",
+   "Today Show",
+   "NPR",
+   "CNN",
+   "PBS",
+   "Chicago Defender",
+   "Chicago Bar Foundation"
+  ],
+  "printNote": "Claimed by the PRH speakers bureau. Use them as proof in pitches, not as closed doors: the specific desk is unconfirmed, so NPR and Today stay live as targets.",
+  "caveat": "Compiled in August 2026 from his site, the PRH bureau page and open search, so it won't catch every regional hit. Before a Tier 1 send, search “Jarrett Adams” plus the show name, and add anything new here."
+ },
+ "influencers": [
+  {
+   "name": "Nonfiction and justice",
+   "sub": "Every one of them reviews memoir, nonfiction or abolition writing, which is where <em>Redeeming Justice<\/em> lives. Highest conversion; start here.",
+   "items": [
+    {
+     "id": "the-stacks-traci",
+     "title": "The Stacks with Traci Thomas",
+     "handle": "@thestackspod, thestackspodcast.com, Substack",
+     "reach": "3M+ downloads",
+     "body": "The single best fit on this page. Nonfiction-forward, uses books to talk race, politics and culture, and runs a monthly deep-dive Book Club on the last Wednesday.",
+     "ask": "Book Club selection for <em>Redeeming Justice<\/em>, with Jarrett as the in-episode guest."
+    },
+    {
+     "id": "noname-book-club",
+     "title": "Noname Book Club",
+     "handle": "nonamebooks.com, @nonamereads (IG), @NonameBooks (X)",
+     "reach": "Abolition, prison program",
+     "body": "Monthly picks on mass incarceration and abolition, and a Prison Program that mails the selections to incarcerated readers. Thematically the tightest match Jarrett has anywhere.",
+     "ask": "Monthly pick + a Life After Justice book-donation partnership, not just a review."
+    },
+    {
+     "id": "wellread-black-girl",
+     "title": "Well-Read Black Girl (Glory Edim)",
+     "handle": "@wellreadblackgirl, wellreadblackgirl.substack.com",
+     "reach": "500K+ community",
+     "body": "Book club, festival, podcast and newsletter in one. The WRBG Festival is a live-appearance door as well as a review channel.",
+     "ask": "Newsletter feature now, festival panel for the next cycle."
+    },
+    {
+     "id": "literaryswag-yahdon-israel",
+     "title": "Literaryswag (Yahdon Israel)",
+     "handle": "literaryswagbookclub.com, bookshop.org/shop/literaryswag",
+     "reach": "NYC, publishing insider",
+     "body": "Senior editor at Simon & Schuster who runs NYC's best-dressed book club out of the Brooklyn Circus. Doubles as a publishing relationship for the kids' series.",
+     "ask": "Book club night tied to the next NYC trip."
+    },
+    {
+     "id": "mahoganybooks",
+     "title": "MahoganyBooks",
+     "handle": "@mahoganybooks, YouTube @MahoganyBooksTV",
+     "reach": "DC, #BlackBooksMatter",
+     "body": "Black-owned DC bookstore with a real media arm: author interviews on YouTube plus a podcast channel. Review and event in one booking.",
+     "ask": "In-store event + recorded author interview; stack with any DC/Baltimore travel."
+    },
+    {
+     "id": "the-free-black",
+     "title": "The Free Black Women's Library",
+     "handle": "Ola Ronke Akinmowo, Brooklyn",
+     "reach": "Mobile library, NYC",
+     "body": "Brooklyn-based mobile library and cultural institution with deep local press. Community credibility that national bookers notice.",
+     "ask": "Pop-up appearance tied to a NYC festival date."
+    }
+   ]
+  },
+  {
+   "name": "Broad book reach",
+   "sub": "Bigger, more general audiences. Lower topical fit, much higher volume. Best for turning event coverage into sales.",
+   "items": [
+    {
+     "id": "mychal-threets",
+     "title": "Mychal Threets",
+     "handle": "\"Mychal the Librarian\", IG / TikTok",
+     "reach": "~920K followers",
+     "body": "Librarian with enormous crossover reach and a literacy + mental-health message. Warm, non-transactional, and reaches the kids'-book audience too.",
+     "ask": "The library angle: the prison law library is where Jarrett taught himself the law."
+    },
+    {
+     "id": "ameries-book-club",
+     "title": "Amerie's Book Club",
+     "handle": "@amerie, IG + YouTube",
+     "reach": "Music + book crossover",
+     "body": "Transparent reviews plus author interviews to an audience that doesn't otherwise buy justice nonfiction.",
+     "ask": "Author interview on the YouTube channel."
+    },
+    {
+     "id": "roxane-gay-the",
+     "title": "Roxane Gay's The Audacity",
+     "handle": "Substack, Audacious Book Club",
+     "reach": "Literary heavyweight",
+     "body": "A pick here confers literary legitimacy that festival programmers and documentary buyers both read.",
+     "ask": "Book club consideration; send a physical galley, not a PDF."
+    },
+    {
+     "id": "black-girls-read",
+     "title": "Black Girls Read / #BlackBookTok",
+     "handle": "Hashtag campaign, not one account",
+     "reach": "250K+ posts",
+     "body": "Run this as a seeded wave rather than a single ask. Ship 15–20 copies to mid-size creators in one send so the reviews land the same week.",
+     "ask": "Mailer wave timed to Black History Month (Feb) and Second Chance Month (April)."
+    }
+   ]
+  },
+  {
+   "name": "Kids' series runway",
+   "sub": "Hold until Jarrett's likeness and tone sign-off clears, but line them up now so the list is warm on day one.",
+   "items": [
+    {
+     "id": "marley-dias-1000blackgirlbooks",
+     "title": "Marley Dias, #1000BlackGirlBooks",
+     "handle": "marleydias.com, @iammarleydias",
+     "reach": "13,000+ books collected",
+     "body": "The definitive voice on representation in children's literature. A natural first champion for <em>The Boy Who Learned the Law<\/em>.",
+     "ask": "Hold until sign-off, then advance-reader outreach."
+    },
+    {
+     "id": "grassroots-community-foundation",
+     "title": "GrassROOTS Community Foundation",
+     "handle": "1000 Black Girl Books resource guide",
+     "reach": "School & library distribution",
+     "body": "The institutional channel behind the campaign. It gets titles onto classroom and library lists, not just feeds.",
+     "ask": "Hold until sign-off, then resource-guide inclusion."
+    }
+   ]
+  }
+ ],
+ "outreachRule": "Every send goes out with a physical copy, a one-paragraph note naming a book they've covered, and no attachment. Set the status when it ships so nobody double-sends.",
+ "speaking": {
+  "heading": "Lock February and April dates now",
+  "body": "Corporate DEI programs, AmLaw 200 firms, and law schools book Black History Month speakers in December and January, and April's Second Chance Month is a natural peg for reentry and fair-chance-hiring programs. Every contract should carry a <strong>minimum 100-copy book purchase clause<\/strong>. Target rate: $25K–$75K per keynote.",
+  "links": [
+   {
+    "label": "PRH Speakers Bureau",
+    "url": "https://www.prhspeakers.com/speaker/jarrett-adams"
+   },
+   {
+    "label": "The Keynote Curators",
+    "url": "https://thekeynotecurators.com/speaker/jarrett-adams/"
+   }
+  ],
+  "facts": [
+   {
+    "k": "Primary buyers",
+    "v": "AmLaw 200 firms, Fortune 500 DEI programs, bar associations, law schools"
+   },
+   {
+    "k": "Seasonal windows",
+    "v": "Jan–Feb for MLK and Black History Month (booking now), April for Second Chance Month, Sept–Nov for fall programs (book by July)"
+   },
+   {
+    "k": "Contract standard",
+    "v": "100-copy minimum book purchase, travel and accommodations covered, recording rights retained"
+   }
+  ]
+ },
+ "pipeline": [
+  {
+   "title": "<em>Redeeming Justice<\/em>, the memoir",
+   "status": "In market",
+   "state": "done",
+   "body": "The engine for everything above. Every festival, podcast, and keynote drives back to the Convergent/Crown title."
+  },
+  {
+   "title": "Kids' series: Book 1 manuscript and Series Bible",
+   "status": "Complete",
+   "state": "done",
+   "body": "<em>The Boy Who Learned the Law<\/em> (32-page picture book) and the canonical Series Bible for the six-book <em>Kids' Guide to Rights, Fairness, and the Law<\/em> collection are done and locked."
+  },
+  {
+   "title": "Jarrett's written sign-off on likeness and tone",
+   "status": "Gate",
+   "state": "gate",
+   "body": "Front-end gate before any production spend or publisher outreach on the kids' series. Nothing moves past this node until it's signed. Warmest doors once cleared: Convergent Books/Crown, then Life After Justice as institutional partner."
+  },
+  {
+   "title": "<a href=\"https://en.wikipedia.org/wiki/Jarrett_M._Adams\" rel=\"noopener\" target=\"_blank\">Wikipedia article<\/a>",
+   "status": "Live",
+   "state": "done",
+   "body": "Out of Articles for Creation and live in mainspace (checked Nov 17). Next: point the schema sameAs link on jarrettadamslaw.com at it, source the three \"citation needed\" tags, then start the <em>Redeeming Justice<\/em> and Life After Justice articles."
+  },
+  {
+   "title": "BookTok / Bookstagram outreach",
+   "status": "Active",
+   "state": "open",
+   "body": "The influencer spreadsheet is built. Run the next sends in waves timed to Black History Month and April (Second Chance Month, Innocence Network, LA Times) so social proof and event coverage compound."
+  },
+  {
+   "title": "Documentary pitch to Netflix and Amazon",
+   "status": "In development",
+   "state": "open",
+   "body": "Keep the one-pager in the bag at every event. Next up are the Miami Street Fair weekend, then the April Los Angeles run, where the film/TV business is local."
+  }
+ ],
+ "checklist": [
+  {
+   "id": "work-the-miami",
+   "title": "Work the Miami Book Fair Street Fair weekend",
+   "body": "Fri–Sun, Nov 20–22. Copies, the documentary one-pager, and a note of every contact made. Then set Miami's status here.",
+   "due": "2026-11-22"
+  },
+  {
+   "id": "email-both-speaker",
+   "title": "Email both speaker bureaus for February and April",
+   "body": "Which Black History Month dates are held, MLK week availability, Second Chance Month buyers, and the 100-copy clause on every contract.",
+   "due": "2026-11-25"
+  },
+  {
+   "id": "pitch-a-jarrett",
+   "title": "Pitch a Jarrett + LAJ session to Innocence Network",
+   "body": "Ask the Network Support Unit when session proposals open for Anaheim (Apr 9–10) and register the team.",
+   "due": "2026-12-04"
+  },
+  {
+   "id": "one-email-to",
+   "title": "One email to PRH publicity covering two spring asks",
+   "body": "LA Times Festival of Books panel (Apr 17–18) + Chicago Humanities Spring Festival. Same bundling as the summer asks.",
+   "due": "2026-12-11"
+  },
+  {
+   "id": "get-jarretts-kidsseries",
+   "title": "Get Jarrett's kids'-series sign-off on the calendar",
+   "body": "Carried over from July. The likeness/tone approval still gates the whole six-book track. Tick this if it has already happened.",
+   "due": "2026-12-18"
+  },
+  {
+   "id": "apply-to-the",
+   "title": "Apply to the Leimert Park Village Book Fair",
+   "body": "Author application for Mar 13 at Exposition Park. The deadline is Feb 12; aim to file well before.",
+   "due": "2027-01-15"
+  }
+ ],
+ "updated": "2026-11-17"
+};
 </script>
 <script>
 (function(){
-  var now = new Date();
-  var opts = {weekday:'long', month:'long', day:'numeric', year:'numeric'};
-  document.getElementById('today-label').textContent = now.toLocaleDateString('en-US', opts);
+'use strict';
+const P = window.PORTAL;
+const now = new Date();
+const STATUS = ['todo', 'working', 'submitted', 'confirmed', 'passed'];
+const SLABEL = { todo: 'To do', working: 'In progress', submitted: 'Submitted', confirmed: 'Confirmed', passed: 'Passed' };
+const SDOT = { todo: '#B6BDB7', working: '#C9A246', submitted: '#4F7396', confirmed: '#2F7A4D', passed: '#CBD0CB' };
+const $ = (s, el) => (el || document).querySelector(s);
+const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const day = iso => new Date(iso + 'T00:00:00');
+const eod = iso => new Date(iso + 'T23:59:59');
+const until = iso => Math.ceil((day(iso) - now) / 864e5);
+const isPast = it => { const e = it.expire || it.end || it.start || it.due; return !!e && eod(e) < now; };
+const WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+const word = (n, lower) => { const w = WORDS[n] || String(n); return lower ? w.toLowerCase() : w; };
 
-  // live day counters (data-end marks multi-day windows)
-  document.querySelectorAll('.days[data-date]').forEach(function(el){
-    var target = new Date(el.getAttribute('data-date') + 'T00:00:00');
-    var endAttr = el.getAttribute('data-end');
-    var end = endAttr ? new Date(endAttr + 'T23:59:59') : null;
-    var diff = Math.ceil((target - now) / 86400000);
-    var label = el.textContent;
-    if(diff > 1){ el.textContent = label + diff + ' days out'; }
-    else if(diff === 1){ el.textContent = label + 'tomorrow'; }
-    else if(diff === 0){ el.textContent = label + 'today'; }
-    else if(end && now <= end){ el.textContent = label + 'happening now'; el.style.color = '#24402F'; }
-    else { el.textContent = label + 'window passed'; el.style.color = '#8a8a80'; var uc = el.closest('.ucard'); if(uc) uc.classList.add('event-past'); }
+function windowText(start, end){
+  if(!start) return { t: '', c: '' };
+  const d = until(start);
+  if(d > 1) return { t: 'in ' + d + ' days', c: d <= 14 ? 'soon' : '' };
+  if(d === 1) return { t: 'tomorrow', c: 'soon' };
+  if(d === 0) return { t: 'today', c: 'soon' };
+  if(now <= eod(end || start)) return { t: 'happening now', c: 'now' };
+  return { t: '', c: '' };
+}
+function dueText(iso){
+  const d = until(iso);
+  const label = day(iso).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const rel = d > 1 ? 'in ' + d + ' days' : d === 1 ? 'tomorrow' : d === 0 ? 'today' : 'overdue';
+  return { label, rel, c: d < 0 ? 'late' : d <= 3 ? 'soon' : '' };
+}
+function ago(iso){
+  const m = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+  if(m < 1) return 'just now';
+  if(m < 60) return m + ' min ago';
+  const h = Math.round(m / 60);
+  if(h < 24) return h + (h === 1 ? ' hour ago' : ' hours ago');
+  const d = Math.round(h / 24);
+  if(d < 7) return d + (d === 1 ? ' day ago' : ' days ago');
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+/* ---------------- state + sync ---------------- */
+const KEY = 'jarrett-command-center';
+let store;
+try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ store = {}; }
+store.s = store.s || {}; store.t = store.t || {}; store.f = store.f || {};
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e){} };
+const localBefore = { s: JSON.parse(JSON.stringify(store.s)), t: JSON.parse(JSON.stringify(store.t)) };
+const shared = { on: false, me: null, meta: {}, log: [], error: false };
+const st = id => store.s[id] || 'todo';
+
+const labelOf = {};
+P.actNow.forEach(i => { labelOf[i.id] = i.title; });
+P.events.forEach(i => { labelOf[i.id] = i.title; });
+P.podcasts.forEach(t => t.items.forEach(i => { labelOf[i.id] = i.title; }));
+P.influencers.forEach(t => t.items.forEach(i => { labelOf[i.id] = i.title; }));
+P.checklist.forEach(i => { labelOf[i.id] = i.title; });
+
+function adopt(d){
+  store.s = d.s || {}; store.t = d.t || {};
+  shared.meta = d.meta || {}; shared.log = d.log || []; shared.me = d.me || null;
+  shared.on = true; shared.error = false;
+  save();
+}
+function api(method, url, body){
+  const opts = { method, credentials: 'same-origin', cache: 'no-store', headers: {} };
+  if(body){ opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+  return fetch(url, opts).then(r => {
+    if(r.status === 401){ location.href = '/login'; throw new Error('signed out'); }
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
   });
+}
+function pull(){
+  if(location.protocol === 'file:') return Promise.reject(new Error('offline file'));
+  return api('GET', '/api/state').then(d => { adopt(d); applyState(); return d; });
+}
+function commit(kind, id, value){
+  if(kind === 't' && !value) delete store.t[id]; else store[kind][id] = value;
+  save(); applyState();
+  if(!shared.on) return;
+  api('POST', '/api/update', { kind, id, value, label: labelOf[id] || id })
+    .then(d => { adopt(d); applyState(); })
+    .catch(err => { if(String(err.message) !== 'signed out'){ shared.error = true; applyAccount(); } });
+}
+function migrate(){
+  const FLAG = 'jarrett-command-center-migrated';
+  try { if(localStorage.getItem(FLAG)) return; } catch(e){ return; }
+  const s = {}, t = {}, labels = {}; let any = false;
+  Object.keys(localBefore.s).forEach(id => { if(localBefore.s[id] && localBefore.s[id] !== 'todo'){ s[id] = localBefore.s[id]; labels[id] = labelOf[id] || id; any = true; } });
+  Object.keys(localBefore.t).forEach(id => { if(localBefore.t[id]){ t[id] = true; labels[id] = labelOf[id] || id; any = true; } });
+  const done = () => { try { localStorage.setItem(FLAG, '1'); } catch(e){} };
+  if(!any){ done(); return; }
+  api('POST', '/api/merge', { s, t, labels }).then(d => { done(); adopt(d); applyState(); }).catch(() => {});
+}
 
-  // event-card countdowns
-  document.querySelectorAll('.edate[data-date]').forEach(function(el){
-    var start = new Date(el.getAttribute('data-date') + 'T00:00:00');
-    var end = new Date((el.getAttribute('data-end') || el.getAttribute('data-date')) + 'T23:59:59');
-    var diff = Math.ceil((start - now) / 86400000);
-    var meta = el.parentElement.querySelector('.emeta');
-    if(!meta) return;
-    var chip = document.createElement('span');
-    chip.className = 'ecount';
-    if(now > end){
-      chip.textContent = 'passed';
-      chip.classList.add('ec-past');
-      var card = el.closest('.ecard');
-      if(card) card.classList.add('event-past');
-    }
-    else if(diff <= 0){ chip.textContent = 'happening now'; chip.classList.add('ec-now'); }
-    else if(diff === 1){ chip.textContent = 'tomorrow'; chip.classList.add('ec-soon'); }
-    else { chip.textContent = diff + ' days'; if(diff <= 14) chip.classList.add('ec-soon'); }
-    meta.appendChild(chip);
+/* ---------------- building blocks ---------------- */
+const statusBtn = id => `<button type="button" class="status" data-sid="${esc(id)}" aria-haspopup="menu"><i></i><span>To do</span></button>`;
+const titleHtml = it => it.url ? `<a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.title)}</a>` : esc(it.title);
+const CHECK = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.2 6.3l2.4 2.4 5-5.2" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function whenCell(it){
+  if(!it.start) return `<div class="when">${esc(it.when.split(',')[0])}<small>date TBA</small></div>`;
+  const w = windowText(it.start, it.end);
+  return `<div class="when">${esc(it.when)}${w.t ? `<small class="${w.c}">${w.t}</small>` : ''}</div>`;
+}
+
+/* ---------------- views ---------------- */
+function viewWeek(){
+  const tasks = P.checklist.filter(t => !isPast(t)).sort((a, b) => a.due.localeCompare(b.due));
+  const acts = P.actNow.filter(a => !isPast(a)).sort((a, b) => a.start.localeCompare(b.start));
+  const taskRows = tasks.map(t => {
+    const d = dueText(t.due);
+    return `<div class="row task" role="checkbox" tabindex="0" aria-checked="false" data-tid="${esc(t.id)}">
+      <span class="box">${CHECK}</span>
+      <div><div class="t">${esc(t.title)}</div><div class="d">${t.body}</div></div>
+      <div class="due"><b>${esc(d.label)}</b><span class="${d.c}">${d.rel}</span></div>
+    </div>`;
+  }).join('') || '<div class="empty-row">Nothing on the list. Add the next batch of tasks when you plan the week.</div>';
+  const actRows = acts.map(a => `<details class="row" data-sid-row="${esc(a.id)}">
+      <summary class="item">
+        ${whenCell(a)}
+        <div><div class="title">${esc(a.title)}</div><div class="next">${esc(a.next)}</div></div>
+        <div class="ctl">${statusBtn(a.id)}</div>
+      </summary>
+      <div class="more"><p>${a.body}</p><p class="note">${esc(a.note)}</p>${a.url ? `<p><a href="${esc(a.url)}" target="_blank" rel="noopener">Open the website</a></p>` : ''}</div>
+    </details>`).join('') || '<div class="empty-row">No windows closing right now. Events has what\'s next.</div>';
+  const links = P.speaking.links.map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')
+    + '<a href="https://en.wikipedia.org/wiki/Jarrett_M._Adams" target="_blank" rel="noopener">Wikipedia article</a>';
+  return `<div class="hello"><div><p class="date" id="today-date"></p><h1 id="headline"></h1></div><div class="nextup" id="nextup" hidden></div></div>
+  <div class="home">
+    <div>
+      <section class="block" aria-labelledby="h-todo">
+        <div class="sh major"><h2 id="h-todo">To do</h2><span class="aside" id="progress" aria-live="polite"></span></div>
+        <div class="sheet">${taskRows}</div>
+      </section>
+      <section class="block" aria-labelledby="h-act">
+        <div class="sh major"><h2 id="h-act">Act now</h2><span class="aside">Windows that need a move</span></div>
+        <div class="sheet">${actRows}</div>
+      </section>
+    </div>
+    <aside>
+      <div class="panel"><h3>Latest updates</h3><div class="feed" id="feed"></div></div>
+      <div class="panel links"><h3>Links</h3>${links}</div>
+    </aside>
+  </div>`;
+}
+
+function viewEvents(){
+  const evs = P.events.filter(e => !isPast(e)).sort((a, b) => (a.start || a.expire).localeCompare(b.start || b.expire));
+  const groups = [];
+  evs.forEach(e => {
+    const g = e.group || day(e.start).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    let grp = groups.find(x => x.name === g);
+    if(!grp){ grp = { name: g, items: [] }; groups.push(grp); }
+    grp.items.push(e);
   });
+  const rows = items => items.map(e => {
+    const quiet = /closed|only/i.test(e.label);
+    const TAGCLS = { 'Must attend': 't-hot', 'National stage': 't-hot', 'Home turf': 't-local', 'Hometown': 't-local', 'Black Lit': 't-black', 'Innocence movement': 't-black' };
+    const tags = e.tags.map(t => `<span class="tag ${TAGCLS[t] || 't-fest'}">${esc(t)}</span>`).join('');
+    return `<details class="row" data-sid-row="${esc(e.id)}">
+      <summary class="item">
+        ${whenCell(e)}
+        <div><div class="title">${esc(e.title)}</div><div class="meta">${esc(e.place)}</div><div class="verdict"><span class="tag ${quiet ? 't-quiet' : 't-act'}">${esc(e.label)}</span>${tags}</div></div>
+        <div class="ctl">${statusBtn(e.id)}</div>
+      </summary>
+      <div class="more"><p>${e.body}</p>${e.url ? `<p><a href="${esc(e.url)}" target="_blank" rel="noopener">Open the event site</a></p>` : ''}</div>
+    </details>`;
+  }).join('');
+  const body = groups.map(g => `<div class="tier"><div class="sh"><h3>${esc(g.name)}</h3><span class="aside">${g.items.length === 1 ? '1 event' : g.items.length + ' events'}</span></div><div class="sheet">${rows(g.items)}</div></div>`).join('')
+    || '<div class="sheet"><div class="empty-row">No upcoming events on the list.</div></div>';
+  const plan = P.planAhead.map(p => `<dt>${esc(p.k)}</dt><dd>${esc(p.v)}</dd>`).join('');
+  return `<div class="sh major"><h2>Events and festivals</h2></div>
+  <p class="lede">Click any event for the details. Anything past its last day drops off automatically.</p>
+  <div class="toolbar"><label class="switch"><input type="checkbox" data-hide-passed> Hide ones marked passed</label></div>
+  ${body}
+  <section class="block" style="margin-top:36px">
+    <div class="sh"><h3>Next year's application windows</h3></div>
+    <p class="lede">Based on the 2026 cycle. Confirm each one in spring.</p>
+    <div class="panel plan"><dl class="facts">${plan}</dl></div>
+  </section>`;
+}
 
-  // checklist overdue flags
-  document.querySelectorAll('.crow .cw[data-date]').forEach(function(el){
-    if(new Date(el.getAttribute('data-date') + 'T23:59:59') < now){
-      el.textContent = 'Overdue';
-      el.closest('.crow').classList.add('late');
+function viewOutreach(){
+  const pod = P.podcasts.map(t => `<div class="tier" data-group>
+      <div class="sh"><h3>${esc(t.name)}</h3></div><p class="lede">${t.sub}</p>
+      <div class="sheet">${t.items.map(i => `<details class="row" data-sid-row="${esc(i.id)}" data-search>
+        <summary class="item nodate"><div><div class="title">${esc(i.title)}</div><div class="hook">${esc(i.hook)}</div></div><div class="ctl">${statusBtn(i.id)}</div></summary>
+        <div class="more nodate"><p>${i.body}</p></div>
+      </details>`).join('')}</div>
+    </div>`).join('');
+  const inf = P.influencers.map(t => `<div class="tier" data-group>
+      <div class="sh"><h3>${esc(t.name)}</h3></div><p class="lede">${t.sub}</p>
+      <div class="sheet">${t.items.map(i => `<details class="row" data-sid-row="${esc(i.id)}" data-search>
+        <summary class="item nodate"><div><div class="title">${esc(i.title)}</div><div class="meta">${esc(i.reach)}</div></div><div class="ctl">${statusBtn(i.id)}</div></summary>
+        <div class="more nodate"><p>${i.body}</p><p><span class="k">Ask:</span> ${i.ask}</p><p class="note">${esc(i.handle)}</p></div>
+      </details>`).join('')}</div>
+    </div>`).join('');
+  const cov = P.covered.groups.map(g => `<details class="tier fold" data-group data-fold>
+      <summary><div class="sh"><h3>${esc(g.title)}</h3><span class="aside">${g.items.length} entries</span></div></summary>
+      <p class="lede">${esc(g.note)}</p>
+      <div class="sheet">${g.items.map(i => `<div class="row ledger" data-search>
+        <div><div class="title">${titleHtml(i)}</div><div class="meta">${i.note}</div></div>
+        <span class="rule ${/pitch/i.test(i.rule) ? 'no' : 'angle'}">${esc(i.rule)}</span>
+      </div>`).join('')}</div>
+    </details>`).join('');
+  return `<div class="sh major"><h2>Outreach</h2></div>
+  <p class="lede">Podcasts, media and book influencers to pitch, and everywhere Jarrett has already been.</p>
+  <p class="callout"><b>Search before every pitch.</b> He has already done much of this circuit, including The Breakfast Club and Jason Flom's Wrongful Conviction. Re-pitching a show he has sat for burns the relationship.</p>
+  <div class="toolbar">
+    <label class="search"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><input type="search" id="search" placeholder="Search shows, outlets and people" aria-label="Search outreach"></label>
+    <label class="switch"><input type="checkbox" data-hide-passed> Hide ones marked passed</label>
+  </div>
+  <nav class="jump" aria-label="Outreach sections"><a href="#o-pod">Podcasts and media</a><a href="#o-inf">Book influencers</a><a href="#o-cov">Already covered</a></nav>
+  <section class="block" id="o-pod"><div class="sh major"><h2>Podcasts and media</h2></div>${pod}</section>
+  <section class="block" id="o-inf"><div class="sh major"><h2>Book influencers</h2></div>${inf}<p class="note">${esc(P.outreachRule)}</p></section>
+  <section class="block" id="o-cov"><div class="sh major"><h2>Already covered</h2></div>
+    <p class="lede">The screening list. Red means don't pitch again; gold means only with a genuinely new angle, like a new book, case win or documentary news.</p>
+    ${cov}
+    <details class="tier fold" data-group data-fold><summary><div class="sh"><h3>Print and feature credits</h3><span class="aside">${P.covered.print.length} outlets</span></div></summary>
+      <p class="lede">${esc(P.covered.printNote)}</p>
+      <div class="sheet"><div class="row ledger" data-search><p class="plain">${P.covered.print.map(esc).join(', ')}</p></div></div></details>
+    <p class="note">${esc(P.covered.caveat)}</p>
+  </section>
+  <div class="sheet nomatch" id="nomatch" hidden>Nothing matches that search. If he's been on it, add it to Already covered.</div>`;
+}
+
+function viewSpeaking(){
+  const s = P.speaking;
+  const facts = s.facts.map(f => `<dt>${esc(f.k)}</dt><dd>${esc(f.v)}</dd>`).join('');
+  const btns = s.links.map((l, i) => `<a class="btn ${i ? 'secondary' : 'primary'}" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
+  const stages = P.pipeline.map(p => `<div class="row stage ${p.state}">
+      <span class="dot" aria-hidden="true"></span>
+      <div><div class="title">${p.title}</div><p class="note" style="color:#3A453D">${p.body}</p></div>
+      <span class="st">${esc(p.status)}</span>
+    </div>`).join('');
+  return `<section class="block"><div class="sh major"><h2>Speaking</h2></div>
+    <div class="panel speak"><h3>${esc(s.heading)}</h3><p>${s.body}</p><div class="btns">${btns}</div><dl class="facts">${facts}</dl></div>
+  </section>
+  <section class="block"><div class="sh major"><h2>Books and presence</h2></div>
+    <p class="lede">Where each book property and public profile stands. Red is the gate that holds up the kids' series.</p>
+    <div class="sheet">${stages}</div>
+  </section>`;
+}
+
+/* ---------------- state → screen ---------------- */
+function applyAccount(){
+  const el = $('#account');
+  if(!shared.on){ el.innerHTML = '<span class="local">Progress saves in this browser</span>'; return; }
+  el.innerHTML = `<span>${esc(shared.me ? shared.me.name : '')}</span><a href="/logout">Sign out</a>` +
+    (shared.error ? '<span class="bad">Last change didn\'t save. Check your connection.</span>' : '');
+  const tools = $('#foot-tools');
+  if(tools && !tools.firstChild) tools.innerHTML = '<a href="/api/export">Download progress</a>';
+}
+function applyState(){
+  $$('.status[data-sid]').forEach(b => {
+    const s = st(b.dataset.sid);
+    b.dataset.s = s;
+    b.lastElementChild.textContent = SLABEL[s];
+    b.setAttribute('aria-label', 'Status: ' + SLABEL[s] + '. Change status');
+  });
+  const hide = store.f.hidePassed === true;
+  $$('[data-sid-row]').forEach(r => {
+    const passed = st(r.dataset.sidRow) === 'passed';
+    r.classList.toggle('is-passed', passed);
+    r.toggleAttribute('data-hidden-passed', hide && passed);
+  });
+  $$('[data-hide-passed]').forEach(c => { c.checked = hide; });
+
+  let open = 0, done = 0, dueWeek = 0;
+  $$('.task[data-tid]').forEach(r => {
+    const d = !!store.t[r.dataset.tid];
+    r.classList.toggle('done', d);
+    r.setAttribute('aria-checked', String(d));
+    if(d) done++; else { open++; const t = P.checklist.find(x => x.id === r.dataset.tid); if(t && until(t.due) <= 7) dueWeek++; }
+  });
+  const total = open + done;
+  const prog = $('#progress');
+  if(prog) prog.textContent = total ? done + ' of ' + total + ' done' : '';
+
+  const actsOpen = P.actNow.filter(a => !isPast(a) && !['submitted', 'confirmed', 'passed'].includes(st(a.id))).length;
+  const h = $('#headline');
+  if(h){
+    let line;
+    const tasks = dueWeek === 1 ? 'task' : 'tasks', wins = actsOpen === 1 ? 'window' : 'windows';
+    if(dueWeek && actsOpen) line = `${word(dueWeek)} ${tasks} due this week, and ${word(actsOpen, true)} ${wins} to act on.`;
+    else if(dueWeek) line = `${word(dueWeek)} ${tasks} due this week.`;
+    else if(actsOpen) line = `Nothing due this week. ${word(actsOpen)} ${wins} to act on.`;
+    else line = 'All clear for now.';
+    h.textContent = line;
+  }
+  const nu = $('#nextup');
+  if(nu){
+    const cand = [];
+    P.checklist.filter(t => !isPast(t) && !store.t[t.id]).forEach(t => cand.push({ date: t.due, title: t.title, rel: dueText(t.due).rel }));
+    P.actNow.filter(a => !isPast(a) && !['submitted', 'confirmed', 'passed'].includes(st(a.id))).forEach(a => {
+      const w = windowText(a.start, a.end); cand.push({ date: a.start, title: a.title, rel: w.t, label: a.when });
+    });
+    cand.sort((x, y) => x.date.localeCompare(y.date));
+    const n = cand[0];
+    nu.hidden = !n;
+    if(n) nu.innerHTML = `<div class="lbl">Next up</div><div class="nd">${esc(n.label || day(n.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }))}</div><div class="nt">${esc(n.title)}</div>${n.rel ? `<div class="nr">${esc(n.rel)}</div>` : ''}`;
+  }
+  const dEl = $('#today-date');
+  if(dEl) dEl.textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+  const evOpen = P.events.filter(e => !isPast(e) && st(e.id) !== 'passed').length;
+  const outIds = [].concat(...P.podcasts.map(t => t.items), ...P.influencers.map(t => t.items)).map(i => i.id);
+  const outOpen = outIds.filter(id => !['confirmed', 'passed'].includes(st(id))).length;
+  const counts = { week: open, events: evOpen, outreach: outOpen };
+  $$('[data-count]').forEach(n => { const v = counts[n.dataset.count]; n.textContent = v ? String(v) : ''; });
+
+  const feed = $('#feed');
+  if(feed){
+    if(!shared.on){ feed.innerHTML = '<p class="empty">Sign in to see what the team has changed.</p>'; }
+    else if(!shared.log.length){ feed.innerHTML = '<p class="empty">No changes yet. Updates from Ali, Jarrett and Carla show up here.</p>'; }
+    else feed.innerHTML = shared.log.slice(0, 6).map(e => {
+      const what = e.kind === 't' ? (e.value ? 'ticked ' : 'unticked ') + '“' + esc(e.label) + '”'
+        : 'set “' + esc(e.label) + '” to ' + esc((SLABEL[e.value] || e.value).toLowerCase());
+      return `<div class="ev"><b>${esc(e.by)}</b> ${what}${e.imported ? ' (from their browser)' : ''}<time datetime="${esc(e.at)}">${ago(e.at)}</time></div>`;
+    }).join('');
+  }
+  runSearch();
+  applyAccount();
+}
+
+/* ---------------- status menu ---------------- */
+const menu = $('#status-menu');
+let menuFor = null, menuBtn = null;
+function closeMenu(refocus){
+  menu.hidden = true; menuFor = null;
+  if(refocus && menuBtn) menuBtn.focus();
+  menuBtn = null;
+}
+function openMenu(btn){
+  menuBtn = btn; menuFor = btn.dataset.sid;
+  const cur = st(menuFor);
+  const meta = shared.meta['s:' + menuFor];
+  menu.innerHTML = STATUS.map(s => `<button type="button" role="menuitemradio" aria-checked="${s === cur}" data-set="${s}"><i style="background:${SDOT[s]}"></i>${SLABEL[s]}</button>`).join('')
+    + (meta ? `<div class="by">Set by ${esc(meta.by)}, ${ago(meta.at)}</div>` : '');
+  menu.hidden = false;
+  const r = btn.getBoundingClientRect();
+  const w = menu.offsetWidth, hgt = menu.offsetHeight;
+  let left = r.right + window.scrollX - w;
+  left = Math.max(window.scrollX + 10, left);
+  let top = r.bottom + window.scrollY + 6;
+  if(r.bottom + hgt + 12 > window.innerHeight && r.top > hgt + 12) top = r.top + window.scrollY - hgt - 6;
+  menu.style.left = left + 'px'; menu.style.top = top + 'px';
+  (menu.querySelector('[aria-checked="true"]') || menu.querySelector('button')).focus();
+}
+menu.addEventListener('click', e => {
+  const b = e.target.closest('[data-set]');
+  if(!b) return;
+  const id = menuFor;
+  closeMenu(true);
+  commit('s', id, b.dataset.set);
+});
+menu.addEventListener('keydown', e => {
+  const items = $$('[data-set]', menu);
+  const i = items.indexOf(document.activeElement);
+  if(e.key === 'ArrowDown'){ e.preventDefault(); items[(i + 1) % items.length].focus(); }
+  else if(e.key === 'ArrowUp'){ e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+  else if(e.key === 'Escape' || e.key === 'Tab'){ e.preventDefault(); closeMenu(true); }
+});
+
+/* ---------------- events ---------------- */
+document.addEventListener('click', e => {
+  const sb = e.target.closest('.status[data-sid]');
+  if(sb){
+    e.preventDefault(); e.stopPropagation();
+    if(!menu.hidden && menuFor === sb.dataset.sid) closeMenu(false); else openMenu(sb);
+    return;
+  }
+  if(!menu.hidden && !menu.contains(e.target)) closeMenu(false);
+  const task = e.target.closest('.task[data-tid]');
+  if(task && !e.target.closest('a')){
+    if(window.getSelection && String(window.getSelection())) return;
+    commit('t', task.dataset.tid, !store.t[task.dataset.tid]);
+  }
+});
+document.addEventListener('keydown', e => {
+  const task = e.target.closest && e.target.closest('.task[data-tid]');
+  if(task && e.target === task && (e.key === ' ' || e.key === 'Enter')){
+    e.preventDefault();
+    commit('t', task.dataset.tid, !store.t[task.dataset.tid]);
+  }
+});
+document.addEventListener('change', e => {
+  if(e.target.matches('[data-hide-passed]')){ store.f.hidePassed = e.target.checked; save(); applyState(); }
+});
+window.addEventListener('resize', () => { if(!menu.hidden) closeMenu(false); });
+
+/* search */
+function runSearch(){
+  const input = $('#search');
+  if(!input) return;
+  const q = input.value.trim().toLowerCase();
+  const root = $('#view-outreach');
+  let shown = 0;
+  $$('[data-search]', root).forEach(r => {
+    const hit = !q || r.textContent.toLowerCase().includes(q);
+    const hiddenPassed = r.hasAttribute('data-hidden-passed');
+    r.hidden = !hit || hiddenPassed;
+    if(!r.hidden) shown++;
+    if(q && hit && r.tagName === 'DETAILS') r.open = true;
+  });
+  $$('[data-group]', root).forEach(g => {
+    g.hidden = !$$('[data-search]', g).some(r => !r.hidden);
+    if(g.hasAttribute('data-fold')){
+      if(q && !g.hidden){ if(!g.open){ g.open = true; g.dataset.auto = '1'; } }
+      else if(!q && g.dataset.auto){ g.open = false; delete g.dataset.auto; }
     }
   });
-
-  // nav active state on scroll
-  var links = document.querySelectorAll('.tabs a');
-  var sections = Array.prototype.map.call(links, function(a){
-    return document.querySelector(a.getAttribute('href'));
+  $$('#view-outreach > section.block', document).forEach(s => {
+    s.hidden = !!q && !$$('[data-search]', s).some(r => !r.hidden);
   });
-  var lastIdx = -1;
-  function setActive(){
-    var y = window.scrollY + 120;
-    var idx = 0;
-    sections.forEach(function(s,i){ if(s && s.offsetTop <= y) idx = i; });
-    links.forEach(function(a,i){ a.classList.toggle('active', i===idx); });
-    if(idx !== lastIdx && links[idx]){
-      lastIdx = idx;
-      links[idx].scrollIntoView({inline:'nearest', block:'nearest'});
-    }
-  }
-  window.addEventListener('scroll', setActive, {passive:true});
-  setActive();
+  $$('#view-outreach .callout, #view-outreach .jump').forEach(el => { el.hidden = !!q; });
+  $('#nomatch').hidden = !(q && !shown);
+}
+document.addEventListener('input', e => { if(e.target.id === 'search') runSearch(); });
 
-  // tab-bar overflow affordance
-  var navWrap = document.querySelector('nav .wrap');
-  var tabsEl = document.querySelector('.tabs');
-  function updateFade(){
-    navWrap.classList.toggle('has-overflow', tabsEl.scrollWidth - tabsEl.clientWidth - tabsEl.scrollLeft > 4);
-  }
-  tabsEl.addEventListener('scroll', updateFade, {passive:true});
-  window.addEventListener('resize', updateFade, {passive:true});
-  updateFade();
-})();
-</script>
-<script>
-(function(){
-  var KEY = 'jarrett-command-center';
-  var store;
-  try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) { store = {}; }
-  store.s = store.s || {};  // opportunity statuses
-  store.t = store.t || {};  // checklist ticks
-  store.f = store.f || {};  // status filter visibility (false = hidden)
-  function save(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} }
+/* rows hidden because they're marked passed (events view) */
+const hideStyle = document.createElement('style');
+hideStyle.textContent = '[data-hidden-passed]{display:none!important}';
+document.head.appendChild(hideStyle);
 
-  // ---- shared progress: statuses + ticks live on the server so the whole team
-  // sees the same board. Filters stay personal (this browser only).
-  var localBefore = { s: JSON.parse(JSON.stringify(store.s)), t: JSON.parse(JSON.stringify(store.t)) };
-  var shared = { on: false, me: null, meta: {}, log: [], error: false };
-  var labelOf = {};
-  function adopt(d){
-    store.s = d.s || {}; store.t = d.t || {};
-    shared.meta = d.meta || {}; shared.log = d.log || []; shared.me = d.me || null;
-    shared.on = true; shared.error = false;
-    save();
-  }
-  function api(method, url, body){
-    var opts = { method: method, credentials: 'same-origin', cache: 'no-store', headers: {} };
-    if(body){ opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
-    return fetch(url, opts).then(function(r){
-      if(r.status === 401){ location.href = '/login'; throw new Error('signed out'); }
-      if(!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    });
-  }
-  function pull(){
-    if(location.protocol === 'file:') return Promise.reject(new Error('offline file'));
-    return api('GET', '/api/state').then(function(d){ adopt(d); render(); updateHint(); return d; });
-  }
-  function commit(kind, id, value){
-    if(kind === 't' && !value) delete store.t[id]; else store[kind][id] = value;
-    save(); render();
-    if(!shared.on) return;
-    api('POST', '/api/update', { kind: kind, id: id, value: value, label: labelOf[id] || id })
-      .then(function(d){ adopt(d); render(); updateHint(); })
-      .catch(function(err){ if(String(err.message) !== 'signed out'){ shared.error = true; updateHint(); } });
-  }
-  function migrate(){
-    // one-time: upload progress this browser saved before the portal went shared
-    var FLAG = 'jarrett-command-center-migrated';
-    try { if(localStorage.getItem(FLAG)) return; } catch(e) { return; }
-    var s = {}, t = {}, labels = {}, any = false;
-    Object.keys(localBefore.s).forEach(function(id){ if(localBefore.s[id] && localBefore.s[id] !== 'todo'){ s[id] = localBefore.s[id]; labels[id] = labelOf[id] || id; any = true; } });
-    Object.keys(localBefore.t).forEach(function(id){ if(localBefore.t[id]){ t[id] = true; labels[id] = labelOf[id] || id; any = true; } });
-    var done = function(){ try { localStorage.setItem(FLAG, '1'); } catch(e) {} };
-    if(!any){ done(); return; }
-    api('POST', '/api/merge', { s: s, t: t, labels: labels }).then(function(d){ done(); adopt(d); render(); updateHint(); }).catch(function(){});
-  }
-  function ago(iso){
-    var m = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
-    if(m < 1) return 'just now';
-    if(m < 60) return m + 'm ago';
-    var h = Math.round(m / 60);
-    if(h < 24) return h + 'h ago';
-    var d = Math.round(h / 24);
-    if(d < 7) return d + 'd ago';
-    return new Date(iso).toLocaleDateString('en-US', {month:'short', day:'numeric'});
-  }
-
-  var ORDER = ['todo','working','submitted','confirmed','passed'];
-  var LABELS = {todo:'○ To do', working:'◐ In progress', submitted:'↗ Submitted', confirmed:'✓ Confirmed', passed:'— Passed'};
-
-  // stable id from a card title — same opportunity in two sections shares one status
-  function slug(s){
-    return s.toLowerCase().replace(/[^a-z0-9 ]+/g,'').trim().split(/\s+/).slice(0,3).join('-');
-  }
-  function st(id){ return store.s[id] || 'todo'; }
-  function step(id, dir){
-    var i = (ORDER.indexOf(st(id)) + dir + ORDER.length) % ORDER.length;
-    commit('s', id, ORDER[i]);
-  }
-
-  // status popover — tap a pill, choose a state directly
-  var pop = document.createElement('div');
-  pop.className = 'status-pop';
-  pop.setAttribute('role', 'menu');
-  document.body.appendChild(pop);
-  var popFor = null;
-  function closePop(){ pop.style.display = 'none'; popFor = null; }
-  function openPop(pill){
-    popFor = pill.getAttribute('data-track');
-    pop.innerHTML = '';
-    ORDER.forEach(function(sname){
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.textContent = LABELS[sname];
-      if(st(popFor) === sname) b.className = 'cur';
-      b.addEventListener('click', function(e){
-        e.stopPropagation();
-        var target = popFor;
-        closePop();
-        commit('s', target, sname);
-      });
-      pop.appendChild(b);
-    });
-    pop.style.display = 'block';
-    var r = pill.getBoundingClientRect();
-    var left = r.left + window.scrollX;
-    var maxLeft = window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 10;
-    pop.style.left = Math.min(left, maxLeft) + 'px';
-    pop.style.top = (r.bottom + window.scrollY + 6) + 'px';
-  }
-  document.addEventListener('click', function(e){
-    if(pop.style.display === 'block' && !pop.contains(e.target)) closePop();
+/* ---------------- tabs ---------------- */
+const VIEWS = ['week', 'events', 'outreach', 'speaking'];
+const LEGACY = { urgent: 'week', checklist: 'week', today: 'week', events: 'events', podcasts: 'outreach', covered: 'outreach', influencers: 'outreach', speaking: 'speaking', publishing: 'speaking' };
+function show(view, focusTab){
+  if(!VIEWS.includes(view)) view = 'week';
+  VIEWS.forEach(v => {
+    const on = v === view;
+    $('#view-' + v).hidden = !on;
+    const t = $('#tab-' + v);
+    t.setAttribute('aria-selected', String(on));
+    t.tabIndex = on ? 0 : -1;
   });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePop(); });
-  window.addEventListener('scroll', function(){ if(pop.style.display === 'block') closePop(); }, {passive:true});
-
-  function addPill(card, titleSel, host){
-    var t = card.querySelector(titleSel);
-    if(!t) return;
-    var pill = document.createElement('span');
-    pill.className = 'track';
-    pill.setAttribute('data-track', slug(t.textContent));
-    labelOf[slug(t.textContent)] = t.textContent.replace(/\s+/g, ' ').trim();
-    pill.setAttribute('role', 'button');
-    pill.tabIndex = 0;
-    pill.title = 'Click to choose status · shift-click steps back';
-    (host || card).appendChild(pill);
-    function act(e){
-      e.preventDefault(); e.stopPropagation();
-      if(e.shiftKey){ step(pill.getAttribute('data-track'), -1); return; }
-      if(popFor === pill.getAttribute('data-track') && pop.style.display === 'block'){ closePop(); return; }
-      openPop(pill);
-    }
-    pill.addEventListener('click', act);
-    pill.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' ') act(e);
-    });
-  }
-  document.querySelectorAll('.ucard').forEach(function(c){ addPill(c, 'h3'); });
-  document.querySelectorAll('.ecard').forEach(function(c){ addPill(c, '.etitle', c.querySelector('.ehead')); });
-  document.querySelectorAll('.pcard:not(.burned)').forEach(function(c){ addPill(c, '.pname'); });
-
-  document.querySelectorAll('.crow').forEach(function(row){
-    var ct = row.querySelector('.ct');
-    if(!ct) return;
-    row.setAttribute('data-task', slug(ct.textContent));
-    labelOf[slug(ct.textContent)] = ct.textContent.replace(/\s+/g, ' ').trim();
-    row.setAttribute('role', 'checkbox');
-    row.tabIndex = 0;
-    var tick = document.createElement('div');
-    tick.className = 'tick';
-    row.insertBefore(tick, row.firstChild);
-    function toggleRow(){
-      var id = row.getAttribute('data-task');
-      var nv = !store.t[id];
-      commit('t', id, nv);
-      if(nv){
-        // ticking a task advances its linked opportunities (never backwards)
-        var links = row.getAttribute('data-links');
-        if(links){
-          links.split(',').forEach(function(pair){
-            var p = pair.trim().split(':');
-            if(p.length === 2 && ORDER.indexOf(p[1]) > ORDER.indexOf(st(p[0]))){
-              commit('s', p[0], p[1]);
-            }
-          });
-        }
-      }
-    }
-    row.addEventListener('click', function(e){
-      if(e.target.closest('a') || e.target.closest('.track')) return;
-      if(window.getSelection && String(window.getSelection())) return;
-      toggleRow();
-    });
-    row.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleRow(); }
-    });
+  if(focusTab) $('#tab-' + view).focus();
+  if(location.hash.slice(1) !== view) history.replaceState(null, '', '#' + view);
+  closeMenu(false);
+}
+$$('.tab').forEach(t => {
+  t.addEventListener('click', () => { show(t.dataset.view); window.scrollTo(0, 0); });
+  t.addEventListener('keydown', e => {
+    const i = VIEWS.indexOf(t.dataset.view);
+    if(e.key === 'ArrowRight'){ e.preventDefault(); show(VIEWS[(i + 1) % VIEWS.length], true); }
+    if(e.key === 'ArrowLeft'){ e.preventDefault(); show(VIEWS[(i - 1 + VIEWS.length) % VIEWS.length], true); }
   });
+});
+window.addEventListener('hashchange', () => {
+  const h = location.hash.slice(1);
+  if(VIEWS.includes(h)) show(h);
+  else if(LEGACY[h]) show(LEGACY[h]);
+});
 
-  var asof = document.querySelector('.asof');
-  if(asof){
-    var hint = document.createElement('div');
-    hint.className = 'cc-hint';
-    hint.textContent = 'Tap any status pill to update it · progress saves in this browser only';
-    asof.appendChild(hint);
-  }
-  function updateHint(){
-    if(!hint) return;
-    if(!shared.on){ hint.textContent = 'Tap any status pill to update it · progress saves in this browser only'; return; }
-    hint.innerHTML = '';
-    hint.appendChild(document.createTextNode('Signed in as ' + (shared.me ? shared.me.name : '') + ' · progress is shared with the team · '));
-    var out = document.createElement('a'); out.href = '/logout'; out.textContent = 'Sign out';
-    hint.appendChild(out);
-    if(shared.error){
-      var bad = document.createElement('div'); bad.className = 'sync-bad';
-      bad.textContent = 'Last change didn\'t save — check your connection and try again.';
-      hint.appendChild(bad);
-    }
-  }
-  var csub = document.querySelector('#checklist .shead .sub');
-  var prog = document.createElement('strong');
-  if(csub){ csub.appendChild(document.createTextNode(' · ')); csub.appendChild(prog); csub.setAttribute('aria-live', 'polite'); }
-
-  // status filter strip
-  var filterBar = document.getElementById('status-filters');
-  var fchips = {};
-  if(filterBar){
-    ORDER.forEach(function(sname){
-      var chip = document.createElement('span');
-      chip.className = 'fchip';
-      chip.setAttribute('role', 'button');
-      chip.tabIndex = 0;
-      var lab = document.createElement('span');
-      lab.textContent = LABELS[sname];
-      var cnt = document.createElement('span');
-      cnt.className = 'fc';
-      chip.appendChild(lab); chip.appendChild(cnt);
-      function flip(){
-        store.f[sname] = store.f[sname] === false ? true : false;
-        save(); render();
-      }
-      chip.addEventListener('click', flip);
-      chip.addEventListener('keydown', function(e){
-        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flip(); }
-      });
-      fchips[sname] = { chip: chip, cnt: cnt };
-      filterBar.appendChild(chip);
-    });
-  }
-
-  // backup / restore controls in the footer
-  var foot = document.querySelector('footer .wrap');
-  if(foot){
-    var tools = document.createElement('div');
-    tools.className = 'cc-tools';
-    var bBtn = document.createElement('button');
-    bBtn.type = 'button'; bBtn.className = 'cc-btn'; bBtn.textContent = 'Backup progress';
-    var rBtn = document.createElement('button');
-    rBtn.type = 'button'; rBtn.className = 'cc-btn'; rBtn.textContent = 'Restore';
-    bBtn.addEventListener('click', function(){
-      var json = JSON.stringify(store);
-      function okFlash(){ bBtn.textContent = 'Copied ✓'; setTimeout(function(){ bBtn.textContent = 'Backup progress'; }, 2000); }
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(json).then(okFlash, function(){ window.prompt('Copy this backup text:', json); });
-      } else { window.prompt('Copy this backup text:', json); }
-    });
-    rBtn.addEventListener('click', function(){
-      var txt = window.prompt('Paste a backup to restore:');
-      if(!txt) return;
-      try {
-        var obj = JSON.parse(txt);
-        if(!obj || typeof obj !== 'object') throw new Error('bad');
-        store.s = obj.s || {}; store.t = obj.t || {}; store.f = obj.f || {};
-        save(); render();
-        rBtn.textContent = 'Restored ✓';
-        setTimeout(function(){ rBtn.textContent = 'Restore'; }, 2000);
-      } catch(err){ alert('That did not look like a valid backup.'); }
-    });
-    tools.appendChild(bBtn); tools.appendChild(rBtn);
-    foot.appendChild(tools);
-  }
-  function updateTools(){
-    if(!foot || !shared.on || foot.querySelector('a.cc-btn')) return;
-    var dl = document.createElement('a');
-    dl.className = 'cc-btn'; dl.href = '/api/export'; dl.textContent = 'Download progress';
-    tools.innerHTML = ''; tools.appendChild(dl);
-  }
-
-  // today digest — open tasks + open urgent windows, soonest first
-  function buildToday(){
-    var list = document.getElementById('today-list');
-    var sub = document.getElementById('today-sub');
-    if(!list) return;
-    var items = [];
-    document.querySelectorAll('.crow[data-task]').forEach(function(row){
-      if(store.t[row.getAttribute('data-task')]) return;
-      var cw = row.querySelector('.cw');
-      items.push({ kind: 'Task', title: row.querySelector('.ct').textContent, date: cw ? cw.getAttribute('data-date') : null, el: row });
-    });
-    document.querySelectorAll('#urgent .ucard').forEach(function(card){
-      var pill = card.querySelector('.track');
-      var s = pill ? st(pill.getAttribute('data-track')) : 'todo';
-      if(s === 'submitted' || s === 'confirmed' || s === 'passed') return;
-      if(card.classList.contains('event-past')) return;
-      var days = card.querySelector('.days');
-      items.push({ kind: 'Act', title: card.querySelector('h3').textContent, date: days ? days.getAttribute('data-date') : null, end: days ? days.getAttribute('data-end') : null, el: card });
-    });
-    items.sort(function(a, b){ return (a.date || '9999').localeCompare(b.date || '9999'); });
-    var top = items.slice(0, 5);
-    var nowD = new Date();
-    list.innerHTML = '';
-    top.forEach(function(it){
-      var div = document.createElement('div');
-      div.className = 'titem';
-      div.setAttribute('role', 'link');
-      div.tabIndex = 0;
-      var kindEl = document.createElement('span'); kindEl.className = 'tk'; kindEl.textContent = it.kind;
-      var tEl = document.createElement('span'); tEl.className = 'tt'; tEl.textContent = it.title.trim();
-      var dEl = document.createElement('span'); dEl.className = 'td';
-      if(it.date){
-        var due = new Date(it.date + 'T23:59:59');
-        var dd = Math.ceil((new Date(it.date + 'T00:00:00') - nowD) / 86400000);
-        var endD = it.end ? new Date(it.end + 'T23:59:59') : null;
-        if(endD && nowD > due && nowD <= endD){ dEl.textContent = 'happening now'; dEl.classList.add('due-soon'); }
-        else if(nowD > due){ dEl.textContent = 'overdue'; dEl.classList.add('due-over'); }
-        else if(dd <= 0){ dEl.textContent = 'today'; dEl.classList.add('due-soon'); }
-        else if(dd === 1){ dEl.textContent = 'tomorrow'; dEl.classList.add('due-soon'); }
-        else { dEl.textContent = dd + ' days'; if(dd <= 7) dEl.classList.add('due-soon'); }
-      }
-      div.appendChild(kindEl); div.appendChild(tEl); div.appendChild(dEl);
-      function go(){
-        it.el.scrollIntoView({behavior: 'smooth', block: 'center'});
-        it.el.classList.add('flash');
-        setTimeout(function(){ it.el.classList.remove('flash'); }, 1700);
-      }
-      div.addEventListener('click', go);
-      div.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ go(); } });
-      list.appendChild(div);
-    });
-    if(!items.length){
-      list.innerHTML = '<div class="titem" style="cursor:default"><span class="tt">All clear — nothing urgent on the board.</span></div>';
-      sub.textContent = '';
-    } else {
-      sub.textContent = items.length + ' open · showing ' + top.length;
-    }
-  }
-
-  function render(){
-    var uniq = {};
-    document.querySelectorAll('.track[data-track]').forEach(function(el){
-      var id = el.getAttribute('data-track');
-      var s = st(id);
-      uniq[id] = s;
-      el.setAttribute('data-s', s);
-      el.textContent = LABELS[s];
-      var mt = shared.meta['s:' + id];
-      el.title = mt ? (LABELS[s].replace(/^[^a-zA-Z]+/, '') + ' · set by ' + mt.by + ' ' + ago(mt.at)) : 'Click to choose status · shift-click steps back';
-      el.setAttribute('aria-label', 'Status: ' + LABELS[s].replace(/^[^a-zA-Z]+/, '') + '. Activate to change.');
-      var card = el.closest('.ucard,.ecard,.pcard');
-      if(card){
-        card.classList.toggle('card-passed', s === 'passed');
-        card.classList.toggle('hidden-by-filter', store.f[s] === false);
-        var acted = (s === 'submitted' || s === 'confirmed' || s === 'passed');
-        card.querySelectorAll('.badge,.sbadge').forEach(function(b){ b.classList.toggle('superseded', acted); });
-      }
-    });
-
-    // hide month headers whose events are all filtered out
-    document.querySelectorAll('.mhead').forEach(function(mh){
-      var sib = mh.nextElementSibling, any = false;
-      while(sib && !sib.classList.contains('mhead')){
-        if(sib.classList.contains('ecard') && !sib.classList.contains('hidden-by-filter')){ any = true; break; }
-        sib = sib.nextElementSibling;
-      }
-      mh.classList.toggle('hidden-by-filter', !any);
-    });
-
-    var counts = { todo:0, working:0, submitted:0, confirmed:0, passed:0 };
-    Object.keys(uniq).forEach(function(id){ counts[uniq[id]]++; });
-    ORDER.forEach(function(sname){
-      if(!fchips[sname]) return;
-      var visible = store.f[sname] !== false;
-      fchips[sname].chip.classList.toggle('off', !visible);
-      fchips[sname].chip.setAttribute('aria-pressed', String(visible));
-      fchips[sname].cnt.textContent = counts[sname];
-    });
-
-    var total = 0, done = 0;
-    document.querySelectorAll('.crow[data-task]').forEach(function(row){
-      total++;
-      var d = !!store.t[row.getAttribute('data-task')];
-      if(d) done++;
-      row.classList.toggle('done', d);
-      row.setAttribute('aria-checked', String(d));
-      var tk = row.querySelector('.tick');
-      if(tk) tk.textContent = d ? '✓' : '';
-    });
-    prog.textContent = done + ' of ' + total + ' done';
-
-    var uOpen = 0;
-    document.querySelectorAll('#urgent .track[data-track]').forEach(function(el){
-      if(el.closest('.event-past')) return;
-      var s = st(el.getAttribute('data-track'));
-      if(s !== 'confirmed' && s !== 'passed') uOpen++;
-    });
-    var seen = {}, eOpen = 0;
-    document.querySelectorAll('#events .track[data-track]').forEach(function(el){
-      var id = el.getAttribute('data-track');
-      if(seen[id] || el.closest('.event-past')) return;
-      seen[id] = 1;
-      if(st(id) !== 'passed') eOpen++;
-    });
-    var pOpen = 0;
-    document.querySelectorAll('#podcasts .track[data-track]').forEach(function(el){
-      if(st(el.getAttribute('data-track')) !== 'passed') pOpen++;
-    });
-    var iOpen = 0;
-    document.querySelectorAll('#influencers .track[data-track]').forEach(function(el){
-      if(st(el.getAttribute('data-track')) !== 'passed') iOpen++;
-    });
-    var nums = document.querySelectorAll('.statrow .stat .n');
-    if(nums[0]) nums[0].textContent = uOpen;
-    if(nums[1]) nums[1].textContent = eOpen;
-    if(nums[2]) nums[2].textContent = pOpen;
-    if(nums[4]) nums[4].textContent = iOpen;
-
-    buildToday();
-    buildActivity();
-    updateTools();
-  }
-
-  function buildActivity(){
-    var box = document.querySelector('.today-box');
-    if(!box) return;
-    var act = box.querySelector('.today-activity');
-    if(!shared.on || !shared.log.length){ if(act) act.remove(); return; }
-    if(!act){ act = document.createElement('div'); act.className = 'today-activity'; box.appendChild(act); }
-    act.innerHTML = '<div class="ta-head">Latest updates</div>';
-    shared.log.slice(0, 4).forEach(function(e){
-      var line = document.createElement('div'); line.className = 'ta-item';
-      var who = document.createElement('b'); who.textContent = e.by;
-      var what;
-      if(e.kind === 't') what = (e.value ? ' ticked ' : ' unticked ') + '“' + e.label + '”';
-      else what = ' set “' + e.label + '” to ' + (LABELS[e.value] || e.value).replace(/^[^a-zA-Z]+/, '');
-      if(e.imported) what += ' (carried over from their browser)';
-      var when = document.createElement('span'); when.className = 'ta-when'; when.textContent = ago(e.at);
-      line.appendChild(who); line.appendChild(document.createTextNode(what)); line.appendChild(when);
-      act.appendChild(line);
-    });
-  }
-
-  render();
-  pull().then(migrate).catch(function(){ /* opened as a local file: stays in browser-only mode */ });
-  setInterval(function(){ if(document.visibilityState === 'visible' && shared.on) pull().catch(function(){}); }, 60000);
-  document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'visible' && shared.on) pull().catch(function(){}); });
+/* ---------------- boot ---------------- */
+$('#view-week').innerHTML = viewWeek();
+$('#view-events').innerHTML = viewEvents();
+$('#view-outreach').innerHTML = viewOutreach();
+$('#view-speaking').innerHTML = viewSpeaking();
+const updated = day(P.updated).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+$('#foot-note').textContent = 'Content checked ' + updated + '. Anything past its date drops off on its own.';
+const h0 = location.hash.slice(1);
+show(VIEWS.includes(h0) ? h0 : (LEGACY[h0] || 'week'));
+applyState();
+pull().then(migrate).catch(() => { /* local file: browser-only mode */ });
+setInterval(() => { if(document.visibilityState === 'visible' && shared.on) pull().catch(() => {}); }, 60000);
+document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'visible' && shared.on) pull().catch(() => {}); });
+/* reload just after midnight so expired items drop off on an open tab */
+const midnight = new Date(now); midnight.setHours(24, 1, 0, 0);
+setTimeout(() => location.reload(), midnight - now);
 })();
 </script>
 </body>
