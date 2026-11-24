@@ -4,6 +4,13 @@
   "version": "2.0.0",
   "description": "Jarrett Adams Opportunity Portal: login + shared progress",
   "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "engines": { "node": ">=22" }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.13.0"
+  }
 }

@@ -40,3 +40,24 @@ passwords from one network, sign-in pauses for 15 minutes.
 Every time the page opens (and just after midnight if left open), anything
 whose date has passed — events, Act Now cards, checklist tasks — is removed
 from the page. To bring something back, give it a new date in index.html.
+
+## Outreach autopilot
+
+`/outreach` shows what the autopilot is doing. It drafts and sends pitch
+emails to the podcast and book-influencer entries on its own, weekdays 9 to 4,
+five a day by default, and marks each one submitted in the portal.
+
+It is off until these Railway variables are set:
+
+| Variable | What it is |
+|---|---|
+| `OUTREACH_MODE` | `dry` writes drafts and logs them without sending. `live` sends. Anything else is off. |
+| `ANTHROPIC_API_KEY` | Lets the server write drafts with Claude. |
+| `OUTREACH_WEBHOOK_URL` | The n8n webhook from `../jarrett-outreach-sender.n8n.json`. |
+| `OUTREACH_WEBHOOK_SECRET` | Long random string. Must match the Header Auth credential on that webhook. |
+
+It never writes to tier 1 shows (those go through PRH), anything on the
+"Don't pitch" list, the kids' series list before Jarrett's sign-off, an entry
+someone has already marked working or beyond, or the same address twice. It
+only uses contact emails the team has entered on the page. Edit
+`outreach-profile.txt` to change the facts a draft is allowed to state.

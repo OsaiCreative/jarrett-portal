@@ -1208,7 +1208,7 @@ function applyAccount(){
   el.innerHTML = `<span>${esc(shared.me ? shared.me.name : '')}</span><a href="/logout">Sign out</a>` +
     (shared.error ? '<span class="bad">Last change didn\'t save. Check your connection.</span>' : '');
   const tools = $('#foot-tools');
-  if(tools && !tools.firstChild) tools.innerHTML = '<a href="/api/export">Download progress</a>';
+  if(tools && !tools.firstChild) tools.innerHTML = '<a href="/outreach">Outreach autopilot</a> <a href="/api/export">Download progress</a>';
 }
 function applyState(){
   $$('.status[data-sid]').forEach(b => {

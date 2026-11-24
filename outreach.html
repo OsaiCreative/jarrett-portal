@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Outreach autopilot · Jarrett Adams Opportunity Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--parchment:#F4EDDE;--paper:#FCF9F2;--ink:#1B241E;--forest:#24402F;--forest-deep:#18291F;--gold:#A98736;--gold-soft:#D3B66C;--gold-ink:#7E6420;--brick:#A3402A;--sage:#5E6E5B;--divider:#EEE5D2;--hover:#F7F1E4;
+--lift:0 1px 2px rgba(70,55,20,.05),0 10px 28px rgba(70,55,20,.07);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+a{color:var(--forest);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px;border-radius:8px}
+.wrap{max-width:900px;margin:0 auto;padding:0 26px}
+.top{background:var(--forest-deep);padding:18px 0 20px}
+.top .wrap{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{margin:0;font-family:var(--serif);font-weight:600;font-size:28px;line-height:1.1;color:#fff}
+.top a{color:var(--gold-soft);font-size:14px}
+main{padding:26px 0 60px}
+.panel{background:var(--paper);border-radius:18px;box-shadow:var(--lift);padding:22px 24px;margin-bottom:22px}
+h2{font-family:var(--serif);font-weight:600;font-size:26px;line-height:1.15;margin:0 0 6px;color:var(--forest-deep)}
+.lede{color:var(--sage);margin:0 0 14px;max-width:62ch}
+.state{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.state p{margin:0;max-width:56ch}
+.state strong{font-weight:600}
+.pill{display:inline-block;padding:3px 11px;border-radius:999px;font-size:13px;font-weight:600;background:#EDE6D2;color:var(--gold-ink)}
+.pill.on{background:#DDE8DC;color:var(--forest)}
+.pill.bad{background:#F3DDD5;color:var(--brick)}
+button{font:600 14px var(--sans);border:0;border-radius:999px;padding:9px 18px;cursor:pointer;background:var(--forest);color:#fff}
+button:hover{background:var(--forest-deep)}
+button.quiet{background:#EDE6D2;color:var(--forest-deep)}
+button.quiet:hover{background:#E4DAC0}
+button.stop{background:var(--brick)}
+.row{padding:14px 0;border-top:1px solid var(--divider)}
+.row:first-of-type{border-top:0}
+.row h3{margin:0;font:600 16px var(--sans)}
+.row .meta{color:var(--sage);font-size:13.5px;margin-top:2px}
+.row .why{font-size:14px;margin-top:4px}
+form{display:grid;grid-template-columns:1.3fr 1fr auto;gap:8px;margin-top:10px}
+form .peg{grid-column:1/-1}
+input{width:100%;font:15px var(--sans);color:var(--ink);background:#fff;border:1px solid #E0D6BE;border-radius:10px;padding:9px 12px}
+input:focus{outline:2px solid var(--gold-soft);border-color:var(--gold)}
+label{position:absolute;left:-9999px}
+pre{white-space:pre-wrap;font:14px/1.55 var(--sans);background:#fff;border-radius:12px;padding:14px 16px;margin:10px 0 0}
+details summary{cursor:pointer;color:var(--forest);font-size:14px;margin-top:6px}
+.empty{color:var(--sage)}
+.err{color:var(--brick);font-size:14px;min-height:20px;margin-top:8px}
+@media (max-width:640px){.wrap{padding:0 16px}.panel{padding:18px 16px}form{grid-template-columns:1fr}.brand{font-size:24px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><h1 class="brand">Outreach autopilot</h1><a href="/">Back to the portal</a></div></header>
+<main class="wrap">
+  <section class="panel" id="status" aria-live="polite"></section>
+  <section class="panel"><h2>Going out next</h2><p class="lede">Drafts wait here for a short while before they send themselves. Cancel one if it reads wrong.</p><div id="queue"></div></section>
+  <section class="panel"><h2>Needs a contact email</h2><p class="lede">The autopilot only writes to addresses the team has added. Add one and the entry joins the line.</p><div id="need"></div></section>
+  <section class="panel"><h2>In line</h2><div id="ready"></div></section>
+  <section class="panel"><h2>Sent</h2><div id="sent"></div></section>
+  <section class="panel"><h2>Not contacted, and why</h2><div id="blocked"></div></section>
+  <div class="err" id="err" role="alert"></div>
+</main>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const when = iso => new Date(iso).toLocaleString([], { weekday:'short', month:'short', day:'numeric', hour:'numeric', minute:'2-digit' });
+let V = null;
+
+function api(method, url, body){
+  return fetch(url, { method, headers: body ? {'Content-Type':'application/json'} : {}, body: body ? JSON.stringify(body) : undefined, credentials:'same-origin' })
+    .then(r => { if(r.status === 401){ location.href = '/login'; throw new Error('signed out'); } return r.json(); })
+    .then(d => { $('#err').textContent = d.error || ''; V = d; render(); return d; })
+    .catch(e => { if(e.message !== 'signed out') $('#err').textContent = 'That did not save. Check your connection and try again.'; });
+}
+
+function contactForm(t, withPeg){
+  return `<form data-id="${esc(t.id)}">
+    <div><label for="e-${esc(t.id)}">Email for ${esc(t.title)}</label><input id="e-${esc(t.id)}" name="email" type="email" placeholder="Contact email" value="${esc(t.email)}" autocomplete="off"></div>
+    <div><label for="n-${esc(t.id)}">Contact name for ${esc(t.title)}</label><input id="n-${esc(t.id)}" name="name" placeholder="First name (optional)" value="${esc(t.name)}" autocomplete="off"></div>
+    <button type="submit">Save</button>
+    ${withPeg ? `<div class="peg"><label for="p-${esc(t.id)}">News peg for ${esc(t.title)}</label><input id="p-${esc(t.id)}" name="peg" placeholder="News peg, in one sentence" value="${esc(t.peg)}" autocomplete="off"></div>` : ''}
+  </form>`;
+}
+function row(t, extra){ return `<div class="row"><h3>${esc(t.title)}</h3><div class="meta">${esc(t.tier)}${t.email ? ' · ' + esc(t.email) : ''}</div>${extra || ''}</div>`; }
+function list(el, html, empty){ $(el).innerHTML = html || `<p class="empty">${empty}</p>`; }
+
+function render(){
+  if(!V) return;
+  const live = V.mode === 'live', dry = V.mode === 'dry';
+  let pill, line;
+  if(V.mode === 'off'){ pill = '<span class="pill">Off</span>'; line = 'The autopilot is switched off on the server. Nothing is drafted or sent.'; }
+  else if(V.paused){ pill = '<span class="pill bad">Paused</span>'; line = 'Paused by the team. Nothing will be drafted or sent until someone resumes it.'; }
+  else if(dry){ pill = '<span class="pill">Test mode</span>'; line = 'Drafts are written and logged, but no email leaves the building.'; }
+  else { pill = '<span class="pill on">Sending</span>'; line = `Emails send on their own, up to ${V.dailyCap} each weekday between 9 and 4 (${esc(V.tz.replace('_',' '))}). ${V.sentToday} sent today.`; }
+  const gaps = [];
+  if(V.mode !== 'off' && !V.canDraft) gaps.push('The drafting key is missing, so no new drafts can be written.');
+  if(live && !V.canSend) gaps.push('The mail connection is missing, so drafts will wait and not send.');
+  $('#status').innerHTML = `<div class="state"><p>${pill} &nbsp;${line}${gaps.length ? '<br><strong>' + gaps.join(' ') + '</strong>' : ''}</p>${V.mode === 'off' ? '' : (V.paused ? '<button id="pause">Resume</button>' : '<button id="pause" class="stop">Pause everything</button>')}</div>`;
+
+  const q = V.messages.filter(m => m.status === 'queued');
+  list('#queue', q.map(m => `<div class="row"><h3>${esc(m.title)}</h3><div class="meta">To ${esc(m.to)} · ${dry ? 'logs' : 'sends'} after ${esc(when(m.sendAt))}</div><pre><strong>${esc(m.subject)}</strong>\n\n${esc(m.body)}</pre><p style="margin:10px 0 0"><button class="quiet" data-cancel="${esc(m.id)}">Cancel this one</button></p></div>`).join(''), 'Nothing waiting right now.');
+
+  const T = V.targets;
+  const need = T.filter(t => t.block && (t.block.code === 'contact' || t.block.code === 'failed'));
+  list('#need', need.map(t => row(t, (t.block.code === 'failed' ? `<div class="why">${esc(t.block.why)}</div>` : '') + contactForm(t, false))).join(''), 'Every open entry has a contact.');
+
+  const queuedIds = new Set(q.map(m => m.targetId));
+  const ready = T.filter(t => !t.block && !queuedIds.has(t.id));
+  list('#ready', ready.map(t => row(t, `<p style="margin:8px 0 0"><button class="quiet" data-hold="${esc(t.id)}">Hold this one</button></p>`)).join(''), 'No one is waiting in line.');
+
+  const sent = V.messages.filter(m => ['sent','dry','failed','unknown','cancelled'].includes(m.status));
+  const label = { sent:'Sent', dry:'Test only, not sent', failed:'Failed', unknown:'Interrupted, check the Sent folder', cancelled:'Cancelled' };
+  list('#sent', sent.map(m => `<div class="row"><h3>${esc(m.title)}</h3><div class="meta">${label[m.status]} · ${esc(m.to)} · ${esc(when(m.sentAt || m.createdAt))}${m.error ? ' · ' + esc(m.error) : ''}</div><details><summary>${esc(m.subject)}</summary><pre>${esc(m.body)}</pre></details></div>`).join(''), 'Nothing has gone out yet.');
+
+  const blocked = T.filter(t => t.block && !['contact','failed'].includes(t.block.code));
+  list('#blocked', blocked.map(t => {
+    const b = t.block;
+    let extra = `<div class="why">${esc(b.why)}${b.code === 'held' && t.holdWhy ? ' ' + esc(t.holdWhy) : ''}</div>`;
+    if(b.code === 'peg') extra += contactForm(t, true);
+    if(b.code === 'held') extra += `<p style="margin:8px 0 0"><button class="quiet" data-release="${esc(t.id)}">Release</button></p>`;
+    return row(t, extra);
+  }).join(''), 'Nothing is blocked.');
+}
+
+document.addEventListener('submit', e => {
+  const f = e.target.closest('form[data-id]'); if(!f) return;
+  e.preventDefault();
+  const t = V.targets.find(x => x.id === f.dataset.id);
+  api('POST', '/api/outreach/contact', { id: t.id, email: f.email.value, name: f.name.value, peg: f.peg ? f.peg.value : t.peg });
+});
+document.addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  const keep = id => { const t = V.targets.find(x => x.id === id); return { id, email: t.email, name: t.name, peg: t.peg }; };
+  if(b.id === 'pause') api('POST', '/api/outreach/pause', { paused: !V.paused });
+  else if(b.dataset.cancel) api('POST', '/api/outreach/cancel', { id: b.dataset.cancel });
+  else if(b.dataset.hold) api('POST', '/api/outreach/contact', Object.assign(keep(b.dataset.hold), { hold: true }));
+  else if(b.dataset.release) api('POST', '/api/outreach/contact', Object.assign(keep(b.dataset.release), { hold: false }));
+});
+api('GET', '/api/outreach');
+setInterval(() => { if(!document.querySelector('input:focus')) api('GET', '/api/outreach'); }, 60000);
+</script>
+</body>
+</html>

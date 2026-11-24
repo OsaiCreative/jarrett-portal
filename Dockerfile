@@ -1,6 +1,8 @@
 FROM node:22-alpine
 WORKDIR /app
-COPY package.json server.js index.html ./
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+COPY server.js outreach.js outreach.html outreach-profile.txt index.html ./
 ENV NODE_ENV=production
 EXPOSE 8080
 CMD ["node", "server.js"]

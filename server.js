@@ -23,6 +23,8 @@ const CONFIGURED = SESSION_SECRET.length >= 32 && Object.keys(USERS).length > 0;
 if (!CONFIGURED) console.error('[portal] PORTAL_USERS / SESSION_SECRET missing — refusing to serve the portal.');
 
 const INDEX = fs.readFileSync(path.join(__dirname, 'index.html'));
+const OUTREACH_PAGE = fs.readFileSync(path.join(__dirname, 'outreach.html'));
+const { createOutreach, loadPortal } = require('./outreach');
 
 // ------------------------------------------------------------------ state
 fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -68,6 +70,23 @@ function applyChange(kind, id, value, label, user, opts) {
   state.log.unshift({ by: user.name, at, kind, id, value, label: clean(label, 120), imported: !!opts.fillOnly });
   if (state.log.length > LOG_MAX) state.log.length = LOG_MAX;
   return true;
+}
+
+// ------------------------------------------------------------------ outreach autopilot
+// Off unless OUTREACH_MODE is 'dry' or 'live'. See outreach.js for the rules.
+let profile = '';
+try { profile = fs.readFileSync(path.join(__dirname, 'outreach-profile.txt'), 'utf8'); } catch (e) { /* optional */ }
+const AUTOPILOT = { name: 'Autopilot' };
+const outreach = createOutreach({
+  dataDir: DATA_DIR,
+  portal: loadPortal(INDEX),
+  profile,
+  getStatus: id => state.s[id] || 'todo',
+  setStatus: (id, value, label) => { if (applyChange('s', id, value, label, AUTOPILOT, {})) persist(); }
+});
+if (outreach.cfg.mode !== 'off') {
+  setInterval(() => outreach.tick().then(r => { if (!['idle', 'holding', 'outside hours', 'nothing eligible', 'spacing', 'cap reached'].includes(r)) console.log('[outreach]', r); })
+    .catch(e => console.error('[outreach] error', e && e.message)), 5 * 60e3).unref();
 }
 
 // ------------------------------------------------------------------ auth
@@ -214,6 +233,19 @@ const server = http.createServer(async (req, res) => {
     }
     if (p === '/api/state' && req.method === 'GET') return json(res, 200, publicState(user));
 
+    if (p === '/outreach') return send(res, 200, OUTREACH_PAGE, { 'Content-Type': 'text/html; charset=utf-8' });
+    if (p === '/api/outreach' && req.method === 'GET') return json(res, 200, outreach.view());
+    if (p.startsWith('/api/outreach/') && req.method === 'POST') {
+      if (!String(req.headers['content-type'] || '').includes('application/json')) return json(res, 415, { error: 'json only' });
+      const body = JSON.parse(await readBody(req, 16 * 1024) || '{}');
+      let err = null;
+      if (p === '/api/outreach/contact') err = outreach.setContact(String(body.id || ''), body, user);
+      else if (p === '/api/outreach/cancel') err = outreach.cancel(String(body.id || ''), user);
+      else if (p === '/api/outreach/pause') { outreach.setPaused(body.paused); console.log('[outreach]', body.paused ? 'paused' : 'resumed', 'by', user.username); }
+      else return json(res, 404, { error: 'not found' });
+      return json(res, err ? 400 : 200, Object.assign({ error: err }, outreach.view()));
+    }
+
     if ((p === '/api/update' || p === '/api/merge') && req.method === 'POST') {
       if (!String(req.headers['content-type'] || '').includes('application/json')) return json(res, 415, { error: 'json only' });
       const body = JSON.parse(await readBody(req, 64 * 1024) || '{}');
@@ -241,4 +273,4 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => console.log('[portal] listening on', PORT, '· data in', DATA_DIR, '· users:', Object.keys(USERS).join(', ') || 'none'));
+server.listen(PORT, () => console.log('[portal] listening on', PORT, '· outreach:', outreach.cfg.mode, '· data in', DATA_DIR, '· users:', Object.keys(USERS).join(', ') || 'none'));
